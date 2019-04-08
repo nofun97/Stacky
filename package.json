@@ -1,0 +1,25 @@
+{
+  "name": "stacky",
+  "version": "1.0.0",
+  "description": "A skill sharing platform",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nofun97/Stacky.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nofun97/Stacky/issues"
+  },
+  "homepage": "https://github.com/nofun97/Stacky#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.22"
+  }
+}
