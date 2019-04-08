@@ -2,11 +2,11 @@ var mongoose = require("mongoose");
 
 // Details of the Appointments schema
 var appointmentSchema = mongoose.Schema({
-  time: Date,
-  description: String,
-  address: String,
-  teacher: ObjectId,
-  student: ObjectId,
+  Time: Date,
+  Description: String,
+  Address: String,
+  Teacher: ObjectId,
+  Student: ObjectId,
 });
 
 mongoose.model("Appointments", appointmentSchema);

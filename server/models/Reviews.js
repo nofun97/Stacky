@@ -2,12 +2,12 @@ var mongoose = require("mongoose");
 
 // Details of the reviews schema
 var reviewSchema = mongoose.Schema({
-  teacherPros: String,
-  teacherCons: String,
-  studentPros: String,
-  studentCons: String,
-  createdBy: ObjectId,
-  createdFor: ObjectId,
+  TeacherPros: String,
+  TeacherCons: String,
+  StudentPros: String,
+  StudentCons: String,
+  CreatedBy: ObjectId,
+  CreatedFor: ObjectId,
   CreatedTime: Date,
 });
 
