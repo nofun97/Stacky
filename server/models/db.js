@@ -5,7 +5,7 @@ const dbURI = process.env.DB || null;
 
 const options = {
   useNewUrlParser: true,
-  dbName: "Stacky"
+  dbName: "SkillTree"
 };
 
 mongoose.connect(dbURI, options).then(
