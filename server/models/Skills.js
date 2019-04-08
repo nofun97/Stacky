@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-// TODO: add details to the schema
+// Details of the Skills schema
 var skillSchema = mongoose.Schema({
   Name: String,
   Description: String,
