@@ -1,9 +1,13 @@
 var mongoose = require('mongoose');
 
-// TODO: add details to the schema
+// Details of the Appointments schema
 var appointmentSchema = mongoose.Schema(
     {
-
+        time : Date,
+        description : String,
+        address : String,
+        teacher : ObjectID,
+        student : ObjectID
     }
 );
 
