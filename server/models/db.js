@@ -18,4 +18,7 @@ mongoose.connect(dbURI, options).then(
 );
 
 // Require our models
-// require('./users.js')
+require('./users.js')
+require('./Appointments.js')
+require('./Reviews.js')
+require('./Skills.js')
