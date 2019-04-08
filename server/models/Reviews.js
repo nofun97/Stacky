@@ -1,9 +1,15 @@
 var mongoose = require('mongoose');
 
-// TODO: add details to the schema
+// Details of the reviews schema
 var reviewSchema = mongoose.Schema(
     {
-
+        teacherPros : String,
+        teacherCons : String,
+        studentPros : String,
+        studentCons : String,
+        createdBy   : ObjectID,
+        createdFor  : ObjectID,
+        CreatedTime : Date
     }
 );
 
