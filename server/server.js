@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 3000; 
 
 // Database setup (uncomment when database cluster has been made and .env DB value has been assigned)
-// require("./models/db.js");
+require("./models/db.js");
 
 var routes = require("./routes/routes");
 
