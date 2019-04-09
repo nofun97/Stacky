@@ -14,10 +14,16 @@ router.get("/", function(req, res) {
 
 // User Model Routes
 router.get("/allUser", userController.findAllUsers);
+router.post('/api/register', userController.registerUser);
+router.post('/api/getUser', userController.findUser);
+router.delete('/api/deleteUser', userController.deleteUser);
+router.post('/api/updateProfile', userController.updateProfile);
+router.post('/api/getUser/skills', userController.findUserBasedOnSkills);
 
 // Skill Model Routes
-router.post("/addSkill", skillController.addNewSkill);
-router.get("/getSkills", skillController.findAllSkills);
+router.post('/addSkills', skillController.addNewSkill);
+router.get('/getSkills', skillController.findAllSkills);
+router.post('/api/searchSkills', skillController.searchSkill);
 
 // Review Model Routes
 router.get("/allReview", reviewController.getAllReview);
