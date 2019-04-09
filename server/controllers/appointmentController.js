@@ -5,7 +5,7 @@ var Appointments = mongoose.model("Appointments");
 
 // Define the function to be used (create, remove, update, findall, etc.)
 
-// Method to find all appointments
+// Function to find all appointments
 var findAllAppointments = function(req, res) {
   Appointments.find(function(err, appointment) {
     if (!err) {
@@ -16,7 +16,7 @@ var findAllAppointments = function(req, res) {
   });
 };
 
-// Method to add new appointment
+// Function to add new appointment
 var addNewAppointments = function(req, res) {
   var appointment = new Appointments({
     Time: req.body.Time,
@@ -25,7 +25,7 @@ var addNewAppointments = function(req, res) {
     Teacher: req.body.Teacher,
     Student: req.body.Student,
   });
-  skill.save(function(err, appointment) {
+  Appointments.save(function(err, appointment) {
     if (!err) {
       res.send(appointment);
     } else {
