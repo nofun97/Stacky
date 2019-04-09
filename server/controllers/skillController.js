@@ -28,6 +28,21 @@ var addNewSkill = function(req, res) {
   });
 };
 
+var searchSkill = function(req, res) {
+  Skills.find(
+    {Name: {"$regex": "^" + req.body.Name, "$options": "i"}},
+    function(err, docs){
+      if (!err){
+        res.send(docs);
+      } else {
+        console.log(err);
+        res.sendStatus(400);
+      }
+    }
+  )
+}
+
 // Export the variable
 module.exports.findAllSkills = findAllSkills;
 module.exports.addNewSkill = addNewSkill;
+module.exports.searchSkill = searchSkill;
