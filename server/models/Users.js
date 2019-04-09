@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 // Details of the Users schema
 var userSchema = mongoose.Schema({
