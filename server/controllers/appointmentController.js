@@ -48,13 +48,13 @@ var deleteAppointments = function(req,res){
 
 // Update an appointment
 var updateAppointments = function(req,res){
-  var appointment = new Appointments({
+  var appointment = {
       Time: req.body.Date,
       Description: req.body.String,
       Address: req.body.String,
       Teacher: req.body.ObjectId,
       Student: req.body.ObjectId,
-    });
+    };
   Appointments.findByIdAndUpdate(id, appointment, function(err){
     if (!err) {
       res.send({UpdateSuccessful : true});
