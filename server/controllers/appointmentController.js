@@ -25,7 +25,7 @@ var addNewAppointments = function(req, res) {
     Teacher: req.body.Teacher,
     Student: req.body.Student,
   });
-  Appointments.save(function(err, appointment) {
+  appointment.save(function(err, appointment) {
     if (!err) {
       res.send(appointment);
     } else {
