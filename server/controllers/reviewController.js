@@ -1,9 +1,7 @@
 var mongoose = require("mongoose");
-
-// Require the model that's related for this controller
 var Review = mongoose.model("Reviews");
 
-// Define the function to be used (create, remove, update, findall, etc.)
+// Function to get all the review
 var getAllReview = function(req, res) {
   Review.find(function(err, reviews) {
     if (!err) {
@@ -14,6 +12,7 @@ var getAllReview = function(req, res) {
   });
 };
 
+// Function to add one review
 var addReview = function(req, res) {
   var review = new Review({
     TargetRole: req.body.TargetRole,
@@ -32,6 +31,7 @@ var addReview = function(req, res) {
   });
 };
 
+// Function to delete a review based on id
 var deleteReview = function(req, res) {
   var id = req.body.id;
   Review.findByIdAndDelete(id, function(err) {
@@ -43,6 +43,7 @@ var deleteReview = function(req, res) {
   });
 };
 
+// Function to update the review based on id
 var updateReview = function(req, res) {
   var id = req.body.id;
   var updates = {
@@ -61,6 +62,7 @@ var updateReview = function(req, res) {
 // Get only 10 review each request
 var getReviewOfUser = function(req, res) {};
 
+// Function to get all the review created by user
 var getAllReviewOfUser = function(req, res) {
   var createdById = req.body.CreatedBy;
   Review.find({ CreatedBy: createdById }, function(err, reviews) {
@@ -72,6 +74,7 @@ var getAllReviewOfUser = function(req, res) {
   });
 };
 
+// Function to get all the review created for the user
 var getPersonalReviewOfUser = function(req, res) {
   var createdForId = req.body.CreatedFor;
   Review.find({ CreatedFor: createdForId }, function(err, reviews) {
