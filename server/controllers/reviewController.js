@@ -50,7 +50,8 @@ var updateReview = function(req, res) {
     Pros: req.body.Pros,
     Cons: req.body.Cons,
   };
-  Review.findByIdAndUpdate(id, updates, function(err, updatedReview) {
+  var options = { omitUndefined: true };
+  Review.findByIdAndUpdate(id, updates, options, function(err, updatedReview) {
     if (!err) {
       res.send(updatedReview);
     } else {
