@@ -20,8 +20,8 @@ var findAllAppointments = function(req, res) {
 var addNewAppointments = function(req, res) {
   var appointment = new Appointments({
     Time: req.body.Time,
-    Description: req.body.String,
-    Address: req.body.String,
+    Description: req.body.Description,
+    Address: req.body.Address,
     Teacher: req.body.Teacher,
     Student: req.body.Student,
   });
@@ -50,8 +50,8 @@ var deleteAppointments = function(req,res){
 var updateAppointments = function(req,res){
   var appointment = {
       Time: req.body.Time,
-      Description: req.body.String,
-      Address: req.body.String,
+      Description: req.body.Description,
+      Address: req.body.Address,
       Teacher: req.body.Teacher,
       Student: req.body.Student,
     };
