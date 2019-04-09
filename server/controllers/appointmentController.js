@@ -35,41 +35,39 @@ var addNewAppointments = function(req, res) {
 };
 
 // Delete an appointment
-var deleteAppointments = function(req,res){
+var deleteAppointments = function(req, res) {
   var id = req.body.id;
-  Appointments.findByIdAndDelete(id, function(err){
+  Appointments.findByIdAndDelete(id, function(err) {
     if (!err) {
-      res.send({DeletionSuccessful : true});
+      res.send({ DeletionSuccessful: true });
     } else {
       res.sendStatus(400);
     }
   });
-    
 };
 
 // Update an appointment
-var updateAppointments = function(req,res){
+var updateAppointments = function(req, res) {
   var id = req.body.id;
   var appointment = {
-      Time: req.body.Time,
-      Description: req.body.Description,
-      Address: req.body.Address,
-      Teacher: req.body.Teacher,
-      Student: req.body.Student,
-    };
-  Appointments.findByIdAndUpdate(id, appointment, function(err){
+    Time: req.body.Time,
+    Description: req.body.Description,
+    Address: req.body.Address,
+    Teacher: req.body.Teacher,
+    Student: req.body.Student,
+  };
+  var options = { omitUndefined: true };
+  Appointments.findByIdAndUpdate(id, appointment, options, function(err) {
     if (!err) {
-      res.send({UpdateSuccessful : true});
+      res.send({ UpdateSuccessful: true });
     } else {
       res.sendStatus(400);
     }
   });
-    
 };
 
-
 // Export the variable
-module.exports.findAllAppointments= findAllAppointments;
+module.exports.findAllAppointments = findAllAppointments;
 module.exports.addNewAppointments = addNewAppointments;
 module.exports.deleteAppointments = deleteAppointments;
 module.exports.updateAppointments = updateAppointments;
