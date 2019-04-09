@@ -10,4 +10,4 @@ var appointmentSchema = mongoose.Schema({
   Student: ObjectId,
 });
 
-mongoose.model("Appointments", appointmentSchema);
+mongoose.model("Appointments", appointmentSchema, "Appointments");

@@ -7,4 +7,4 @@ var skillSchema = mongoose.Schema({
   Category: String,
 });
 
-mongoose.model("Skills", skillSchema);
+mongoose.model("Skills", skillSchema, "Skills");

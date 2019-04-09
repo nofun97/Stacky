@@ -11,4 +11,4 @@ var reviewSchema = mongoose.Schema({
   CreatedTime: Date,
 });
 
-mongoose.model("Reviews", reviewSchema);
+mongoose.model("Reviews", reviewSchema, "Reviews");
