@@ -33,7 +33,7 @@ var addReview = function(req, res) {
 
 // Function to delete a review based on id
 var deleteReview = function(req, res) {
-  var id = req.body.id;
+  var id = req.params.id;
   Review.findByIdAndDelete(id, function(err) {
     if (!err) {
       res.send({ Success: true });
@@ -45,7 +45,7 @@ var deleteReview = function(req, res) {
 
 // Function to update the review based on id
 var updateReview = function(req, res) {
-  var id = req.body.id;
+  var id = req.params.id;
   var updates = {
     Pros: req.body.Pros,
     Cons: req.body.Cons,

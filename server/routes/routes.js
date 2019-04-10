@@ -26,18 +26,21 @@ router.get('/getSkills', skillController.findAllSkills);
 router.post('/api/searchSkills', skillController.searchSkill);
 
 // Review Model Routes
-router.get("/allReview", reviewController.getAllReview);
-router.post("/addReview", reviewController.addReview);
-router.delete("/deleteReview", reviewController.deleteReview);
-router.post("/updateReview", reviewController.updateReview);
+router.get("/review", reviewController.getAllReview);
+router.post("/review", reviewController.addReview);
+router.delete("/review/:id", reviewController.deleteReview);
+router.post("/review/:id", reviewController.updateReview);
+
+// Should get CreatedBy from the body
 router.get("/reviewOfUser", reviewController.getAllReviewOfUser);
+// Should get CreatedFor from the body
 router.get("/personalReview", reviewController.getPersonalReviewOfUser);
 
 // Appointment Model Routes
-router.get("/allAppointments", appointmentController.findAllAppointments);
-router.post("/addAppointment", appointmentController.addNewAppointments);
-router.delete("/deleteAppointment", appointmentController.deleteAppointments);
-router.post("/updateAppointment", appointmentController.updateAppointments);
+router.get("/appointments", appointmentController.findAllAppointments);
+router.post("/appointment", appointmentController.addNewAppointments);
+router.delete("/appointment/:id", appointmentController.deleteAppointments);
+router.post("/appointment/:id", appointmentController.updateAppointments);
 
 // Export the router
 module.exports = router;

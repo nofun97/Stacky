@@ -36,7 +36,7 @@ var addNewAppointments = function(req, res) {
 
 // Delete an appointment
 var deleteAppointments = function(req, res) {
-  var id = req.body.id;
+  var id = req.params.id;
   Appointments.findByIdAndDelete(id, function(err) {
     if (!err) {
       res.send({ DeletionSuccessful: true });
@@ -48,7 +48,7 @@ var deleteAppointments = function(req, res) {
 
 // Update an appointment
 var updateAppointments = function(req, res) {
-  var id = req.body.id;
+  var id = req.params.id;
   var appointment = {
     Time: req.body.Time,
     Description: req.body.Description,
