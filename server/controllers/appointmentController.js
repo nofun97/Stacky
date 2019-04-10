@@ -3,8 +3,6 @@ var mongoose = require("mongoose");
 // Require the model that's related for this controller
 var Appointments = mongoose.model("Appointments");
 
-// Define the function to be used (create, remove, update, findall, etc.)
-
 // Function to find all appointments
 var findAllAppointments = function(req, res) {
   Appointments.find(function(err, appointment) {

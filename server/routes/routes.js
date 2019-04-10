@@ -8,22 +8,25 @@ var reviewController = require("../controllers/reviewController.js");
 var appointmentController = require("../controllers/appointmentController.js");
 
 // Specify Our routes here
-router.get("/", function(req, res) {
-  res.send("welcome to stacky website");
-});
-
 // User Model Routes
-router.get("/allUser", userController.findAllUsers);
-router.post('/api/register', userController.registerUser);
-router.post('/api/getUser', userController.findUser);
-router.delete('/api/deleteUser', userController.deleteUser);
-router.post('/api/updateProfile', userController.updateProfile);
-router.post('/api/getUser/skills', userController.findUserBasedOnSkills);
+router.get("/user", userController.findAllUsers);
+router.post('/user', userController.registerUser);
+router.delete('/user/:id', userController.deleteUser);
+router.post('/user/:id', userController.updateProfile);
+
+// Should get UName from the body
+router.get('/user/name', userController.findUser);
+// Should get SkillName from the body
+router.get('/user/skills', userController.findUserBasedOnSkills);
 
 // Skill Model Routes
-router.post('/addSkills', skillController.addNewSkill);
-router.get('/getSkills', skillController.findAllSkills);
-router.post('/api/searchSkills', skillController.searchSkill);
+router.post('/skill', skillController.addNewSkill);
+router.get('/skill', skillController.findAllSkills);
+router.delete('/skill/:id', skillController.deleteSkill);
+router.post('/skill/:id', skillController.updateSkill);
+
+// Search skill based on name 
+router.get('/skill/:Name', skillController.searchSkill);
 
 // Review Model Routes
 router.get("/review", reviewController.getAllReview);
@@ -32,12 +35,12 @@ router.delete("/review/:id", reviewController.deleteReview);
 router.post("/review/:id", reviewController.updateReview);
 
 // Should get CreatedBy from the body
-router.get("/reviewOfUser", reviewController.getAllReviewOfUser);
+router.get("/review/by", reviewController.getAllReviewOfUser);
 // Should get CreatedFor from the body
-router.get("/personalReview", reviewController.getPersonalReviewOfUser);
+router.get("/review/for", reviewController.getPersonalReviewOfUser);
 
 // Appointment Model Routes
-router.get("/appointments", appointmentController.findAllAppointments);
+router.get("/appointment", appointmentController.findAllAppointments);
 router.post("/appointment", appointmentController.addNewAppointments);
 router.delete("/appointment/:id", appointmentController.deleteAppointments);
 router.post("/appointment/:id", appointmentController.updateAppointments);

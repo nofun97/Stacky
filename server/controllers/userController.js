@@ -27,7 +27,7 @@ var registerUser = function(req, res) {
     Address: req.body.Address,
     Skills: req.body.Skills,
     Interests: req.body.Interests,
-  })
+  });
 
   data.save(function(err, skill) {
     if (!err) {
@@ -36,89 +36,93 @@ var registerUser = function(req, res) {
       res.sendStatus(400);
     }
   });
-}
-
-var findUser = function(req, res){
-  User.findOne({
-    UName: req.body.UName
-  }, function(err, user) {
-    if (!err){
-      res.send(user);
-    } else {
-      console.log(err);
-      res.sendStatus(400);
-    }
-  })
 };
 
-var deleteUser = function(req, res){
-  User.deleteOne({
-    _id: req.body.id,
-  }, 
-  function (err){
-    if (err){
-      console.log(err);
-      res.sendStatus(400);
-    } else {
-      res.send({
-        status: "Deletion Successful"
-      })
+var deleteUser = function(req, res) {
+  User.deleteOne(
+    {
+      _id: req.params.id,
+    },
+    function(err) {
+      if (err) {
+        console.log(err);
+        res.sendStatus(400);
+      } else {
+        res.send({
+          status: "Deletion Successful",
+        });
+      }
     }
-  })
+  );
 };
 
-var updateProfile = function(req, res){
-  User.updateOne({
-    _id: req.body.id
-  },
-  {
-    FirstName: req.body.FirstName,
-    LastName: req.body.LastName,
-    DOB: req.body.DOB,
-    Email: req.body.Email,
-    Password: req.body.Password,
-    Address: req.body.Address,
-    Skills: req.body.Skills,
-    Interests: req.body.Interests,
-  },
-  {strict: true, omitUndefined: true}, 
-  function (err, user) {
-    if (!err){
-      res.send(user);
-    } else{
-      console.log(err);
-      res.sendStatus(400);
-    }
-  })
-}
-
-var findUserBasedOnSkills = function(req, res){
-  Skills.find(
-    {Name: {"$regex": "^" + req.body.SkillName, "$options": "i"}},
-    function(err, docs){
-      if (!err){
-        var ids = [];
-        for (id in docs){
-          ids.push(docs[id]["_id"]);
-        }
-        User.find(
-          {"Skills.Skill": {"$all": ids}},
-          function(err, users){
-            if (!err){
-              res.send(users);
-            } else {
-              console.log(err);
-              res.sendStatus(400);
-            }
-          }
-        )
+var updateProfile = function(req, res) {
+  User.updateOne(
+    {
+      _id: req.params.id,
+    },
+    {
+      FirstName: req.body.FirstName,
+      LastName: req.body.LastName,
+      DOB: req.body.DOB,
+      Email: req.body.Email,
+      Password: req.body.Password,
+      Address: req.body.Address,
+      Skills: req.body.Skills,
+      Interests: req.body.Interests,
+    },
+    { strict: true, omitUndefined: true },
+    function(err, user) {
+      if (!err) {
+        res.send(user);
       } else {
         console.log(err);
         res.sendStatus(400);
       }
     }
-  )
-}
+  );
+};
+
+var findUser = function(req, res) {
+  User.findOne(
+    {
+      UName: req.body.UName,
+    },
+    function(err, user) {
+      if (!err) {
+        res.send(user);
+      } else {
+        console.log(err);
+        res.sendStatus(400);
+      }
+    }
+  );
+};
+
+var findUserBasedOnSkills = function(req, res) {
+  Skills.find(
+    { Name: { $regex: "^" + req.body.SkillName, $options: "i" } },
+    function(err, docs) {
+      if (!err) {
+        var ids = [];
+        for (id in docs) {
+          ids.push(docs[id]["_id"]);
+        }
+        User.find({ "Skills.Skill": { $all: ids } }, function(err, users) {
+          if (!err) {
+            res.send(users);
+          } else {
+            console.log(err);
+            res.sendStatus(400);
+          }
+        });
+      } else {
+        console.log(err);
+        res.sendStatus(400);
+      }
+    }
+  );
+};
 // Export the variable
 module.exports.findAllUsers = findAllUsers;
 module.exports.registerUser = registerUser;

@@ -9,10 +9,13 @@ const PORT = process.env.PORT || 3000;
 
 // Database setup (uncomment when database cluster has been made and .env DB value has been assigned)
 require("./models/db.js");
-
 var routes = require("./routes/routes");
 
-app.use("/", routes);
+app.get("/", function(req, res) {
+  res.send("welcome to stacky website");
+});
+
+app.use("/api", routes);
 
 app.listen(PORT, function() {
   console.log(`Express listening on port ${PORT}`);
