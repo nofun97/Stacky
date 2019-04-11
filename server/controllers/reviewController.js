@@ -51,9 +51,9 @@ var updateReview = function(req, res) {
     Cons: req.body.Cons,
   };
   var options = { omitUndefined: true };
-  Review.findByIdAndUpdate(id, updates, options, function(err, updatedReview) {
-    if (!err) {
-      res.send(updatedReview);
+  Review.findByIdAndUpdate(id, updates, options, function(err, updated) {
+    if (!err && updated != null) {
+      res.send({ Status: "Successful" });
     } else {
       res.sendStatus(400);
     }

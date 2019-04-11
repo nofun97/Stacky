@@ -55,8 +55,8 @@ var updateAppointments = function(req, res) {
     Student: req.body.Student,
   };
   var options = { omitUndefined: true };
-  Appointments.findByIdAndUpdate(id, appointment, options, function(err) {
-    if (!err) {
+  Appointments.findByIdAndUpdate(id, appointment, options, function(err, updated) {
+    if (!err && updated != null) {
       res.send({ UpdateSuccessful: true });
     } else {
       res.sendStatus(400);

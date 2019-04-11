@@ -36,8 +36,8 @@ var updateSkill = function(req, res) {
     Category: req.body.Category,
   };
   var options = { omitUndefined: true };
-  Skills.findByIdAndUpdate(id, skill, options, function(err) {
-    if (!err) {
+  Skills.findByIdAndUpdate(id, skill, options, function(err, updated) {
+    if (!err && updated != null) {
       res.send({ status: "Successfully updated skill." });
     } else {
       console.log(err);
