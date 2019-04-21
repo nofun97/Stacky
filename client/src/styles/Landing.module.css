@@ -1,0 +1,74 @@
+h1 {
+  font-size: 3em;
+  color: #312d2d;
+}
+
+h2 {
+  font-size: 1.7em;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+p {
+  font-family: ProximaNova;
+  font-size: 1.2em;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.36;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+.Landing {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  grid-template-rows: 1fr;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Description {
+  background-color: #fdac53;
+  padding-left: 6.1vw;
+  padding-top: 4.8vh;
+  padding-right: 9.3vw;
+}
+
+.Signup-button {
+  grid-area: primary;
+  /* background-color: #fb9b5e; */
+}
+
+.Login-button {
+  grid-area: secondary;
+}
+
+.Rightbar {
+  display: grid;
+  grid-template-columns: 1.2fr 2fr 1.2fr;
+  grid-template-rows: 10.6vh 8.4vh 4.1vh 8.4vh auto;
+  align-items: center;
+  grid-template-areas:
+    ". . ."
+    ". primary ."
+    ". . ."
+    ". secondary ."
+    ". . .";
+}
+
+.btn-secondary {
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+}
+
+.btn-primary {
+  border: solid 1px #fb9b5e;
+  background-color: #fb9b5e;
+  color: black;
+}

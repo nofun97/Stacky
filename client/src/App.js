@@ -3,36 +3,24 @@ import React, { Component } from "react";
 
 import {
   Route,
-  Link,
   Switch,
   Redirect
 } from 'react-router-dom';
 
-import Home from './components/Home';
+import Landing from './pages/Landing';
 import About from './components/About';
-// import Messages from './components/Messages';
+import Login from './pages/Login';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to Mern Testing</h1>
-        </header>
-        <div className="menu">
-            <ul>
-              <li> <Link to="/">Home</Link> </li>
-              <li> <Link to="/about">About</Link> </li>
-            </ul>
-        </div>
-        <div className="App-intro">
-          {/* add routes here */}
-          <Switch>
-            <Route exact path="/"  component={Home} />
-            <Route path="/about" component={About} />
-            <Redirect to="/" />
-          </Switch>
-        </div>
+        <Switch>
+          <Route exact path="/"  component={Landing} />
+          <Route path="/about" component={About} />
+          <Route path="/login" component={Login} />
+          <Redirect to="/" />
+        </Switch>
       </div>
     );
   }

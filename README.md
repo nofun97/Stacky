@@ -5,4 +5,6 @@ A skill sharing platform
 
 `npm install`
 
+`npm run client-install`
+
 `npm run start`
