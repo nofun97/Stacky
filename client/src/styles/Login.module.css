@@ -48,10 +48,10 @@ h2 {
 form {
   display: grid;
   grid-template-columns: 3fr 2fr 2fr;
-  grid-template-areas: 
-  "email email ."
-  "password password ."
-  "confirm . .";
+  grid-template-areas:
+    "email email ."
+    "password password ."
+    "confirm . .";
 }
 
 label {
@@ -62,4 +62,3 @@ label {
   border: solid 1px #979797;
   background-color: #ffaa6d;
 }
-

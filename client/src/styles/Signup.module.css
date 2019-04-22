@@ -1,0 +1,77 @@
+.Signup {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Main {
+  display: grid;
+  background-color: #86d07b;
+  grid-template-rows: 9fr 86fr;
+  padding-left: 6.1vw;
+  padding-top: 3.7vh;
+  align-items: flex-start;
+}
+
+h1 {
+  font-size: 2.188em;
+  color: #312d2d;
+}
+
+.email {
+  grid-area: email;
+}
+
+.password {
+  grid-area: password;
+}
+
+.confirmPassword {
+  grid-area: confirmPassword;
+}
+
+.name {
+  grid-area: name;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1.63vw;
+}
+
+.dob {
+  grid-area: dob;
+}
+
+.doc {
+  grid-area: doc;
+}
+
+.btn-secondary {
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  grid-area: confirm;
+}
+
+form {
+  display: grid;
+  margin-bottom: 10px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "email email email email email . ."
+    "name name name name name name ."
+    "dob . . . . . ."
+    "password password password password password . ."
+    "confirmPassword confirmPassword confirmPassword confirmPassword confirmPassword . ."
+    "doc doc doc doc doc . ."
+    ". confirm confirm confirm . . .";
+}
+
+.label {
+  margin-bottom: 0.3rem;
+}
+
+.Illust {
+  border: solid 1px #979797;
+  background-color: #3ba37d;
+}

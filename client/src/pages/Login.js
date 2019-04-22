@@ -10,7 +10,7 @@ class Login extends Component {
         <section className={styles.Main}>
           <div>
             <h1>Welcome back!</h1>
-            <h2>Sign in</h2>
+            <h2>Log in</h2>
           </div>
           {/* change with implementing formik later */}
           <Form>
