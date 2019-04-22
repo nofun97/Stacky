@@ -8,21 +8,21 @@ class Landing extends Component {
     return (
       <div className={styles.Landing}>
         <section className={styles.Description}>
-          <h1 className={styles.h1}>Welcome to Skill Tree</h1>
-          <h2 className={styles.h2}>Teach while you learn - 100% free</h2>
-          <p className={styles.p}>
+          <h1 className={styles.header}>Welcome to Skill Tree</h1>
+          <h2 className={styles.subheader}>Teach while you learn - 100% free</h2>
+          <p className={styles.paragraph}>
             Skill Tree is a platform that connects skill seekers with each
             other.
           </p>
-          <p className={styles.p}>
+          <p className={styles.paragraph}>
             You will find and connect with a fellow user who is skilled in your
             area of interest. While they will be interested in a skill you have.
           </p>
-          <p className={styles.p}>
+          <p className={styles.paragraph}>
             Instead of any financial transaction, you will teach them a skill
             you know in return!
           </p>
-          <p className={styles.p}>
+          <p className={styles.paragraph}>
             We aim to facilitate meaningful interactions in local communities
             through encouraging learning together and helping each other grow.
           </p>

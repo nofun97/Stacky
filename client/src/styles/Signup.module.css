@@ -14,7 +14,7 @@
   align-items: flex-start;
 }
 
-h1 {
+.header {
   font-size: 2.188em;
   color: #312d2d;
 }
@@ -53,7 +53,7 @@ h1 {
   grid-area: confirm;
 }
 
-form {
+.form {
   display: grid;
   margin-bottom: 10px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;

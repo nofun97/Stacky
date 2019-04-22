@@ -1,9 +1,9 @@
-h1 {
+.header {
   font-size: 3em;
   color: #312d2d;
 }
 
-h2 {
+.subheader {
   font-size: 1.7em;
   font-weight: 900;
   font-style: normal;
@@ -13,7 +13,7 @@ h2 {
   color: #000000;
 }
 
-p {
+.paragraph {
   font-family: ProximaNova;
   font-size: 1.2em;
   font-weight: normal;

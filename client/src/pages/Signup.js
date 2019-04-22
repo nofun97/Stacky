@@ -2,17 +2,32 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import styles from "../styles/Signup.module.css";
+import { Redirect } from "react-router-dom";
 
-class Login extends Component {
+class Signup extends Component {
+  state = {
+    InvalidInfo: false,
+  };
+
+  handleSubmit = () => {
+    this.setState(() => ({
+      InvalidInfo: true,
+    }));
+  };
+
   render() {
+    if (this.state.InvalidInfo === true) {
+      return <Redirect to="/invalid_info" />;
+    }
+
     return (
       <div className={styles.Signup}>
         <section className={styles.Main}>
           <div>
-            <h1>Sign up</h1>
+            <h1 className={styles.header}>Sign up</h1>
           </div>
           {/* change with implementing formik later */}
-          <Form>
+          <Form className={styles.form} onSubmit={this.handleSubmit.bind(this)}>
             <Form.Group className={styles.email} controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
@@ -53,11 +68,13 @@ class Login extends Component {
             <Form.Group className={styles.doc} controlId="formBasicDocuments">
               <Form.Label className={styles.label}>Documents</Form.Label>
               <Form.Text className="text-muted">
-                We need this to verify your identity (Driver’s license, Government ID or passport)
+                We need this to verify your identity (Driver’s license,
+                Government ID or passport)
+              </Form.Text>
+              <Form.Text className="text-muted">
                 Accepted format : .png, .jpeg, .jpg, .pdf
               </Form.Text>
               <Form.Control type="file" placeholder="Insert your Id" />
-
             </Form.Group>
 
             <Button
@@ -75,4 +92,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Signup;

@@ -9,11 +9,11 @@ class Login extends Component {
       <div className={styles.Login}>
         <section className={styles.Main}>
           <div>
-            <h1>Welcome back!</h1>
-            <h2>Log in</h2>
+            <h1 className={styles.header}>Welcome back!</h1>
+            <h2 className={styles.subheader}>Log in</h2>
           </div>
           {/* change with implementing formik later */}
-          <Form>
+          <Form className={styles.form}>
             <Form.Group className={styles.email} controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
