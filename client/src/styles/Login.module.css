@@ -15,12 +15,14 @@
 }
 
 .header {
+  font-family: 'league_spartanbold';
   font-size: 3em;
   line-height: 1.3;
   color: #312d2d;
 }
 
 .subheader {
+  font-family: 'lato_bold'; 
   font-size: 1.7em;
   font-weight: 900;
   font-style: normal;
@@ -31,14 +33,17 @@
 }
 
 .email {
+  font-family: 'lato_bold'; 
   grid-area: email;
 }
 
 .password {
+  font-family: 'lato_bold'; 
   grid-area: password;
 }
 
 .btn-secondary {
+  font-family: 'proxima_nova_semibold';
   border: solid 1px #ffad49;
   background-color: #ffad49;
   color: black;
