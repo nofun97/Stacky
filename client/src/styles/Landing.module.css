@@ -42,11 +42,13 @@
 }
 
 .Signup-button {
+  font-family: 'proxima_nova_semibold';
   grid-area: primary;
   /* background-color: #fb9b5e; */
 }
 
 .Login-button {
+  font-family: 'proxima_nova_semibold';
   grid-area: secondary;
 }
 
@@ -64,12 +66,14 @@
 }
 
 .btn-secondary {
+  font-size: 1.480em; 
   border: solid 1px #ffad49;
   background-color: #ffad49;
   color: black;
 }
 
 .btn-primary {
+  font-size: 1.480em; 
   border: solid 1px #fb9b5e;
   background-color: #fb9b5e;
   color: black;

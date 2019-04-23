@@ -34,16 +34,19 @@
 
 .email {
   font-family: 'lato_bold'; 
+  font-size: 1.429em;
   grid-area: email;
 }
 
 .password {
   font-family: 'lato_bold'; 
+  font-size: 1.429em;
   grid-area: password;
 }
 
 .btn-secondary {
   font-family: 'proxima_nova_semibold';
+  font-size: 1.480em; 
   border: solid 1px #ffad49;
   background-color: #ffad49;
   color: black;
