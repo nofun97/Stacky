@@ -1,0 +1,12 @@
+.edit {
+  font-family: 'proxima_nova_semibold';
+  font-size: 2em;
+  text-transform: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+.profile {
+  margin-left: 102px;
+  margin-top: 10px;
+}

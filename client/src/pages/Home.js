@@ -24,11 +24,13 @@ class Home extends Component {
     return (
       <div>
         <header className={styles.header}>
+          {/* Change the avatar src with user picture */}
           <Avatar
             name={this.state.username}
             round={true}
             size="100px"
             className={styles.avatar}
+            src="http://gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3"
           />
           <div className={styles.title}>
             <h1 class={styles["page-title"]}>{this.state.page}</h1>

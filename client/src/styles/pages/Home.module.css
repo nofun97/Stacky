@@ -10,6 +10,7 @@
   padding: 5px 87px 0 102px;
   align-items: flex-end;
   justify-items: stretch;
+  z-index: 10000;
 }
 
 .avatar {

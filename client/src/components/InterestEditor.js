@@ -25,6 +25,7 @@ class InterestEditor extends Component {
   render() {
     var slider;
     var styles;
+
     if (this.props.type === "Interest") {
       slider = (
         <Slider
