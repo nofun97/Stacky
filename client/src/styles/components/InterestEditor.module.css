@@ -11,4 +11,19 @@
 
 .icon {
   padding: 0;
+  color: #fb5454 !important;
+}
+
+.value {
+  font-family: "lato";
+  font-size: 1.5em;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.4px;
+  text-align: center;
+  background-color: #ff7a52 !important;
+  opacity: 1 !important;
+  border-color: #ff7a52 !important;
 }

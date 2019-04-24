@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
+import Slider from "rc-slider";
 import styles from "../styles/components/InterestEditor.module.css";
 import "rc-slider/assets/index.css";
-import Slider from "rc-slider";
 
 class InterestEditor extends Component {
   constructor(props) {
@@ -26,14 +26,47 @@ class InterestEditor extends Component {
     if (this.props.type === "Interest") {
       slider = (
         <Slider
-          railStyle={{height: "15px"}}
-          trackStyle={{height: "15px"}}
-          handleStyle={{marginTop: 0}}
-          dotStyle={{display: "None"}}
-          activeDotStyle={{display: "None"}}
+          railStyle={{ height: "15px", backgroundColor: "#ffb27a" }}
+          trackStyle={{ height: "15px", backgroundColor: "transparent" }}
+          handleStyle={{
+            marginTop: 0,
+            backgroundColor: "#ff5a5a",
+            borderColor: "transparent",
+            boxShadow: "None",
+          }}
+          dotStyle={{ display: "None" }}
+          activeDotStyle={{ display: "None" }}
           min={0}
           defaultValue={0}
-          marks={{ 0: "Beginner", 50: "Intermediate", 100: "Advanced" }}
+          marks={{
+            0: {
+              style: {
+                fontFamily: "lato",
+                color: "#000000",
+                marginTop: "5px",
+                fontSize: "1.1em",
+              },
+              label: "Beginner",
+            },
+            50: {
+              style: {
+                fontFamily: "lato",
+                color: "#000000",
+                marginTop: "5px",
+                fontSize: "1.1em",
+              },
+              label: "Intermediate",
+            },
+            100: {
+              style: {
+                fontFamily: "lato",
+                color: "#000000",
+                marginTop: "5px",
+                fontSize: "1.1em",
+              },
+              label: "Advanced",
+            },
+          }}
           step={null}
           onAfterChange={this.handleChange}
         />
@@ -41,9 +74,47 @@ class InterestEditor extends Component {
     } else {
       slider = (
         <Slider
+          railStyle={{ height: "15px", backgroundColor: "#ffb27a" }}
+          trackStyle={{ height: "15px", backgroundColor: "transparent" }}
+          handleStyle={{
+            marginTop: 0,
+            backgroundColor: "#ff5a5a",
+            borderColor: "transparent",
+            boxShadow: "None",
+          }}
+          dotStyle={{ display: "None" }}
+          activeDotStyle={{ display: "None" }}
           min={0}
           defaultValue={0}
-          marks={{ 0: "Intermediate", 50: "Advanced", 100: "Expert" }}
+          marks={{
+            0: {
+              style: {
+                fontFamily: "lato",
+                color: "#000000",
+                marginTop: "5px",
+                fontSize: "1.1em",
+              },
+              label: "Intermediate",
+            },
+            50: {
+              style: {
+                fontFamily: "lato",
+                color: "#000000",
+                marginTop: "5px",
+                fontSize: "1.1em",
+              },
+              label: "Advanced",
+            },
+            100: {
+              style: {
+                fontFamily: "lato",
+                color: "#000000",
+                marginTop: "5px",
+                fontSize: "1.1em",
+              },
+              label: "Expert",
+            },
+          }}
           step={null}
           onAfterChange={this.handleChange}
         />
@@ -53,12 +124,11 @@ class InterestEditor extends Component {
     return (
       <div className={this.props.className}>
         <div className={styles.buttons}>
-          <Button variant="secondary" disabled>
-            {" "}
-            {this.props.value}{" "}
+          <Button variant="primary" disabled className={styles.value}>
+            {this.props.value}
           </Button>
-          <IconButton className={styles.icon} onClick={this.props.handleRemove}>
-            <DeleteIcon />
+          <IconButton color="inherit" className={styles.icon} onClick={this.props.handleRemove}>
+            <DeleteOutlinedIcon />
           </IconButton>
         </div>
         <div className={styles.slider}>{slider}</div>

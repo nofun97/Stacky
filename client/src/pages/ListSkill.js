@@ -23,7 +23,7 @@ class ListSkill extends Component {
         { value: "c", label: "c" },
       ],
       selectedInterest: [{ value: "a", level: "Beginner", id: "a" }],
-      selectedSkill: [],
+      selectedSkill: [{ value: "Algorithm", level: "Beginner", id: "sdsdsd" }],
     };
   }
 
