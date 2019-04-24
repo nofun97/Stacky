@@ -6,9 +6,12 @@
 }
 
 .Main {
+  display: flex;
+  flex-direction: column;
   padding-left: 6.1vw;
   padding-right: 7.36vw;
   padding-top: 7vh;
+  padding-bottom: 7vh;
 }
 
 .header {
@@ -70,10 +73,13 @@
 
 .submit {
   font-family: "proxima_nova_semibold";
+  min-width: 12vw;
+  margin-top: 10px;
   font-size: 1.48em;
   border: solid 1px #ffad49;
   background-color: #ffad49;
   color: black;
+  align-self: center;
 }
 
 .Illust {

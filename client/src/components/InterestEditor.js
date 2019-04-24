@@ -28,9 +28,11 @@ class InterestEditor extends Component {
     if (this.props.type === "Interest") {
       slider = (
         <Slider
-          railStyle={{ height: "15px", backgroundColor: "#ffb27a" }}
-          trackStyle={{ height: "15px", backgroundColor: "transparent" }}
+          railStyle={{ height: "20px", backgroundColor: "#ffb27a" }}
+          trackStyle={{ height: "20px", backgroundColor: "transparent" }}
           handleStyle={{
+            height:"20px",
+            width:"20px",
             marginTop: 0,
             backgroundColor: "#ff5a5a",
             borderColor: "transparent",
@@ -77,9 +79,11 @@ class InterestEditor extends Component {
     } else {
       slider = (
         <Slider
-          railStyle={{ height: "15px", backgroundColor: "#ff9378" }}
-          trackStyle={{ height: "15px", backgroundColor: "transparent" }}
+          railStyle={{ height: "20px", backgroundColor: "#ff9378" }}
+          trackStyle={{ height: "20px", backgroundColor: "transparent" }}
           handleStyle={{
+            height:"20px",
+            width:"20px",
             marginTop: 0,
             backgroundColor: "#ff5a5a",
             borderColor: "transparent",
