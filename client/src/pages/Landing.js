@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import styles from "../styles/Landing.module.css";
+import styles from "../styles/pages/Landing.module.css";
 
 class Landing extends Component {
   render() {

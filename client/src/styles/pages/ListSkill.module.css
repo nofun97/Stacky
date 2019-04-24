@@ -1,0 +1,82 @@
+.Login {
+  display: grid;
+  grid-template-columns: 2.3fr 1fr;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Main {
+  padding-left: 6.1vw;
+  padding-right: 7.36vw;
+  padding-top: 7vh;
+}
+
+.header {
+  font-family: "league_spartanbold";
+  font-size: 3em;
+  line-height: 1.3;
+  color: #312d2d;
+}
+
+.subheader {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.4em;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #312d2d;
+}
+
+.direction {
+  font-family: "lato_light";
+  font-size: 1.4em;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #312d2d;
+}
+
+.section {
+  font-family: "lato_bold";
+  font-size: 1.6em;
+  grid-column: 1/3;
+}
+
+.select {
+  grid-column: 1/2;
+  margin-bottom: .5rem;
+}
+
+.add-button {
+  grid-column: 2/3;
+  margin-bottom: .5rem;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+}
+
+.editors {
+  grid-column: 1/3;
+}
+
+.listing {
+  display: grid;
+  grid-template-columns: 7fr 1fr;
+  grid-column-gap: 5px;
+  grid-template-rows: 1fr 1fr auto;
+}
+
+.submit {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+}
+
+.Illust {
+  border: solid 1px #979797;
+  background-color: #ffaa6d;
+}

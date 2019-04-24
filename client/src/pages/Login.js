@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import styles from "../styles/Login.module.css";
+import styles from "../styles/pages/Login.module.css";
 
 class Login extends Component {
   render() {

@@ -1,0 +1,14 @@
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin: 10px 30px 10px 0;
+}
+
+.slider {
+  margin: 10px 50px 50px 10px;
+}
+
+.icon {
+  padding: 0;
+}

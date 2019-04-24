@@ -12,6 +12,7 @@ import About from './components/About';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import InvalidInfo from './pages/InvalidInfo';
+import ListSkill from './pages/ListSkill';
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/invalid_info" component={InvalidInfo} />
+          <Route path="/list_skill" component={ListSkill} />
           <Redirect to="/" />
         </Switch>
       </div>

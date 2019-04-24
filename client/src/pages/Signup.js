@@ -1,19 +1,23 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import styles from "../styles/Signup.module.css";
+import styles from "../styles/pages/Signup.module.css";
 import { Redirect } from "react-router-dom";
 
 class Signup extends Component {
-  state = {
-    InvalidInfo: false,
-  };
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      InvalidInfo: false,
+    };
+  }
 
-  handleSubmit = () => {
-    this.setState(() => ({
+  handleSubmit() {
+    this.setState({
       InvalidInfo: true,
-    }));
-  };
+    });
+  }
 
   render() {
     if (this.state.InvalidInfo === true) {
@@ -27,7 +31,7 @@ class Signup extends Component {
             <h1 className={styles.header}>Sign up</h1>
           </div>
           {/* change with implementing formik later */}
-          <Form className={styles.form} onSubmit={this.handleSubmit.bind(this)}>
+          <Form className={styles.form} onSubmit={this.handleSubmit}>
             <Form.Group className={styles.email} controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
