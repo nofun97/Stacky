@@ -86,7 +86,7 @@ class ListSkill extends Component {
             <InterestEditorList
               handleSliderChange={this.handleSliderChange}
               handleRemove={this.handleRemove}
-              type="Interest"
+              type="Skill"
               className={styles.editors}
               values={this.state.selectedSkill} 
             />

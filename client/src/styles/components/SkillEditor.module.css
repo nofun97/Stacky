@@ -10,7 +10,7 @@
 
 .icon {
   padding: 0;
-  color: #fb5454 !important;
+  color: #ff5353 !important;
 }
 
 .value {
@@ -23,7 +23,7 @@
   line-height: normal;
   letter-spacing: 0.4px;
   text-align: center;
-  background-color: #ff7a52 !important;
+  background-color: #fd7872 !important;
   opacity: 1 !important;
-  border-color: #ff7a52 !important;
+  border-color: #fd7872 !important;
 }

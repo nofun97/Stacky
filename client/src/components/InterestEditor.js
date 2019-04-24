@@ -3,7 +3,8 @@ import Button from "react-bootstrap/Button";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import Slider from "rc-slider";
-import styles from "../styles/components/InterestEditor.module.css";
+import InterestStyle from "../styles/components/InterestEditor.module.css";
+import SkillStyle from "../styles/components/SkillEditor.module.css";
 import "rc-slider/assets/index.css";
 
 class InterestEditor extends Component {
@@ -23,6 +24,7 @@ class InterestEditor extends Component {
 
   render() {
     var slider;
+    var styles;
     if (this.props.type === "Interest") {
       slider = (
         <Slider
@@ -71,10 +73,11 @@ class InterestEditor extends Component {
           onAfterChange={this.handleChange}
         />
       );
+      styles = InterestStyle;
     } else {
       slider = (
         <Slider
-          railStyle={{ height: "15px", backgroundColor: "#ffb27a" }}
+          railStyle={{ height: "15px", backgroundColor: "#ff9378" }}
           trackStyle={{ height: "15px", backgroundColor: "transparent" }}
           handleStyle={{
             marginTop: 0,
@@ -119,6 +122,7 @@ class InterestEditor extends Component {
           onAfterChange={this.handleChange}
         />
       );
+      styles = SkillStyle;
     }
 
     return (
