@@ -4,14 +4,15 @@ import { Route, Switch, Redirect, Link } from "react-router-dom";
 import { NavTab } from "react-router-tabs";
 // https://github.com/Sitebase/react-avatar
 import Avatar from "react-avatar";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
+// import Navbar from "react-bootstrap/Navbar";
+// import Nav from "react-bootstrap/Nav";
 
 import "../styles/components/HomeTab.css";
 import styles from "../styles/pages/Home.module.css";
 
 import Dashboard from "./Home/Dashboard";
 import Profile from "./Home/Profile";
+import ProfileEdit from "./Home/ProfileEdit";
 import Chat from "./Home/Chat";
 import Search from "./Home/Search";
 
@@ -36,10 +37,10 @@ class Home extends Component {
             src="http://gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3"
           />
           <div className={styles.title}>
-            <h1 class={styles["page-title"]}>{this.state.page}</h1>
+            <h1 className={styles["page-title"]}>{this.state.page}</h1>
             {/* Implement link to guideline page */}
             <Link to="/home">
-              <p class={styles.guidelines}>Guidelines</p>
+              <p className={styles.guidelines}>Guidelines</p>
             </Link>
           </div>
           <div className={styles.tab}>
@@ -66,10 +67,11 @@ class Home extends Component {
             </NavTab>
           </div>
         </header>
-        <hr class={styles.line} />
+        <hr className={styles.line} />
         <Switch>
           <Route exact path="/home" component={Dashboard} />
           <Route path="/home/profile" component={Profile} />
+          <Route path="/home/profile_edit" component={ProfileEdit} />
           <Route path="/home/chat" component={Chat} />
           <Route path="/home/search" component={Search} />
           <Redirect exact to="/home" />

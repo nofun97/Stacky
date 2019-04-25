@@ -2,34 +2,41 @@ import React, { Component } from "react";
 // https://github.com/Sitebase/react-avatar
 import Avatar from "react-avatar";
 import Button from "@material-ui/core/Button";
+import { Redirect } from "react-router-dom";
 import InterestDisplayList from "../../components/InterestDisplayList";
 import styles from "../../styles/pages/Home/Profile.module.css";
 
 class Profile extends Component {
   constructor(props) {
     super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       editMode: false,
       name: "Tester man",
       email: "abc@abc.com",
-      dateOfBirth: new Date().toLocaleDateString(),
+      dateOfBirth: "2019-04-04",
       interest: [{ value: "a", level: "Intermediate", id: "a" }],
       skill: [{ value: "Algorithm", level: "Advanced", id: "sdsdsd" }],
     };
   }
 
+  handleSubmit() {
+    this.setState({
+      editMode: true,
+    });
+  }
   // Get all the state before mount
 
   render() {
     if (this.state.editMode) {
-      return <h1>editMode</h1>;
+      return <Redirect exact to="/home/profile_edit"/>;
     }
 
     return (
       <section className={styles.profile}>
         <div className={styles.avatarEdit}>
           <Avatar name={this.state.name} />
-          <Button className={styles.button}>
+          <Button className={styles.button} onClick={this.handleSubmit}>
             <p className={styles.edit}>Edit</p>
           </Button>
         </div>

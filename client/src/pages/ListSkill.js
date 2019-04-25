@@ -62,6 +62,7 @@ class ListSkill extends Component {
               isSearchable={true}
               name="interest"
               options={this.state.interestOption}
+              onChange={()=>{}}
             />
             <Button className={styles["add-button"]}>Add</Button>
             <InterestEditorList
@@ -81,6 +82,7 @@ class ListSkill extends Component {
               isSearchable={true}
               name="interest"
               options={this.state.skillOption}
+              onChange={()=>{}}
             />
             <Button className={styles["add-button"]}>Add</Button>
             <InterestEditorList

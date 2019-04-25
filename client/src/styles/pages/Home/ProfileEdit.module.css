@@ -1,0 +1,77 @@
+.edit {
+  font-family: 'proxima_nova_semibold';
+  font-size: 2em;
+  text-transform: none !important;
+  margin-left: 5px;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.profile {
+  margin-left: 102px;
+  margin-top: 10px;
+  margin-right: 102px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.subheader {
+  font-family: "lato_bold";
+  font-size: 1.5em;
+  margin: 5px 0px 5px 0px;
+}
+
+.input {
+  margin: 5px 0px 5px 0px;
+}
+
+.oneliner {
+  font-family: "lato";
+  font-size: 1.4em;
+}
+
+.description {
+  font-family: "proxima_nova";
+  font-size: 1.4em;
+}
+
+.textarea {
+  margin-bottom: 10px;
+  width: 40%;
+}
+
+.avatarEdit {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+.button {
+  padding: 0 !important;
+}
+
+.add-button {
+  grid-column: 2/3;
+  margin-bottom: .5rem;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+}
+
+.listing {
+  display: grid;
+  grid-template-columns: 7fr 1fr;
+  grid-column-gap: 5px;
+  width: 45%;
+}
+
+.btn-secondary {
+  font-family: 'proxima_nova_semibold';
+  font-size: 1.480em; 
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  margin-bottom: 30px;
+}
