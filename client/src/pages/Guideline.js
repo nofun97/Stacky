@@ -16,20 +16,20 @@ class Guideline extends Component {
             </h2>
           </div>
             <ul className={styles.Information}>
-              <li className = {styles.space}>Treat other with courtesy and respect.</li>
-              <li className = {styles.space}>
+              <li>Treat other with courtesy and respect.</li>
+              <li>
                 When agreeing to meet up with another user, please do so in a
                 public area.
               </li>
-              <li className = {styles.space}>
+              <li>
                 Do not ask for / reveal personal information such as <br/>
                 addresses and credit card information (online and irl!).
               </li>
-              <li className = {styles.space}>
+              <li>
                 Do not discuss controversial topics with other users <br/>
                 (politics, crime, etc.)
               </li>
-              <li className = {styles.space}>
+              <li>
                 Do not approach others with the intent of starting a<br/>
                 romantic/sexual relationship. This is not a dating site!
               </li>
