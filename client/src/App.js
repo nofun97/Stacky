@@ -15,6 +15,8 @@ import InvalidInfo from './pages/InvalidInfo';
 import ListSkill from './pages/ListSkill';
 import Home from './pages/Home';
 import Guideline from './pages/Guideline';
+import VerificationPass from './pages/VerificationPass';
+
 
 class App extends Component {
   render() {
@@ -29,6 +31,7 @@ class App extends Component {
           <Route path="/list_skill" component={ListSkill} />
           <Route path="/home" component={Home} />
           <Route path="/guideline" component={Guideline} />
+          <Route path="/verificationpass" component={VerificationPass} />
           <Redirect to="/" />
         </Switch>
       </div>
