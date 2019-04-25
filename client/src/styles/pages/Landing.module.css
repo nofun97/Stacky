@@ -42,11 +42,13 @@
 
 .Signup-button {
   font-family: 'proxima_nova_semibold';
+  text-decoration: none !important;
   grid-area: primary;
 }
 
 .Login-button {
   font-family: 'proxima_nova_semibold';
+  text-decoration: none !important;
   grid-area: secondary;
 }
 
@@ -66,16 +68,90 @@
     background-size: cover;
 }
 
-.btn-secondary {
+.btn-primary {
+  font-family: "proxima_nova_semibold";
   font-size: 1.480em; 
+  grid-area: primary;
   border: solid 1px #ffad49;
   background-color: #ffad49;
   color: black;
+  outline : none;
+  box-shadow: none;
 }
 
-.btn-primary {
+.btn-primary:focus {
+  font-family: "proxima_nova_semibold";
   font-size: 1.480em; 
-  border: solid 1px #fb9b5e;
-  background-color: #fb9b5e;
+  grid-area: primary;
+  border: solid 1px #ffad49;
+  background-color: #ffad49 !important;
   color: black;
+  outline : none !important;
+  box-shadow: none !important;
+}
+
+.btn-primary:hover {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #fb9b5e;
+  background-color: #fc8341 !important;
+  color: #ffffff;
+  outline : none;
+  box-shadow: none;
+}
+
+.btn-primary:active {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #fb9b5e;
+  background-color: #fc8341 !important;
+  color: #ffffff;
+  outline : none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  outline : none;
+  box-shadow: none;
+}
+
+.btn-secondary:focus {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #ffad49;
+  background-color: #ffad49 !important;
+  color: black;
+  outline : none !important;
+  box-shadow: none !important;
+}
+
+.btn-secondary:hover {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #ffad49;
+  background-color: #ffb27a !important;
+  color: #000000;
+  outline : none;
+  box-shadow: none;
+}
+
+.btn-secondary:active {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #ffad49;
+  background-color: #ffb27a !important;
+  color: #000000;
+  outline : none;
+  box-shadow: none;
 }
