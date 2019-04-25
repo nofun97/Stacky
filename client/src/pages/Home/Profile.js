@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // https://github.com/Sitebase/react-avatar
 import Avatar from "react-avatar";
 import Button from "@material-ui/core/Button";
-
+import InterestDisplayList from "../../components/InterestDisplayList";
 import styles from "../../styles/pages/Home/Profile.module.css";
 
 class Profile extends Component {
@@ -13,6 +13,8 @@ class Profile extends Component {
       name: "Tester man",
       email: "abc@abc.com",
       dateOfBirth: new Date().toLocaleDateString(),
+      interest: [{ value: "a", level: "Intermediate", id: "a" }],
+      skill: [{ value: "Algorithm", level: "Advanced", id: "sdsdsd" }],
     };
   }
 
@@ -25,10 +27,12 @@ class Profile extends Component {
 
     return (
       <section className={styles.profile}>
-        <Avatar name={this.state.name} />
-        <Button>
-          <p className={styles.edit}>Edit</p>
-        </Button>
+        <div className={styles.avatarEdit}>
+          <Avatar name={this.state.name} />
+          <Button className={styles.button}>
+            <p className={styles.edit}>Edit</p>
+          </Button>
+        </div>
         <h3 className={styles.subheader}>Name</h3>
         <p className={styles.oneliner}>{this.state.name}</p>
         <h3 className={styles.subheader}>Email</h3>
@@ -37,9 +41,17 @@ class Profile extends Component {
         <p className={styles.oneliner}>{this.state.dateOfBirth}</p>
 
         <h3 className={styles.subheader}>Interests</h3>
-
+        <InterestDisplayList
+          type="Interest"
+          values={this.state.interest}
+          className={styles.interestDisplay}
+        />
         <h3 className={styles.subheader}>Skills</h3>
-
+        <InterestDisplayList
+          type="Skill"
+          values={this.state.skill}
+          className={styles.interestDisplay}
+        />
         <h3 className={styles.subheader}>Description</h3>
         <p className={styles.description}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto

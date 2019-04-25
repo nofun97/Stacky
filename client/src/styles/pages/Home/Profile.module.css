@@ -9,4 +9,35 @@
 .profile {
   margin-left: 102px;
   margin-top: 10px;
+  margin-right: 102px;
+}
+
+.subheader {
+  font-family: "lato_bold";
+  font-size: 1.5em;
+}
+
+.oneliner {
+  font-family: "lato";
+  font-size: 1.4em;
+}
+
+.description {
+  font-family: "proxima_nova";
+  font-size: 1.4em;
+}
+
+.interestDisplay {
+  width: 45%;
+}
+
+.avatarEdit {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+.button {
+  padding: 0 !important;
 }

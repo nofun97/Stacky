@@ -4,6 +4,9 @@ import { Route, Switch, Redirect, Link } from "react-router-dom";
 import { NavTab } from "react-router-tabs";
 // https://github.com/Sitebase/react-avatar
 import Avatar from "react-avatar";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+
 import "../styles/components/HomeTab.css";
 import styles from "../styles/pages/Home.module.css";
 
@@ -40,6 +43,17 @@ class Home extends Component {
             </Link>
           </div>
           <div className={styles.tab}>
+            {/* <Navbar collapseOnSelect expand="lg" bg="light">
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+                  <Nav.Link href="/home/profile">Profile</Nav.Link>
+                  <Nav.Link href="/home">My Home</Nav.Link>
+                  <Nav.Link href="/home/chat">Chat</Nav.Link>
+                  <Nav.Link href="/home/search">Search</Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+            </Navbar> */}
             <NavTab to="/home/profile">Profile</NavTab>
             <NavTab exact to="/home">
               My Home
