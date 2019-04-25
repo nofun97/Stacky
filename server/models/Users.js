@@ -8,8 +8,7 @@ var userSchema = mongoose.Schema({
   LastName: String,
   DOB: Date,
   UName: String,
-  Email: String,
-  Password: String,
+  Credentials: ObjectId,
   IsVerified: Boolean,
   Address: String,
   Skills: [

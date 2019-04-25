@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const passport = require("passport");
 const Credentials = mongoose.model("Credentials");
-
+const User = mongoose.model("Users");
+const userController = require("./userController.js");
 // Creating new Credentials
 var newUser = function (req, res, next) {
   const { body: { user } } = req;
@@ -24,9 +25,9 @@ var newUser = function (req, res, next) {
   const finalUser = new Credentials(user);
 
   finalUser.setPassword(user.password);
-
-  return finalUser.save()
-    .then(() => res.json({ user: finalUser.toAuthJSON() }));
+  var ID = finalUser.toAuthJSON()._id;
+  finalUser.save();
+  return userController.registerUser(req, res, ID);
 };
 
 // Login

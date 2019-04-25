@@ -12,7 +12,6 @@ var credentialsController = require("../controllers/credentialsController.js");
 // Specify Our routes here
 // User Model Routes
 router.get("/user", auth.required, userController.findAllUsers);
-router.post('/user', userController.registerUser);
 router.delete('/user/:id', auth.required, userController.deleteUser);
 router.post('/user/:id', auth.required, userController.updateProfile);
 
@@ -49,7 +48,7 @@ router.post("/appointment/:id", auth.required, appointmentController.updateAppoi
 
 // Credentials Model Routes
 router.post("/login", auth.optional, credentialsController.login);
-router.post("/new", auth.optional, credentialsController.newUser);
+router.post('/user', auth.optional, credentialsController.newUser);
 router.get("/current", auth.required, credentialsController.current);
 // Export the router
 module.exports = router;
