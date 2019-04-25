@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 5000;
 
 // Database setup (uncomment when database cluster has been made and .env DB value has been assigned)
 require("./models/db.js");
+require("./config/passport.js");
 var routes = require("./routes/routes");
 
 app.use("/api", routes);

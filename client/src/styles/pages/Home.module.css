@@ -1,7 +1,6 @@
 .header {
   display: grid;
   position: sticky;
-  width: 100vw;
   top: 0;
   grid-template-columns: 0.5fr 4fr;
   grid-column-gap: 2.8vw;
