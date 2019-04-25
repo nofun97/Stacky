@@ -102,3 +102,7 @@ node_modules
 /client/webpack.cmd
 /client/which
 /client/which.cmd
+/client/nodetouch
+/client/nodetouch.cmd
+/client/nopt
+/client/nopt.cmd

@@ -1,0 +1,47 @@
+import React, { Component } from "react";
+import Button from "react-bootstrap/Button";
+
+import styles from "../styles/pages/Guideline.module.css";
+
+class Guideline extends Component {
+  render() {
+    return (
+      <div className={styles.Guideline}>
+        <section className={styles.Main}>
+          <div>
+            <h1 className={styles.header}>Guidelines</h1>
+            <h2 className={styles.subheader}>
+              Just some rules to follow for the <br />
+              comfort and safety of our users
+            </h2>
+          </div>
+            <ul className={styles.Information}>
+              <li className = {styles.space}>Treat other with courtesy and respect.</li>
+              <li className = {styles.space}>
+                When agreeing to meet up with another user, please do so in a
+                public area.
+              </li>
+              <li className = {styles.space}>
+                Do not ask for / reveal personal information such as <br/>
+                addresses and credit card information (online and irl!).
+              </li>
+              <li className = {styles.space}>
+                Do not discuss controversial topics with other users <br/>
+                (politics, crime, etc.)
+              </li>
+              <li className = {styles.space}>
+                Do not approach others with the intent of starting a<br/>
+                romantic/sexual relationship. This is not a dating site!
+              </li>
+            </ul>
+          <Button className={styles["button"]} variant="primary" type="submit">
+            Back
+          </Button>
+        </section>
+        <aside className={styles.Illust} />
+      </div>
+    );
+  }
+}
+
+export default Guideline;
