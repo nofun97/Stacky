@@ -9,7 +9,9 @@ class Landing extends Component {
       <div className={styles.Landing}>
         <section className={styles.Description}>
           <h1 className={styles.header}>Welcome to Skill Tree</h1>
-          <h2 className={styles.subheader}>Teach while you learn - 100% free</h2>
+          <h2 className={styles.subheader}>
+            Teach while you learn - 100% free
+          </h2>
           <p className={styles.paragraph}>
             Skill Tree is a platform that connects skill seekers with each
             other.
@@ -29,10 +31,18 @@ class Landing extends Component {
         </section>
         <aside className={styles.Rightbar}>
           <Link className={styles["Signup-button"]} to="/signup">
-            <Button className={styles["btn-primary"]} variant="primary" block>Sign up</Button>
+            <Button className={styles["btn-primary"]} variant="primary" block>
+              Sign up
+            </Button>
           </Link>
           <Link className={styles["Login-button"]} to="/login">
-            <Button className={styles["btn-secondary"]} variant="secondary" block>Log in</Button>
+            <Button
+              className={styles["btn-secondary"]}
+              variant="secondary"
+              block
+            >
+              Log in
+            </Button>
           </Link>
         </aside>
       </div>
