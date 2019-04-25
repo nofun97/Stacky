@@ -6,12 +6,8 @@
 }
 
 .Main {
-  display: grid;
-  grid-row-gap: 1em;
-  grid-template-rows: 7em auto;
   padding-left: 6.1vw;
   padding-top: 7vh;
-  align-items: flex-start;
 }
 
 .header {
