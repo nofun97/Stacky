@@ -16,6 +16,7 @@ import ListSkill from './pages/ListSkill';
 import Home from './pages/Home';
 import Guideline from './pages/Guideline';
 import VerificationPass from './pages/VerificationPass';
+import VerificationFail from './pages/VerificationFail';
 
 
 class App extends Component {
@@ -32,6 +33,7 @@ class App extends Component {
           <Route path="/home" component={Home} />
           <Route path="/guideline" component={Guideline} />
           <Route path="/verificationpass" component={VerificationPass} />
+          <Route path="/verificationfail" component={VerificationFail} />
           <Redirect to="/" />
         </Switch>
       </div>
