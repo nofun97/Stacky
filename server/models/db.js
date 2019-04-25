@@ -22,3 +22,4 @@ require("./Users.js");
 require("./Appointments.js");
 require("./Reviews.js");
 require("./Skills.js");
+require("./Credentials.js");
