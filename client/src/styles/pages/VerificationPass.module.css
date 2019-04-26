@@ -1,93 +1,104 @@
 .VerificationPass {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    width: 100vw;
-    height: 100vh;
-  }
-  
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Main {
+  padding-left: 6.1vw;
+  padding-top: 7vh;
+  margin-right: 10%;
+}
+
+.header {
+  font-family: "league_spartanbold";
+  font-size: 3em;
+  line-height: 1.7;
+  color: #312d2d;
+}
+
+.subheader {
+  font-family: "lato_bold";
+  font-size: 2em;
+  font-style: normal;
+  font-stretch: normal;
+  margin: 1em 0;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+.button {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffc987;
+  background-color: #ffc987;
+  color: black;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.button:focus {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  grid-area: confirm;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.button:hover {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.button:active {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49 !important;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.Illust {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  border: solid 1px #979797;
+  background-color: #86d07b;
+}
+
+.image {
+  background-image: url("../../assets/Graphics/tree.svg");
+  background-repeat: no-repeat;
+  height: 100%;
+  background-size: cover;
+  background-position: 15vw 0;
+}
+
+@media only screen and (max-width: 426px) {
   .Main {
     padding-left: 6.1vw;
     padding-top: 7vh;
-    margin: 10%;
-  }
-  
-  .header {
-    font-family: "league_spartanbold";
-    font-size: 3em;
-    line-height: 1.7;
-    color: #312d2d;
-  }
-  
-  .subheader {
-    font-family: "lato_bold";
-    font-size: 2em;
-    font-style: normal;
-    font-stretch: normal;
-    margin: 1em 0;
-    letter-spacing: normal;
-    color: #000000;
-  }
-
-  
-  .button {
-    font-family: "proxima_nova_semibold";
-    font-size: 1.48em;
-    border: solid 1px #ffc987;
-    background-color: #ffc987;
-    color: black;
-    grid-area: confirm;
-    outline : none;
-    box-shadow: none;
-  }
-  
-  .button:focus {
-    font-family: "proxima_nova_semibold";
-    font-size: 1.48em;
-    border: solid 1px #ffad49;
-    background-color: #ffad49;
-    color: black;
-    grid-area: confirm;
-    outline : none !important;
-    box-shadow: none !important;
-  }
-  
-  .button:hover {
-    font-family: "proxima_nova_semibold";
-    font-size: 1.48em;
-    border: solid 1px #ffad49;
-    background-color: #ffad49;
-    color: white;
-    grid-area: confirm;
-    outline : none;
-    box-shadow: none;
-  }
-  
-  .button:active {
-    font-family: "proxima_nova_semibold";
-    font-size: 1.48em;
-    border: solid 1px #ffad49;
-    background-color: #ffad49 !important;
-    color: white;
-    grid-area: confirm;
-    outline : none;
-    box-shadow: none;
-  }
-  
-  .Illust {
-    margin-left: 3%;
-    grid-column: 2/3;
-    grid-row: 1/2;
-    border: solid 1px #979797;
-    background-color: #86d07b;
   }
 
   .image {
-    grid-column: 2/3;
-    grid-row: 1/2;
-    /* margin-left: 50%; */
     background-image: url("../../assets/Graphics/tree.svg");
     background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 15vw 0;
+    height: 100%;
+    background-size: 75vh;
+    background-position: 1vw 1vw;
+    background-origin: border-box;
   }
-  
+}

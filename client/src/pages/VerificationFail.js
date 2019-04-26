@@ -21,8 +21,9 @@ class VerificationFail extends Component {
             criteria.
           </p>
         </section>
-        <aside className={styles.Illust} />
-        <aside className={styles.image} />
+        <aside className={styles.Illust}>
+          <aside className={styles.image} />
+        </aside>
       </div>
     );
   }

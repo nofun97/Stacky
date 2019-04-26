@@ -20,8 +20,9 @@ class VerificationPass extends Component {
             Skills and Interests
           </Button>
         </section>
-        <aside className={styles.Illust} />
-        <aside className={styles.image} />
+        <aside className={styles.Illust}>
+          <aside className={styles.image} />
+        </aside>
       </div>
     );
   }
