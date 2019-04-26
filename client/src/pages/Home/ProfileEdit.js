@@ -141,7 +141,7 @@ class ProfileEdit extends Component {
           onChange={this.handleDescriptionChange}
         />
         <Button
-          className={styles["btn-secondary"]}
+          className={styles["submit-button"]}
           variant="primary"
           onClick={this.handleSubmit}
         >

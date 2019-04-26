@@ -8,9 +8,9 @@
 }
 
 .profile {
-  margin-left: 102px;
+  margin-left: 8vw;
   margin-top: 10px;
-  margin-right: 102px;
+  margin-right: 8vw;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -38,7 +38,7 @@
 
 .textarea {
   margin-bottom: 10px;
-  width: 40%;
+  min-width: 50vw;
 }
 
 .avatarEdit {
@@ -53,6 +53,7 @@
 }
 
 .add-button {
+  font-family: "proxima_nova_semibold";
   grid-column: 2/3;
   margin-bottom: .5rem;
   border: solid 1px #ffad49;
@@ -60,18 +61,72 @@
   color: black;
 }
 
+.add-button:focus {
+  font-family: "proxima_nova_semibold";
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.add-button:hover {
+  font-family: "proxima_nova_semibold";
+  border: solid 1px #ff9d25;
+  background-color: #ff9d25;
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+.add-button:active {
+  font-family: "proximova_semibold";
+  border: solid 1px #ff9d25;
+  background-color: #ff9d25 !important;
+  color: white;;
+  outline: none;
+  box-shadow: none;
+}
+
 .listing {
   display: grid;
   grid-template-columns: 7fr 1fr;
   grid-column-gap: 5px;
-  width: 45%;
+  max-width: 500px;
 }
 
-.btn-secondary {
+.submit-button {
   font-family: 'proxima_nova_semibold';
   font-size: 1.480em; 
   border: solid 1px #ffad49;
   background-color: #ffad49;
   color: black;
   margin-bottom: 30px;
+}
+
+.submit-button:focus {
+  font-family: "proxima_nova_semibold";
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.submit-button:hover {
+  font-family: "proxima_nova_semibold";
+  border: solid 1px #ff9d25;
+  background-color: #ff9d25;
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+.submit-button:active {
+  font-family: "proximova_semibold";
+  border: solid 1px #ff9d25;
+  background-color: #ff9d25 !important;
+  color: white;;
+  outline: none;
+  box-shadow: none;
 }

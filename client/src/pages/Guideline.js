@@ -4,6 +4,15 @@ import Button from "react-bootstrap/Button";
 import styles from "../styles/pages/Guideline.module.css";
 
 class Guideline extends Component {
+  constructor(props){
+    super(props);
+    this.goBack = this.goBack.bind(this);
+  }
+
+  goBack() {
+    this.props.history.goBack();
+  }
+
   render() {
     return (
       <div className={styles.Guideline}>
@@ -11,8 +20,7 @@ class Guideline extends Component {
           <div>
             <h1 className={styles.header}>Guidelines</h1>
             <h2 className={styles.subheader}>
-              Just some rules to follow for the <br />
-              comfort and safety of our users
+              Just some rules to follow for the comfort and safety of our users
             </h2>
           </div>
             <ul className={styles.Information}>
@@ -34,11 +42,13 @@ class Guideline extends Component {
                 romantic/sexual relationship. This is not a dating site!
               </li>
             </ul>
-          <Button className={styles["button"]} variant="primary" type="submit">
+          <Button className={styles["button"]} variant="primary" onClick={this.goBack}>
             Back
           </Button>
         </section>
-        <aside className={styles.Illust} />
+        <aside className={styles.Illust}>
+          <aside className={styles.image} />
+        </aside>
       </div>
     );
   }

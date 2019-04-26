@@ -15,32 +15,32 @@
 }
 
 .header {
-  font-family: 'league_spartanbold';
+  font-family: "league_spartanbold";
   font-size: 2.188em;
   color: #312d2d;
 }
 
 .email {
-  font-family: 'lato_bold'; 
-  font-size: 1.429em; 
+  font-family: "lato_bold";
+  font-size: 1.429em;
   grid-area: email;
 }
 
 .password {
-  font-family: 'lato_bold'; 
-  font-size: 1.429em; 
+  font-family: "lato_bold";
+  font-size: 1.429em;
   grid-area: password;
 }
 
 .confirmPassword {
-  font-family: 'lato_bold'; 
-  font-size: 1.429em; 
+  font-family: "lato_bold";
+  font-size: 1.429em;
   grid-area: confirmPassword;
 }
 
 .name {
-  font-family: 'lato_bold'; 
-  font-size: 1.429em; 
+  font-family: "lato_bold";
+  font-size: 1.429em;
   grid-area: name;
   display: grid;
   grid-template-columns: 1fr;
@@ -50,8 +50,8 @@
 /*doesn't become single line anymore after 1.2em+ 
 but it looks strange if it's below that size haha*/
 .dob {
-  font-family: 'lato_bold'; 
-  font-size: 1.250em; 
+  font-family: "lato_bold";
+  font-size: 1.25em;
   grid-area: dob;
 }
 
@@ -60,52 +60,52 @@ but it looks strange if it's below that size haha*/
 }
 
 .doc {
-  font-family: 'lato_bold'; 
-  font-size: 1.250em; 
+  font-family: "lato_bold";
+  font-size: 1.25em;
   grid-area: doc;
 }
 
 .btn-secondary {
   font-family: "proxima_nova_semibold";
-  font-size: 1.480em; 
+  font-size: 1.48em;
   grid-area: confirm;
   border: solid 1px #ffad49;
   background-color: #ffad49;
   color: black;
-  outline : none;
+  outline: none;
   box-shadow: none;
 }
 
 .btn-secondary:focus {
   font-family: "proxima_nova_semibold";
-  font-size: 1.480em; 
+  font-size: 1.48em;
   grid-area: confirm;
   border: solid 1px #ffad49;
   background-color: #ffad49 !important;
   color: black;
-  outline : none !important;
+  outline: none !important;
   box-shadow: none !important;
 }
 
 .btn-secondary:hover {
   font-family: "proxima_nova_semibold";
-  font-size: 1.480em; 
+  font-size: 1.48em;
   grid-area: confirm;
   border: solid 1px #ff9d25;
   background-color: #ff9d25 !important;
   color: #ffffff;
-  outline : none;
+  outline: none;
   box-shadow: none;
 }
 
 .btn-secondary:active {
   font-family: "proxima_nova_semibold";
-  font-size: 1.480em; 
+  font-size: 1.48em;
   grid-area: confirm;
   border: solid 1px #ff9d25;
   background-color: #ff9d25 !important;
   color: #ffffff;
-  outline : none;
+  outline: none;
   box-shadow: none;
 }
 .form {
@@ -133,6 +133,32 @@ but it looks strange if it's below that size haha*/
 }
 
 .Illust {
+  grid-column: 2/3;
+  grid-row: 1/2;
   border: solid 1px #979797;
   background-color: #3ba37d;
+}
+
+.image {
+  background-image: url("../../assets/Graphics/tree.svg");
+  background-repeat: no-repeat;
+  height: 100%;
+  background-size: cover;
+  background-position: 15vw 0;
+}
+
+@media only screen and (max-width: 426px) {
+  .Main {
+    padding-left: 6.1vw;
+    padding-top: 7vh;
+  }
+
+  .image {
+    background-image: url("../../assets/Graphics/tree.svg");
+    background-repeat: no-repeat;
+    height: 100%;
+    background-size: 75vh;
+    background-position: 1vw 1vw;
+    background-origin: border-box;
+  }
 }

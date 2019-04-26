@@ -7,9 +7,9 @@
 }
 
 .profile {
-  margin-left: 102px;
+  margin-left: 8vw;
   margin-top: 10px;
-  margin-right: 102px;
+  margin-right: 8vw;
 }
 
 .subheader {
@@ -28,7 +28,7 @@
 }
 
 .interestDisplay {
-  width: 45%;
+  max-width: 500px;
 }
 
 .avatarEdit {

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import styles from "../styles/pages/Signup.module.css";
-import { Redirect } from "react-router-dom";
 
 class Signup extends Component {
   constructor(props) {
@@ -65,12 +64,10 @@ class Signup extends Component {
           InvalidInfo: true
         });
       })
+      this.props.history.push("/verification/pass");
   }
-
+  
   render() {
-    if (this.state.InvalidInfo === true) {
-      return <Redirect to="/invalid_info" />;
-    }
     return (
       <div className={styles.Signup}>
         <section className={styles.Main}>
@@ -156,7 +153,9 @@ class Signup extends Component {
             </Button>
           </Form>
         </section>
-        <aside className={styles.Illust} />
+        <aside className={styles.Illust}>
+          <aside className={styles.image} />
+        </aside>
       </div>
     );
   }
