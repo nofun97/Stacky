@@ -112,6 +112,10 @@
     padding-left: 6.1vw;
     padding-top: 7vh;
   }
+
+  .header {
+      font-size: 2.286em;
+    }
   
   .image {
     background-image: url("../../assets/Graphics/tree.svg");

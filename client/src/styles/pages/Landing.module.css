@@ -155,3 +155,17 @@
   outline : none;
   box-shadow: none;
 }
+
+@media only screen and (max-width: 426px) {
+  .header {
+    font-size: 2.286em;
+  }
+
+  .subheader{
+    font-size: 1.643em;
+  }
+
+  .paragraph{
+    font-size: 1.071em; 
+  }
+}

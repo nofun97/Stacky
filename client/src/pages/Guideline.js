@@ -24,7 +24,7 @@ class Guideline extends Component {
             </h2>
           </div>
             <ul className={styles.Information}>
-              <li>Treat other with courtesy and respect.</li>
+              <li>Treat others with courtesy and respect.</li>
               <li>
                 When agreeing to meet up with another user, please do so in a
                 public area.
