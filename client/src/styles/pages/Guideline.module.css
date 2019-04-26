@@ -8,6 +8,7 @@
 .Main {
   padding-left: 6.1vw;
   padding-top: 7vh;
+  margin-right: 8%
 }
 
 .header {
@@ -39,7 +40,7 @@
 }
 
 li {
-    margin: 1em 0;
+  margin: 1em 0;
 }
 
 .button {
@@ -49,7 +50,7 @@ li {
   background-color: #ffad49;
   color: black;
   grid-area: confirm;
-  outline : none;
+  outline: none;
   box-shadow: none;
 }
 
@@ -60,7 +61,7 @@ li {
   background-color: #ffad49;
   color: black;
   grid-area: confirm;
-  outline : none !important;
+  outline: none !important;
   box-shadow: none !important;
 }
 
@@ -71,7 +72,7 @@ li {
   background-color: #ffad49;
   color: white;
   grid-area: confirm;
-  outline : none;
+  outline: none;
   box-shadow: none;
 }
 
@@ -82,11 +83,24 @@ li {
   background-color: #ffad49 !important;
   color: white;
   grid-area: confirm;
-  outline : none;
+  outline: none;
   box-shadow: none;
 }
 
 .Illust {
+  margin-left: 25%;
+  grid-column: 2/3;
+  grid-row: 1/2;
   border: solid 1px #979797;
   background-color: #ffaa6d;
+}
+
+.image {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  /* margin-left: 50%; */
+  background-image: url("../../assets/Graphics/tree.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 15vw 0;
 }

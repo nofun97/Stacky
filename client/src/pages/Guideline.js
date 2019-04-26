@@ -11,34 +11,34 @@ class Guideline extends Component {
           <div>
             <h1 className={styles.header}>Guidelines</h1>
             <h2 className={styles.subheader}>
-              Just some rules to follow for the <br />
-              comfort and safety of our users
+              Just some rules to follow for the comfort and safety of our users
             </h2>
           </div>
-            <ul className={styles.Information}>
-              <li>Treat other with courtesy and respect.</li>
-              <li>
-                When agreeing to meet up with another user, please do so in a
-                public area.
-              </li>
-              <li>
-                Do not ask for / reveal personal information such as <br/>
-                addresses and credit card information (online and irl!).
-              </li>
-              <li>
-                Do not discuss controversial topics with other users <br/>
-                (politics, crime, etc.)
-              </li>
-              <li>
-                Do not approach others with the intent of starting a<br/>
-                romantic/sexual relationship. This is not a dating site!
-              </li>
-            </ul>
+          <ul className={styles.Information}>
+            <li>Treat other with courtesy and respect.</li>
+            <li>
+              When agreeing to meet up with another user, please do so in a
+              public area.
+            </li>
+            <li>
+              Do not ask for / reveal personal information such as addresses and
+              credit card information (online and irl!).
+            </li>
+            <li>
+              Do not discuss controversial topics with other users (politics,
+              crime, etc.)
+            </li>
+            <li>
+              Do not approach others with the intent of starting a
+              romantic/sexual relationship. This is not a dating site!
+            </li>
+          </ul>
           <Button className={styles["button"]} variant="primary" type="submit">
             Back
           </Button>
         </section>
         <aside className={styles.Illust} />
+        <aside className={styles.image} />
       </div>
     );
   }
