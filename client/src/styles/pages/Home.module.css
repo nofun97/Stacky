@@ -6,36 +6,36 @@
   grid-column-gap: 2.8vw;
   grid-template-rows: 1.2fr 1fr;
   background-color: white;
-  padding: 5px 87px 0 102px;
+  padding: 5px 8vw 0 8vw;
   align-items: flex-end;
   justify-items: stretch;
   z-index: 10000;
+  grid-template-areas: 
+  "avatar title"
+  "avatar navtab";
 }
 
 .avatar {
   margin: 0px 10px 10px 0px;
   align-self: center;
   justify-self: center;
-  grid-column: 1/2;
-  grid-row: 1/3;
+  grid-area: avatar;
 }
 
 .tab {
-  grid-column: 2/3;
-  grid-row: 2/3;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  grid-area: navtab
 }
 
 .title {
-  grid-column: 2/3;
-  grid-row: 1/2;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-self: center;
   align-items: center;
+  grid-area: title;
 }
 
 .guidelines {
@@ -52,4 +52,17 @@
   font-family: "league_spartanbold";
   font-size: 2em;
   margin: 0;
+}
+
+@media only screen and (max-width: 426px) {
+  .header {
+    grid-template-rows: 1.2fr 0.5fr;
+    grid-template-areas: 
+    "avatar title"
+    "navtab navtab";
+  }
+
+  .tab {
+    overflow-x: auto;
+  }
 }

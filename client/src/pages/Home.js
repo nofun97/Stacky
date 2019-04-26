@@ -39,7 +39,7 @@ class Home extends Component {
           <div className={styles.title}>
             <h1 className={styles["page-title"]}>{this.state.page}</h1>
             {/* Implement link to guideline page */}
-            <Link to="/home">
+            <Link to="/guideline">
               <p className={styles.guidelines}>Guidelines</p>
             </Link>
           </div>
