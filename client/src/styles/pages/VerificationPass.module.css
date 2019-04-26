@@ -80,7 +80,7 @@
 }
 
 .image {
-  background-image: url("../../assets/Graphics/tree.svg");
+  background-image: url("../../assets/Graphics/tree sides .svg");
   background-repeat: no-repeat;
   height: 100%;
   background-size: cover;
@@ -98,7 +98,7 @@
   }
 
   .image {
-    background-image: url("../../assets/Graphics/tree.svg");
+    background-image: url("../../assets/Graphics/tree sides .svg");
     background-repeat: no-repeat;
     height: 100%;
     background-size: 75vh;

@@ -140,7 +140,7 @@ but it looks strange if it's below that size haha*/
 }
 
 .image {
-  background-image: url("../../assets/Graphics/tree.svg");
+  background-image: url("../../assets/Graphics/tree sides .svg");
   background-repeat: no-repeat;
   height: 100%;
   background-size: cover;
@@ -158,7 +158,7 @@ but it looks strange if it's below that size haha*/
   }
 
   .image {
-    background-image: url("../../assets/Graphics/tree.svg");
+    background-image: url("../../assets/Graphics/tree sides .svg");
     background-repeat: no-repeat;
     height: 100%;
     background-size: 75vh;

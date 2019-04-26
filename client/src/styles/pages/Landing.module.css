@@ -34,7 +34,7 @@
 }
 
 .Description {
-  background-color: #fdac53;
+  background-color: #FFAA6D;
   padding-left: 6.1vw;
   padding-top: 4.8vh;
   padding-right: 9.3vw;
@@ -72,8 +72,8 @@
   font-family: "proxima_nova_semibold";
   font-size: 1.480em; 
   grid-area: primary;
-  border: solid 1px #ffad49;
-  background-color: #ffad49;
+  border: solid 1px #FB9B5E;
+  background-color: #FB9B5E;
   color: black;
   outline : none;
   box-shadow: none;
@@ -83,8 +83,8 @@
   font-family: "proxima_nova_semibold";
   font-size: 1.480em; 
   grid-area: primary;
-  border: solid 1px #ffad49;
-  background-color: #ffad49 !important;
+  border: solid 1px #FB9B5E;
+  background-color: #FB9B5E !important;
   color: black;
   outline : none !important;
   box-shadow: none !important;
@@ -94,7 +94,7 @@
   font-family: "proxima_nova_semibold";
   font-size: 1.480em; 
   grid-area: primary;
-  border: solid 1px #fb9b5e;
+  border: solid 1px #FC8341;
   background-color: #fc8341 !important;
   color: #ffffff;
   outline : none;
@@ -105,7 +105,7 @@
   font-family: "proxima_nova_semibold";
   font-size: 1.480em; 
   grid-area: primary;
-  border: solid 1px #fb9b5e;
+  border: solid 1px #fc8341;
   background-color: #fc8341 !important;
   color: #ffffff;
   outline : none;
@@ -116,8 +116,8 @@
   font-family: "proxima_nova_semibold";
   font-size: 1.480em; 
   grid-area: primary;
-  border: solid 1px #ffad49;
-  background-color: #ffad49;
+  border: solid 1px #FFB27A;
+  background-color: #FFB27A;
   color: black;
   outline : none;
   box-shadow: none;
@@ -127,8 +127,8 @@
   font-family: "proxima_nova_semibold";
   font-size: 1.480em; 
   grid-area: primary;
-  border: solid 1px #ffad49;
-  background-color: #ffad49 !important;
+  border: solid 1px #FFB27A;
+  background-color: #FFB27A !important;
   color: black;
   outline : none !important;
   box-shadow: none !important;
@@ -138,9 +138,9 @@
   font-family: "proxima_nova_semibold";
   font-size: 1.480em; 
   grid-area: primary;
-  border: solid 1px #ffad49;
-  background-color: #ffb27a !important;
-  color: #000000;
+  border: solid 1px #FF7D47;
+  background-color: #FF7D47 !important;
+  color: #ffffff;
   outline : none;
   box-shadow: none;
 }
