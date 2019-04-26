@@ -153,6 +153,10 @@ but it looks strange if it's below that size haha*/
     padding-top: 7vh;
   }
 
+  .header {
+    font-size: 2.286em;
+  }
+
   .image {
     background-image: url("../../assets/Graphics/tree.svg");
     background-repeat: no-repeat;
