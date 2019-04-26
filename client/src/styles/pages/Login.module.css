@@ -93,6 +93,32 @@
 }
 
 .Illust {
+  grid-column: 2/3;
+  grid-row: 1/2;
   border: solid 1px #979797;
   background-color: #ffaa6d;
+}
+
+.image {
+  background-image: url("../../assets/Graphics/tree.svg");
+  background-repeat: no-repeat;
+  height: 100%;
+  background-size: cover;
+  background-position: 15vw 0;
+}
+
+@media only screen and (max-width: 426px) { 
+  .Main {
+    padding-left: 6.1vw;
+    padding-top: 7vh;
+  }
+  
+  .image {
+    background-image: url("../../assets/Graphics/tree.svg");
+    background-repeat: no-repeat;
+    height: 100%;
+    background-size: 75vh;
+    background-position: 1vw 1vw;
+    background-origin: border-box;
+  }
 }

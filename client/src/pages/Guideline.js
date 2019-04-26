@@ -37,8 +37,9 @@ class Guideline extends Component {
             Back
           </Button>
         </section>
-        <aside className={styles.Illust} />
-        <aside className={styles.image} />
+        <aside className={styles.Illust}>
+          <aside className={styles.image} />
+        </aside>
       </div>
     );
   }

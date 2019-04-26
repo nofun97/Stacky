@@ -90,7 +90,9 @@ class Signup extends Component {
             </Button>
           </Form>
         </section>
-        <aside className={styles.Illust} />
+        <aside className={styles.Illust}>
+          <aside className={styles.image} />
+        </aside>
       </div>
     );
   }
