@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import styles from "../styles/pages/Signup.module.css";
+import { Redirect } from "react-router-dom";
 
 class Signup extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class Signup extends Component {
       confirmPassword: "",
       ID: "",
       InvalidInfo: false,
+      successful: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.render = this.render.bind(this);
@@ -26,49 +28,58 @@ class Signup extends Component {
   handleSubmit(event) {
     console.log("Submitting...");
     console.log(this.state);
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+
+    // const form = event.currentTarget;
+    // if (form.checkValidity() === false) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // }
+
+    // Prevent on double submit on form
+    this.refs["submit-btn"].setAttribute("disabled", "disabled");
+    // So that the redirect works well the page shouldn't reload
+    event.preventDefault();
+    event.stopPropagation();
+
     //TODO: put url in env?
-    fetch("http://localhost:5000/api/user",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    fetch("http://localhost:5000/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // body: JSON.stringify(this.state.Submission)
+      body: JSON.stringify({
+        user: {
+          email: this.state.email,
+          password: this.state.password,
         },
-        // body: JSON.stringify(this.state.Submission)
-        body: JSON.stringify({
-          user: {
-            email: this.state.email,
-            password: this.state.password
-          },
-          FirstName: this.state.FirstName,
-          LastName: this.state.LastName,
-          DOB: this.state.DOB,
-          UName: this.state.UName,
-          IsVerified: this.state.IsVerified,
-          Address: this.state.Address
-        })
-      })
+        FirstName: this.state.FirstName,
+        LastName: this.state.LastName,
+        DOB: this.state.DOB,
+        UName: this.state.UName,
+        IsVerified: this.state.IsVerified,
+        Address: this.state.Address,
+      }),
+    })
       .then(data => {
-        this.setState({ ID: data._id });
+        this.setState({ ID: data._id, successful: true });
         console.log("Submission successful!");
         console.log(data);
-        // show the verification pass page
-        this.props.history.push("/verification/pass");
       })
       .catch(err => {
         console.log("Submission not succesful");
         console.log(err);
         this.setState({
-          InvalidInfo: true
+          InvalidInfo: true,
+          successful: true,
         });
-      })
+      });
   }
-  
+
   render() {
+    if (this.state.successful === true) {
+      return <Redirect to="/verification/pass" />;
+    }
     return (
       <div className={styles.Signup}>
         <section className={styles.Main}>
@@ -76,35 +87,56 @@ class Signup extends Component {
             <h1 className={styles.header}>Sign up</h1>
           </div>
           {/* change with implementing formik later */}
-          <Form noValidate className={styles.form} onSubmit={(e) => this.handleSubmit(e)}>
-            <Form.Group role="form" className={styles.email} controlId="formBasicEmail">
+          <Form
+            noValidate
+            className={styles.form}
+            onSubmit={e => this.handleSubmit(e)}
+          >
+            <Form.Group
+              role="form"
+              className={styles.email}
+              controlId="formBasicEmail"
+            >
               <Form.Label>Email address</Form.Label>
-              <Form.Control required type="email" placeholder="Enter email"
+              <Form.Control
+                required
+                type="email"
+                placeholder="Enter email"
                 onChange={e => this.setState({ email: e.target.value })}
-                value={this.state.email || ''}
+                value={this.state.email || ""}
               />
             </Form.Group>
 
             <Form.Group className={styles.name} controlId="formBasicName">
               <div>
                 <Form.Label>First Name</Form.Label>
-                <Form.Control required type="text" placeholder="Enter First Name"
+                <Form.Control
+                  required
+                  type="text"
+                  placeholder="Enter First Name"
                   onChange={e => this.setState({ FirstName: e.target.value })}
-                  value={this.state.FirstName || ''}
+                  value={this.state.FirstName || ""}
                 />
               </div>
               <div>
                 <Form.Label>Surname</Form.Label>
-                <Form.Control required type="text" placeholder="Enter Surname"
+                <Form.Control
+                  required
+                  type="text"
+                  placeholder="Enter Surname"
                   onChange={e => this.setState({ LastName: e.target.value })}
-                  value={this.state.LastName || ''}
+                  value={this.state.LastName || ""}
                 />
               </div>
             </Form.Group>
 
             <Form.Group className={styles.dob} controlId="formBasicDOB">
               <Form.Label>Date of Birth</Form.Label>
-              <Form.Control required className={styles.dateInput} type="date" placeholder="Enter Date of birth"
+              <Form.Control
+                required
+                className={styles.dateInput}
+                type="date"
+                placeholder="Enter Date of birth"
                 onChange={e => this.setState({ DOB: e.target.value })}
                 value={this.state.DOB}
               />
@@ -115,9 +147,12 @@ class Signup extends Component {
               controlId="formBasicPassword"
             >
               <Form.Label>Password</Form.Label>
-              <Form.Control required type="password" placeholder="Password"
+              <Form.Control
+                required
+                type="password"
+                placeholder="Password"
                 onChange={e => this.setState({ password: e.target.value })}
-                value={this.state.password || ''}
+                value={this.state.password || ""}
               />
             </Form.Group>
 
@@ -126,10 +161,17 @@ class Signup extends Component {
               controlId="formBasicConfirmPassword"
             >
               <Form.Label>Confirm Password</Form.Label>
-              <Form.Control required type="password" placeholder="Password"
-                onChange={e => this.setState({ confirmPassword: e.target.value })}
-                value={this.state.confirmPassword || ''}
-                isInvalid={!(this.state.confirmPassword === this.state.password)}
+              <Form.Control
+                required
+                type="password"
+                placeholder="Password"
+                onChange={e =>
+                  this.setState({ confirmPassword: e.target.value })
+                }
+                value={this.state.confirmPassword || ""}
+                isInvalid={
+                  !(this.state.confirmPassword === this.state.password)
+                }
               />
             </Form.Group>
 
@@ -142,10 +184,15 @@ class Signup extends Component {
               <Form.Text className="text-muted">
                 Accepted format : .png, .jpeg, .jpg, .pdf
               </Form.Text>
-              <Form.Control className={styles.fileButton} type="file" placeholder="Insert your Id" />
+              <Form.Control
+                className={styles.fileButton}
+                type="file"
+                placeholder="Insert your Id"
+              />
             </Form.Group>
 
             <Button
+              ref="submit-btn"
               className={styles["btn-secondary"]}
               variant="primary"
               type="submit"
