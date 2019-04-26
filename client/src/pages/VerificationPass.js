@@ -9,7 +9,7 @@ class VerificationPass extends Component {
       <div className={styles.VerificationPass}>
         <section className={styles.Main}>
             <h1 className={styles.header}>
-              Verification <br />
+              Verification 
               Successful!
             </h1>
 
