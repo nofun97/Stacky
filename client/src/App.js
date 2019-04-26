@@ -32,8 +32,8 @@ class App extends Component {
           <Route path="/list_skill" component={ListSkill} />
           <Route path="/home" component={Home} />
           <Route path="/guideline" component={Guideline} />
-          <Route path="/verificationpass" component={VerificationPass} />
-          <Route path="/verificationfail" component={VerificationFail} />
+          <Route path="/verification/pass" component={VerificationPass} />
+          <Route path="/verification/fail" component={VerificationFail} />
           <Redirect to="/" />
         </Switch>
       </div>
