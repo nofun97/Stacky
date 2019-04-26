@@ -31,7 +31,9 @@ class ListSkill extends Component {
   handleAdd() {}
 
   // handler when submit button is clicked
-  handleSubmit() {}
+  handleSubmit() {
+    this.props.history.push("/home");
+  }
 
   // handler for changes in slider of the interest or skill
   handleSliderChange() {}
@@ -93,7 +95,7 @@ class ListSkill extends Component {
               values={this.state.selectedSkill} 
             />
           </section>
-          <Button className={styles.submit} type="submit">
+          <Button className={styles.submit} type="submit" onClick={this.handleSubmit}>
             Confirm
           </Button>
         </section>

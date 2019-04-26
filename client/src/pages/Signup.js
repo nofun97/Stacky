@@ -2,28 +2,21 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import styles from "../styles/pages/Signup.module.css";
-import { Redirect } from "react-router-dom";
 
 class Signup extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      InvalidInfo: false,
+      
     };
   }
 
   handleSubmit() {
-    this.setState({
-      InvalidInfo: true,
-    });
+    this.props.history.push("/verification/pass");
   }
 
   render() {
-    if (this.state.InvalidInfo === true) {
-      return <Redirect to="/invalid_info" />;
-    }
-
     return (
       <div className={styles.Signup}>
         <section className={styles.Main}>

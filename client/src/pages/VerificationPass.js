@@ -4,6 +4,15 @@ import Button from "react-bootstrap/Button";
 import styles from "../styles/pages/VerificationPass.module.css";
 
 class VerificationPass extends Component {
+  constructor(props){
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.props.history.push("/list_skill");
+  }
+
   render() {
     return (
       <div className={styles.VerificationPass}>
@@ -16,7 +25,7 @@ class VerificationPass extends Component {
             <h2 className={styles.subheader}>
               You now have full access to our services.
             </h2>
-          <Button className={styles["button"]} variant="primary" type="submit">
+          <Button className={styles["button"]} variant="primary" onClick={this.handleClick}>
             Skills and Interests
           </Button>
         </section>
