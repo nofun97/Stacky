@@ -28,11 +28,13 @@ var registerUser = function(req, res, id) {
     Skills: req.body.Skills,
     Interests: req.body.Interests,
   });
-
+  // console.log("Just after defining data for registerUser");
   data.save(function(err, skill) {
     if (!err) {
       res.send(skill);
+      // console.log(skill);
     } else {
+      console.log(err);
       res.sendStatus(400);
     }
   });
