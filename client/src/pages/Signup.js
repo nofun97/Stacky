@@ -50,7 +50,7 @@ class Signup extends Component {
 
             <Form.Group className={styles.dob} controlId="formBasicDOB">
               <Form.Label>Date of Birth</Form.Label>
-              <Form.Control type="date" placeholder="Enter Date of birth" />
+              <Form.Control className={styles.dateInput} type="date" placeholder="Enter Date of birth" />
             </Form.Group>
 
             <Form.Group
@@ -78,7 +78,7 @@ class Signup extends Component {
               <Form.Text className="text-muted">
                 Accepted format : .png, .jpeg, .jpg, .pdf
               </Form.Text>
-              <Form.Control type="file" placeholder="Insert your Id" />
+              <Form.Control className={styles.fileButton} type="file" placeholder="Insert your Id" />
             </Form.Group>
 
             <Button
