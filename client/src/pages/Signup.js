@@ -56,6 +56,8 @@ class Signup extends Component {
         this.setState({ ID: data._id });
         console.log("Submission successful!");
         console.log(data);
+        // show the verification pass page
+        this.props.history.push("/verification/pass");
       })
       .catch(err => {
         console.log("Submission not succesful");
@@ -64,7 +66,6 @@ class Signup extends Component {
           InvalidInfo: true
         });
       })
-      this.props.history.push("/verification/pass");
   }
   
   render() {
