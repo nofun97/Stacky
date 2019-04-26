@@ -23,28 +23,6 @@ class Guideline extends Component {
               Just some rules to follow for the comfort and safety of our users
             </h2>
           </div>
-<<<<<<< HEAD
-          <ul className={styles.Information}>
-            <li>Treat other with courtesy and respect.</li>
-            <li>
-              When agreeing to meet up with another user, please do so in a
-              public area.
-            </li>
-            <li>
-              Do not ask for / reveal personal information such as addresses and
-              credit card information (online and irl!).
-            </li>
-            <li>
-              Do not discuss controversial topics with other users (politics,
-              crime, etc.)
-            </li>
-            <li>
-              Do not approach others with the intent of starting a
-              romantic/sexual relationship. This is not a dating site!
-            </li>
-          </ul>
-          <Button className={styles["button"]} variant="primary" type="submit">
-=======
             <ul className={styles.Information}>
               <li>Treat other with courtesy and respect.</li>
               <li>
@@ -65,7 +43,6 @@ class Guideline extends Component {
               </li>
             </ul>
           <Button className={styles["button"]} variant="primary" onClick={this.goBack}>
->>>>>>> 737d98af91593859abb2e1735f71518dc91d3bd9
             Back
           </Button>
         </section>

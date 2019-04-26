@@ -123,13 +123,8 @@ but it looks strange if it's below that size haha*/
 }
 
 .label {
-<<<<<<< HEAD
-  font-family: "lato_bold";
-  font-family: 1.2rem;
-=======
   font-family: 'lato_bold'; 
   font-family: 1.2rem; 
->>>>>>> 737d98af91593859abb2e1735f71518dc91d3bd9
   margin-bottom: 0.3rem;
 }
 
