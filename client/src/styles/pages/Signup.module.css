@@ -43,8 +43,8 @@
   font-size: 1.429em; 
   grid-area: name;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 1.63vw;
+  grid-template-columns: 1fr;
+  grid-row-gap: 1.63vw;
 }
 
 /*doesn't become single line anymore after 1.2em+ 
@@ -53,6 +53,10 @@ but it looks strange if it's below that size haha*/
   font-family: 'lato_bold'; 
   font-size: 1.250em; 
   grid-area: dob;
+}
+
+.dateInput {
+  max-width: 150px;
 }
 
 .doc {
@@ -111,17 +115,21 @@ but it looks strange if it's below that size haha*/
   grid-template-areas:
     "email email email email email . ."
     "name name name name name name ."
-    "dob . . . . . ."
+    "dob dob dob dob dob dob ."
     "password password password password password . ."
     "confirmPassword confirmPassword confirmPassword confirmPassword confirmPassword . ."
     "doc doc doc doc doc . ."
-    ". confirm confirm confirm . . .";
+    ". confirm confirm confirm confirm . .";
 }
 
 .label {
   font-family: 'lato_bold'; 
-  font-family: 1.2em; 
+  font-family: 1.2rem; 
   margin-bottom: 0.3rem;
+}
+
+.fileButton {
+  margin: 5px 0px 5px 0px;
 }
 
 .Illust {
