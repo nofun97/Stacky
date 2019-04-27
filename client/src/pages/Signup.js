@@ -26,48 +26,49 @@ class Signup extends Component {
   }
 
   handleSubmit(event) {
-    const form = event.currentTarget;
+    // const form = event.currentTarget;
 
-    if (form.checkValidity() !== false) {
-      console.log("Submitting...");
-      console.log(this.state);
+    // if (form.checkValidity() !== false) {
+    //   console.log("Submitting...");
+    //   console.log(this.state);
       
-      // Prevent on double submit on form
-      this.refs["submit-btn"].setAttribute("disabled", "disabled");
-      //TODO: put url in env?
-      fetch("http://localhost:5000/api/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // body: JSON.stringify(this.state.Submission)
-        body: JSON.stringify({
-          user: {
-            email: this.state.email,
-            password: this.state.password,
-          },
-          FirstName: this.state.FirstName,
-          LastName: this.state.LastName,
-          DOB: this.state.DOB,
-          UName: this.state.UName,
-          IsVerified: this.state.IsVerified,
-          Address: this.state.Address,
-        }),
-      })
-        .then(data => {
-          this.setState({ ID: data._id, successful: true });
-          console.log("Submission successful!");
-          console.log(data);
-        })
-        .catch(err => {
-          console.log("Submission not succesful");
-          console.log(err);
-          this.setState({
-            InvalidInfo: true,
-            successful: true,
-          });
-        });
-    }
+    //   // Prevent on double submit on form
+    //   this.refs["submit-btn"].setAttribute("disabled", "disabled");
+    //   //TODO: put url in env?
+    //   fetch("http://localhost:5000/api/user", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     // body: JSON.stringify(this.state.Submission)
+    //     body: JSON.stringify({
+    //       user: {
+    //         email: this.state.email,
+    //         password: this.state.password,
+    //       },
+    //       FirstName: this.state.FirstName,
+    //       LastName: this.state.LastName,
+    //       DOB: this.state.DOB,
+    //       UName: this.state.UName,
+    //       IsVerified: this.state.IsVerified,
+    //       Address: this.state.Address,
+    //     }),
+    //   })
+    //     .then(data => {
+    //       this.setState({ ID: data._id, successful: true });
+    //       console.log("Submission successful!");
+    //       console.log(data);
+    //     })
+    //     .catch(err => {
+    //       console.log("Submission not succesful");
+    //       console.log(err);
+    //       this.setState({
+    //         InvalidInfo: true,
+    //         successful: true,
+    //       });
+    //     });
+    // }
+    this.setState({successful: true});
     // So that the redirect works well the page shouldn't reload
     event.preventDefault();
     event.stopPropagation();
