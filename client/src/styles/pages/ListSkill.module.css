@@ -141,3 +141,10 @@
   border: solid 1px #979797;
   background-color: #ffaa6d;
 }
+
+
+@media only screen and (max-width: 426px) { 
+.header {
+  font-size: 2.286em;
+}
+}

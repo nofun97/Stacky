@@ -19,7 +19,7 @@
 }
 
 .subheader {
-  font-family: "lato_bold";
+  font-family: "proxima_nova_semibold";
   font-size: 2em;
   font-style: normal;
   font-stretch: normal;
@@ -80,7 +80,7 @@
 }
 
 .image {
-  background-image: url("../../assets/Graphics/tree.svg");
+  background-image: url("../../assets/Graphics/tree sides .svg");
   background-repeat: no-repeat;
   height: 100%;
   background-size: cover;
@@ -93,8 +93,17 @@
     padding-top: 7vh;
   }
 
+  .header {
+    font-size: 2.286em;
+  }
+
+  .subheader{
+    font-size: 1.8em; 
+    line-height: 1.8em; 
+  }
+
   .image {
-    background-image: url("../../assets/Graphics/tree.svg");
+    background-image: url("../../assets/Graphics/tree sides .svg");
     background-repeat: no-repeat;
     height: 100%;
     background-size: 75vh;

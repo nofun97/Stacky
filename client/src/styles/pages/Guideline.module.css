@@ -19,7 +19,7 @@
 }
 
 .subheader {
-  font-family: "lato_bold";
+  font-family: "proxima_nova_semibold";
   font-size: 2em;
   font-style: normal;
   font-stretch: normal;
@@ -35,7 +35,7 @@
   font-style: normal;
   font-stretch: normal;
   line-height: 1em;
-  letter-spacing: 0.4;
+  letter-spacing: 0.014em;
   color: #000000;
 }
 
@@ -95,7 +95,7 @@ li {
 }
 
 .image {
-  background-image: url("../../assets/Graphics/tree.svg");
+  background-image: url("../../assets/Graphics/tree sides .svg");
   background-repeat: no-repeat;
   height: 100%;
   background-size: cover;
@@ -103,13 +103,26 @@ li {
 }
 
 @media only screen and (max-width: 426px) { 
+
   .Main {
     padding-left: 6.1vw;
     padding-top: 7vh;
   }
-  
+
+  .header {
+    font-size: 2.286em;
+  }
+  .subheader {
+    font-size: 1.429em;
+  }
+  .Information {
+    font-size: 1.143em;
+    line-height: 1.357em; 
+    letter-spacing: 0.014em; 
+  }
+
   .image {
-    background-image: url("../../assets/Graphics/tree.svg");
+    background-image: url("../../assets/Graphics/tree sides .svg");
     background-repeat: no-repeat;
     height: 100%;
     background-size: 75vh;
@@ -117,3 +130,4 @@ li {
     background-origin: border-box;
   }
 }
+
