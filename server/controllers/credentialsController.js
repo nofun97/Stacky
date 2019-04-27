@@ -27,12 +27,8 @@ var newUser = function (req, res, next) {
   // console.log(finalUser);
   finalUser.setPassword(user.password);
   var ID = finalUser.toAuthJSON()._id;
-  finalUser.save(function(err, credential) {
-    if (!err) {
-      return
-    }
-    console.log(err);
-  });
+  finalUser.save()
+    .then(() => res.json({ user: finalUser.toAuthJSON() }));
   return userController.registerUser(req, res, ID);
 };
 
@@ -68,7 +64,11 @@ var login = (req, res, next) => {
       return res.json({ user: user.toAuthJSON() });
     }
 
-    return info.status(400);
+    return res.status(400).json({
+      errors: {
+        password: '400 Bad Request',
+      },
+    });
   })(req, res, next);
 };
 
