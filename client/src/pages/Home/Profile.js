@@ -74,7 +74,7 @@ class Profile extends Component {
   handleFetch(description) {
     if (this.props.location.state.noBackend) return;
     // fetching user data from express server
-    fetch("http://localhost:5000/api/credential", {
+    fetch("/api/credential", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
