@@ -55,8 +55,8 @@ class Profile extends Component {
       if (this.props.location.state.noBackend) {
         this.state = {
           editMode: false,
-          name: `${this.props.location.state.LastName} ${
-            this.props.location.state.FirstName
+          name: `${this.props.location.state.FirstName} ${
+            this.props.location.state.LastName
           }`,
           email: this.props.location.state.email,
           dateOfBirth: this.props.location.state.DOB,
