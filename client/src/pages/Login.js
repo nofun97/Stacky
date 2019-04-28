@@ -22,7 +22,7 @@ class Login extends Component {
     if (form.checkValidity() === true) {
       console.log("Login...");
       //TODO: put url in env?
-      fetch("http://localhost:5000/api/login", {
+      fetch("/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

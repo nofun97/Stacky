@@ -35,7 +35,7 @@ class Signup extends Component {
       // Prevent on double submit on form
       this.refs["submit-btn"].setAttribute("disabled", "disabled");
       //TODO: put url in env?
-      fetch("http://localhost:5000/api/user", {
+      fetch("/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
