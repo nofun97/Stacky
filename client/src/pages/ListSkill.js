@@ -154,7 +154,7 @@ class ListSkill extends Component {
           skill.level = level;
         }
       }
-      this.setState({ userInterest: skillArray });
+      this.setState({ userSkill: skillArray });
     }
   }
 
@@ -249,7 +249,7 @@ class ListSkill extends Component {
               isClearable={true}
               isSearchable={true}
               value={this.state.selectedSkill}
-              name="interest"
+              name="skill"
               options={this.state.skillOption}
               onChange={this.handleSkillSelect}
             />
