@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import { Redirect } from "react-router-dom";
 
 import styles from "../styles/pages/VerificationPass.module.css";
 
@@ -7,13 +8,27 @@ class VerificationPass extends Component {
   constructor(props){
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      clicked: false
+    }
   }
 
   handleClick() {
-    this.props.history.push("/list_skill");
+    this.setState({
+      clicked: true,
+    })
   }
 
   render() {
+    if(this.state.clicked){
+      return <Redirect
+      to={{
+        pathname: "/list_skill",
+        state: this.props.location.state,
+      }}
+    />
+    }
+
     return (
       <div className={styles.VerificationPass}>
         <section className={styles.Main}>

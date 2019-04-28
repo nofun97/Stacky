@@ -15,11 +15,11 @@ class InterestEditor extends Component {
   }
 
   handleChange(value) {
-    this.props.handleSliderChange(value);
+    this.props.handleSliderChange(value, this.props.type, this.props.value);
   }
 
   handleRemove() {
-    this.props.handleRemove(this.props.value);
+    this.props.handleRemove(this.props.value, this.props.type);
   }
 
   render() {
@@ -140,7 +140,7 @@ class InterestEditor extends Component {
           <Button variant="primary" disabled className={styles.value}>
             {this.props.value}
           </Button>
-          <IconButton color="inherit" className={styles.icon} onClick={this.props.handleRemove}>
+          <IconButton color="inherit" className={styles.icon} onClick={this.handleRemove}>
             <DeleteOutlinedIcon />
           </IconButton>
         </div>

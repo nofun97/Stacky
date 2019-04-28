@@ -76,7 +76,12 @@ class Signup extends Component {
 
   render() {
     if (this.state.successful === true) {
-      return <Redirect to="/verification/pass" />;
+      return <Redirect
+      to={{
+        pathname: "/verification/pass",
+        state: this.state,
+      }}
+    />
     }
     return (
       <div className={styles.Signup}>
