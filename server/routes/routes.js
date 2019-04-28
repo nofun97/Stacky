@@ -1,32 +1,34 @@
 var express = require("express");
 var router = express.Router();
 
+const auth = require("./auth");
+
 // Require the controller for each models. (uncomment code below when the controller has been made)
 var userController = require("../controllers/userController.js");
 var skillController = require("../controllers/skillController.js");
 var reviewController = require("../controllers/reviewController.js");
 var appointmentController = require("../controllers/appointmentController.js");
-
+var credentialsController = require("../controllers/credentialsController.js");
 // Specify Our routes here
 // User Model Routes
 router.get("/user", userController.findAllUsers);
-router.post('/user', userController.registerUser);
-router.delete('/user/:id', userController.deleteUser);
-router.post('/user/:id', userController.updateProfile);
+router.delete("/user/:id", userController.deleteUser);
+router.post("/user/:id", userController.updateProfile);
+router.post("/credential", userController.findUserBasedOnCredential);
 
 // Should get UName from the body
-router.get('/user/name', userController.findUser);
+router.get("/user/name", userController.findUser);
 // Should get SkillName from the body
-router.get('/user/skills', userController.findUserBasedOnSkills);
+router.get("/user/skills", userController.findUserBasedOnSkills);
 
 // Skill Model Routes
-router.post('/skill', skillController.addNewSkill);
-router.get('/skill', skillController.findAllSkills);
-router.delete('/skill/:id', skillController.deleteSkill);
-router.post('/skill/:id', skillController.updateSkill);
+router.post("/skill", skillController.addNewSkill);
+router.get("/skill", skillController.findAllSkills);
+router.delete("/skill/:id", skillController.deleteSkill);
+router.post("/skill/:id", skillController.updateSkill);
 
-// Search skill based on name 
-router.get('/skill/:Name', skillController.searchSkill);
+// Search skill based on name
+router.get("/skill/:Name", auth.optional, skillController.searchSkill);
 
 // Review Model Routes
 router.get("/review", reviewController.getAllReview);
@@ -45,5 +47,9 @@ router.post("/appointment", appointmentController.addNewAppointments);
 router.delete("/appointment/:id", appointmentController.deleteAppointments);
 router.post("/appointment/:id", appointmentController.updateAppointments);
 
+// Credentials Model Routes
+router.post("/login", credentialsController.login);
+router.post("/user", credentialsController.newUser);
+router.get("/current", credentialsController.current);
 // Export the router
 module.exports = router;

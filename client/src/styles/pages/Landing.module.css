@@ -1,0 +1,172 @@
+.header {
+  font-family: 'league_spartanbold';
+  font-size: 3em;
+  color: #312d2d;
+}
+
+.subheader {
+  font-family: 'lato_bold'; 
+  font-size: 1.7em;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+.paragraph {
+  font-family:'proxima_nova';
+  font-size: 1.2em;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.36;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+.Landing {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  grid-template-rows: 1fr;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Description {
+  background-color: #FFAA6D;
+  padding-left: 6.1vw;
+  padding-top: 4.8vh;
+  padding-right: 9.3vw;
+}
+
+.Signup-button {
+  font-family: 'proxima_nova_semibold';
+  text-decoration: none !important;
+  grid-area: primary;
+}
+
+.Login-button {
+  font-family: 'proxima_nova_semibold';
+  text-decoration: none !important;
+  grid-area: secondary;
+}
+
+.Rightbar {
+  display: grid;
+  grid-template-columns: 1.2fr 2fr 1.2fr;
+  grid-template-rows: 10.6vh 8.4vh 4.1vh 8.4vh auto;
+  align-items: center;
+  grid-template-areas:
+    ". . ."
+    ". primary ."
+    ". . ."
+    ". secondary ."
+    ". . .";
+    background-image: url("../../assets/Graphics/tree.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.btn-primary {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #FB9B5E;
+  background-color: #FB9B5E;
+  color: black;
+  outline : none;
+  box-shadow: none;
+}
+
+.btn-primary:focus {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #FB9B5E;
+  background-color: #FB9B5E !important;
+  color: black;
+  outline : none !important;
+  box-shadow: none !important;
+}
+
+.btn-primary:hover {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #FC8341;
+  background-color: #fc8341 !important;
+  color: #ffffff;
+  outline : none;
+  box-shadow: none;
+}
+
+.btn-primary:active {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #fc8341;
+  background-color: #fc8341 !important;
+  color: #ffffff;
+  outline : none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #FFB27A;
+  background-color: #FFB27A;
+  color: black;
+  outline : none;
+  box-shadow: none;
+}
+
+.btn-secondary:focus {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #FFB27A;
+  background-color: #FFB27A !important;
+  color: black;
+  outline : none !important;
+  box-shadow: none !important;
+}
+
+.btn-secondary:hover {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #FF7D47;
+  background-color: #FF7D47 !important;
+  color: #ffffff;
+  outline : none;
+  box-shadow: none;
+}
+
+
+.btn-secondary:active {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: primary;
+  border: solid 1px #ffad49;
+  background-color: #ffb27a !important;
+  color: #000000;
+  outline : none;
+  box-shadow: none;
+}
+
+@media only screen and (max-width: 426px) {
+  .header {
+    font-size: 2.286em;
+  }
+
+  .subheader{
+    font-size: 1.643em;
+  }
+
+  .paragraph{
+    font-size: 1.071em; 
+  }
+}

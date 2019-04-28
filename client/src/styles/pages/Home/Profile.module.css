@@ -1,0 +1,43 @@
+.edit {
+  font-family: 'proxima_nova_semibold';
+  font-size: 2em;
+  text-transform: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+.profile {
+  margin-left: 8vw;
+  margin-top: 10px;
+  margin-right: 8vw;
+}
+
+.subheader {
+  font-family: "lato_bold";
+  font-size: 1.5em;
+}
+
+.oneliner {
+  font-family: "lato";
+  font-size: 1.4em;
+}
+
+.description {
+  font-family: "proxima_nova";
+  font-size: 1.4em;
+}
+
+.interestDisplay {
+  max-width: 500px;
+}
+
+.avatarEdit {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+.button {
+  padding: 0 !important;
+}

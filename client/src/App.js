@@ -3,35 +3,39 @@ import React, { Component } from "react";
 
 import {
   Route,
-  Link,
   Switch,
   Redirect
 } from 'react-router-dom';
 
-import Home from './components/Home';
+import Landing from './pages/Landing';
 import About from './components/About';
-// import Messages from './components/Messages';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import InvalidInfo from './pages/InvalidInfo';
+import ListSkill from './pages/ListSkill';
+import Home from './pages/Home';
+import Guideline from './pages/Guideline';
+import VerificationPass from './pages/VerificationPass';
+import VerificationFail from './pages/VerificationFail';
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to Mern Testing</h1>
-        </header>
-        <div className="menu">
-            <ul>
-              <li> <Link to="/">Home</Link> </li>
-              <li> <Link to="/about">About</Link> </li>
-            </ul>
-        </div>
-        <div className="App-intro">
-          <Switch>
-            <Route exact path="/"  component={Home} />
-            <Route path="/about" component={About} />
-            <Redirect to="/" />
-          </Switch>
-        </div>
+        <Switch>
+          <Route exact path="/"  component={Landing} />
+          <Route path="/about" component={About} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/invalid_info" component={InvalidInfo} />
+          <Route path="/list_skill" component={ListSkill} />
+          <Route path="/home" component={Home} />
+          <Route path="/guideline" component={Guideline} />
+          <Route path="/verification/pass" component={VerificationPass} />
+          <Route path="/verification/fail" component={VerificationFail} />
+          <Redirect to="/" />
+        </Switch>
       </div>
     );
   }

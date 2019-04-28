@@ -1,0 +1,27 @@
+.nav-tab {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.7em;
+  text-align: center;
+  background-color: #fff;
+  padding: 10px 10px;
+  color: #bbb;
+  text-decoration: none;
+}
+
+.nav-tab:hover {
+  background-color: white;
+}
+
+.nav-tab.active {
+  background-color: #fff;
+  color: #312d2d;
+  border-top: 1px solid white;
+  border-bottom: 2px solid orange;
+  cursor: default;
+}
+
+@media only screen and (max-width: 426px) {
+  .nav-tab {
+    font-size: 1.2em;
+  }
+}

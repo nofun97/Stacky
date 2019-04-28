@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var ObjectId = mongoose.Schema.Types.ObjectId;
+//TODO: remember to change schema and controller for Users to implement credentials
 
 // Details of the Users schema
 var userSchema = mongoose.Schema({
@@ -7,8 +8,7 @@ var userSchema = mongoose.Schema({
   LastName: String,
   DOB: Date,
   UName: String,
-  Email: String,
-  Password: String,
+  Credentials: ObjectId,
   IsVerified: Boolean,
   Address: String,
   Skills: [

@@ -1,0 +1,68 @@
+.header {
+  display: grid;
+  position: sticky;
+  top: 0;
+  grid-template-columns: 0.5fr 4fr;
+  grid-column-gap: 2.8vw;
+  grid-template-rows: 1.2fr 1fr;
+  background-color: white;
+  padding: 5px 8vw 0 8vw;
+  align-items: flex-end;
+  justify-items: stretch;
+  z-index: 10000;
+  grid-template-areas: 
+  "avatar title"
+  "avatar navtab";
+}
+
+.avatar {
+  margin: 0px 10px 10px 0px;
+  align-self: center;
+  justify-self: center;
+  grid-area: avatar;
+}
+
+.tab {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  grid-area: navtab
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: center;
+  align-items: center;
+  grid-area: title;
+}
+
+.guidelines {
+  font-family: "lato_bold";
+  color: black;
+  font-size: 1.5em;
+}
+
+.line {
+  margin: 0;
+}
+
+.page-title {
+  font-family: "league_spartanbold";
+  font-size: 2em;
+  margin: 0;
+}
+
+@media only screen and (max-width: 426px) {
+  .header {
+    grid-template-rows: 1.2fr 0.5fr;
+    grid-template-areas: 
+    "avatar title"
+    "navtab navtab";
+  }
+
+  .tab {
+    overflow-x: auto;
+  }
+}

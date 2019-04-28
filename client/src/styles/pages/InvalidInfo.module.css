@@ -1,0 +1,78 @@
+.InvalidInfo {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Main {
+  background-color: #ffffff;
+  padding-left: 6.1vw;
+  padding-top: 3.7vh;
+  padding-right: 4.3vw;
+}
+
+.header {
+  font-family:'league_spartanbold';
+  font-size: 3em;
+  color: #312d2d;
+}
+
+.subheader {
+  font-family:'proxima_nova';
+  font-size: 1.90em;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color: #312d2d;
+}
+
+.btn-secondary {
+  font-family: 'proxima_nova_semibold';
+  font-size: 1.480em; 
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  grid-area: confirm;
+}
+
+.form {
+  padding-top: 4.5vh;
+}
+
+.label {
+  font-family: 'lato_light';
+  font-size: 1.3em;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+.sublabel {
+  font-family: 'lato_light';
+  font-size: 1em;
+  padding-bottom: 5px;
+}
+
+.input {
+  margin-bottom: 20px;
+}
+
+.Illust {
+  border: solid 1px #979797;
+  background-color: #ffaa6d;
+}
+
+@media only screen and (max-width: 426px) {
+  .header {
+    font-size: 2.286em;
+  }
+
+  .subheader{
+    font-size: 1.500em;
+  }
+}
