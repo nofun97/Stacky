@@ -20,8 +20,18 @@ class Home extends Component {
     this.state = {
       page: "My Home",
       username: "Tester Man",
+      email: this.props.location.state.email,
+      id: this.props.location.state.id,
+      FirstName: "",
+      LastName: "",
+      DOB: "",
+      interest: [],
+      skill: [],
     };
+    console.log(this.state);
   }
+
+
   render() {
     return (
       <div>
@@ -46,7 +56,10 @@ class Home extends Component {
             <NavTab
               to={{
                 pathname: "/home/profile",
-                state: this.props.location.state,
+                state: {
+                  ...this.props.location.state
+                  
+                },
               }}
             >
               Profile
@@ -68,7 +81,21 @@ class Home extends Component {
         <hr className={styles.line} />
         <Switch>
           <Route exact path="/home" component={Dashboard} />
-          <Route path="/home/profile" component={Profile} />
+          <Route
+            path="/home/profile"
+            render={props => (
+              <Profile
+                {...props}
+                id={this.state.id}
+                email={this.state.email}
+                name={this.state.FirstName + " " + this.state.LastName}
+                dateOfBirth={this.state.DOB}
+                interest={this.state.interest}
+                skill={this.state.skill}
+              />
+            )}
+            // component={Profile}
+          />
           <Route path="/home/profile_edit" component={ProfileEdit} />
           <Route path="/home/chat" component={Chat} />
           <Route path="/home/search" component={Search} />
