@@ -16,38 +16,38 @@ class Login extends Component {
   }
 
   handleLogin(event) {
-    // const form = event.currentTarget;
+    const form = event.currentTarget;
     // Login logic
-    // if (form.checkValidity() === false) {
-    //   console.log("Login...");
-    //   console.log(this.state);
-    //   //TODO: put url in env?
-    //   fetch("http://localhost:5000/api/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       user: {
-    //         email: this.state.email,
-    //         password: this.state.password,
-    //       },
-    //     }),
-    //   })
-    //     .then(data => {
-    //       console.log("Login successful!");
-    //       console.log(data);
-    //       // For authentication stuff (if ok then redirect) for now just redirect
-    //       // if (data.ok === true) {
-    //       // }
-    //       this.props.history.push("/home");
-    //     })
-    //     .catch(err => {
-    //       console.log("Login not succesful");
-    //       console.log(err);
-    //     });
-    // }
-    this.setState({successful: true});
+    if (form.checkValidity() === true) {
+      console.log("Login...");
+      console.log(this.state);
+      //TODO: put url in env?
+      fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user: {
+            email: this.state.email,
+            password: this.state.password,
+          },
+        }),
+      })
+        .then(data => {
+          console.log("Login successful!");
+          console.log(data);
+          // For authentication stuff (if ok then redirect) for now just redirect
+          // if (data.ok === true) {
+          // }
+          this.props.history.push("/home");
+        })
+        .catch(err => {
+          console.log("Login not succesful");
+          console.log(err);
+        });
+    }
+    // this.setState({successful: true});
     event.preventDefault();
     event.stopPropagation();
   }
