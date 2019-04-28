@@ -9,34 +9,72 @@ import styles from "../../styles/pages/Home/Profile.module.css";
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      editMode: false,
-      name: "Tester man",
-      email: "abc@abc.com",
-      dateOfBirth: "2019-04-04",
-      interest: [{ value: "a", level: "Intermediate", id: "a" }],
-      skill: [{ value: "Algorithm", level: "Advanced", id: "sdsdsd" }],
-    };
+    this.handleEdit = this.handleEdit.bind(this);
+
+    let description;
+
+    if (this.props.location.state === undefined) {
+      description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+        facere dicta sapiente numquam voluptate iure deleniti veritatis odit
+        veniam non nobis provident exercitationem autem, quam nesciunt
+        quisquam odio asperiores dignissimos.`;
+      this.state = {
+        editMode: false,
+        name: "placeholder for name",
+        email: "placeholder for email",
+        dateOfBirth: "placeholder for DOB",
+        interest: [],
+        skill: [],
+        description: description,
+      };
+    } else {
+      if (this.props.location.state.description === undefined) {
+        description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+        facere dicta sapiente numquam voluptate iure deleniti veritatis odit
+        veniam non nobis provident exercitationem autem, quam nesciunt
+        quisquam odio asperiores dignissimos.`;
+      } else {
+        description = this.props.location.state.description;
+      }
+      this.state = {
+        editMode: false,
+        name: `${this.props.location.state.LastName} ${
+          this.props.location.state.FirstName
+        }`,
+        email: this.props.location.state.email,
+        dateOfBirth: this.props.location.state.DOB,
+        interest: this.props.location.state.userInterest,
+        skill: this.props.location.state.userSkill,
+        description: description,
+      };
+    }
   }
 
-  handleSubmit() {
+  // handle if edit is clicked
+  handleEdit() {
     this.setState({
       editMode: true,
     });
   }
-  // Get all the state before mount
 
   render() {
     if (this.state.editMode) {
-      return <Redirect exact to="/home/profile_edit"/>;
+      return (
+        <Redirect
+          exact
+          to={{
+            pathname: "/home/profile_edit",
+            state: this.state,
+          }}
+        />
+      );
     }
 
     return (
       <section className={styles.profile}>
         <div className={styles.avatarEdit}>
           <Avatar name={this.state.name} />
-          <Button className={styles.button} onClick={this.handleSubmit}>
+          <Button className={styles.button} onClick={this.handleEdit}>
             <p className={styles.edit}>Edit</p>
           </Button>
         </div>
@@ -60,12 +98,7 @@ class Profile extends Component {
           className={styles.interestDisplay}
         />
         <h3 className={styles.subheader}>Description</h3>
-        <p className={styles.description}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-          facere dicta sapiente numquam voluptate iure deleniti veritatis odit
-          veniam non nobis provident exercitationem autem, quam nesciunt
-          quisquam odio asperiores dignissimos.
-        </p>
+        <p className={styles.description}>{this.state.description}</p>
       </section>
     );
   }
