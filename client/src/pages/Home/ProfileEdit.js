@@ -26,13 +26,21 @@ class ProfileEdit extends Component {
       { value: "algorithm", label: "algorithm" },
       { value: "baking", label: "baking" },
       { value: "caligraphy", label: "caligraphy" },
-    ].filter(opt => !this.props.location.state.interest.map(x => x.value).includes(opt.value) );
+    ].filter(
+      opt =>
+        !this.props.location.state.interest
+          .map(x => x.value)
+          .includes(opt.value)
+    );
 
     let skillOption = [
       { value: "algorithm", label: "algorithm" },
       { value: "baking", label: "baking" },
       { value: "caligraphy", label: "caligraphy" },
-    ].filter(opt => !this.props.location.state.skill.map(x => x.value).includes(opt.value) );
+    ].filter(
+      opt =>
+        !this.props.location.state.skill.map(x => x.value).includes(opt.value)
+    );
 
     this.state = {
       submitted: false,
@@ -65,10 +73,9 @@ class ProfileEdit extends Component {
   }
 
   // handle description change
-  handleDescriptionChange(event){
+  handleDescriptionChange(event) {
     this.setState({ description: event.target.value });
   }
-
 
   // handler for the thing selected for interest
   handleInterestSelect(value) {
@@ -197,23 +204,27 @@ class ProfileEdit extends Component {
   // handler when the interest is removed (need to add the option back to the select)
   handleRemove(value, type) {
     console.log(value, type);
-    if(type === "Interest") {
-      let userInterest = this.state.userInterest.filter(opt => opt.value !== value);
-      let option = [{value: value, label: value}, ...this.state.interestOption];
+    if (type === "Interest") {
+      let userInterest = this.state.userInterest.filter(
+        opt => opt.value !== value
+      );
+      let option = [
+        { value: value, label: value },
+        ...this.state.interestOption,
+      ];
       this.setState({
         userInterest: userInterest,
         interestOption: option,
-      })
-    } else if(type === "Skill") {
+      });
+    } else if (type === "Skill") {
       let userSkill = this.state.userSkill.filter(opt => opt.value !== value);
-      let option = [{value: value, label: value}, ...this.state.skillOption];
+      let option = [{ value: value, label: value }, ...this.state.skillOption];
       this.setState({
         userSkill: userSkill,
         skillOption: option,
-      })
+      });
     }
   }
-
 
   handleSubmit() {
     this.setState({ submitted: true });
@@ -233,6 +244,7 @@ class ProfileEdit extends Component {
               userInterest: this.state.userInterest,
               userSkill: this.state.userSkill,
               description: this.state.description,
+              noBackend: true,
             },
           }}
         />
@@ -283,7 +295,12 @@ class ProfileEdit extends Component {
             options={this.state.interestOption}
             onChange={this.handleInterestSelect}
           />
-          <Button className={styles["add-button"]} onClick={this.handleAddInterest}>Add</Button>
+          <Button
+            className={styles["add-button"]}
+            onClick={this.handleAddInterest}
+          >
+            Add
+          </Button>
           <InterestEditorList
             handleSliderChange={this.handleSliderChange}
             handleRemove={this.handleRemove}
@@ -304,7 +321,12 @@ class ProfileEdit extends Component {
             options={this.state.skillOption}
             onChange={this.handleSkillSelect}
           />
-          <Button className={styles["add-button"]} onClick={this.handleAddSkill}>Add</Button>
+          <Button
+            className={styles["add-button"]}
+            onClick={this.handleAddSkill}
+          >
+            Add
+          </Button>
           <InterestEditorList
             handleSliderChange={this.handleSliderChange}
             handleRemove={this.handleRemove}
