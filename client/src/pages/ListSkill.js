@@ -183,7 +183,6 @@ class ListSkill extends Component {
     this.setState({
       submitted: true,
     });
-    // this.props.history.push("/home");
   }
 
   render() {
@@ -195,6 +194,7 @@ class ListSkill extends Component {
             state: {
               userInterest: this.state.userInterest,
               userSkill: this.state.userSkill,
+              noBackend: true,
               ...this.props.location.state,
             },
           }}
