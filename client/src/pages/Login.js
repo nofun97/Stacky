@@ -10,6 +10,7 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
+      id: "",
       successful: false,
     };
     this.handleLogin = this.handleLogin.bind(this);
@@ -20,7 +21,6 @@ class Login extends Component {
     // Login logic
     if (form.checkValidity() === true) {
       console.log("Login...");
-      console.log(this.state);
       //TODO: put url in env?
       fetch("http://localhost:5000/api/login", {
         method: "POST",
@@ -34,13 +34,18 @@ class Login extends Component {
           },
         }),
       })
+        .then(response => {
+          return response.json();
+        })
         .then(data => {
           console.log("Login successful!");
-          console.log(data);
+          // console.log(data);
+
           // For authentication stuff (if ok then redirect) for now just redirect
           // if (data.ok === true) {
           // }
-          this.props.history.push("/home");
+          // this.props.history.push("/home");
+          this.setState({ id: data.user._id, successful: true });
         })
         .catch(err => {
           console.log("Login not succesful");
@@ -54,7 +59,19 @@ class Login extends Component {
 
   render() {
     if (this.state.successful === true) {
-      return <Redirect to="/home" />;
+      console.log(this.state);
+      return (
+        <Redirect
+          to={{
+            pathname: "/home",
+            state: {
+              id: this.state.id,
+              email: this.state.email,
+              noBackend: false
+            },
+          }}
+        />
+      );
     }
     return (
       <div className={styles.Login}>
