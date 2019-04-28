@@ -1,3 +1,4 @@
+// not used component (just for template)
 import React, { Component } from "react";
 import axios from "axios";
 
