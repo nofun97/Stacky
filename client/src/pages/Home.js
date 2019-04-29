@@ -17,17 +17,32 @@ import Search from "./Home/Search";
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      page: "My Home",
-      username: "Tester Man",
-      email: this.props.location.state.email,
-      id: this.props.location.state.id,
-      FirstName: "",
-      LastName: "",
-      DOB: "",
-      interest: [],
-      skill: [],
-    };
+    if(this.props.location.state === undefined){
+      this.state = {
+        page: "My Home",
+        username: "Username placeholder",
+        email: "Email placeholder",
+        id: "id placeholder",
+        FirstName: "",
+        LastName: "",
+        DOB: "",
+        interest: [],
+        skill: [],
+      }
+    } else {
+      this.state = {
+        page: "My Home",
+        username: "Tester Man",
+        email: this.props.location.state.email,
+        id: this.props.location.state.id,
+        FirstName: "",
+        LastName: "",
+        DOB: "",
+        interest: [],
+        skill: [],
+      };
+    }
+
     console.log(this.state);
   }
 
