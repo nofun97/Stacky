@@ -9,6 +9,7 @@
   padding-left: 6.1vw;
   padding-top: 7vh;
   margin-right: 16%;
+  padding-bottom: 15px;
 }
 
 .header {
@@ -49,10 +50,6 @@
   line-height: 1.36;
   letter-spacing: normal;
   color: #000000;
-}
-
-li {
-  margin: 1.5em 0;
 }
 
 .Illust {

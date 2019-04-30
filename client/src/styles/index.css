@@ -85,7 +85,6 @@ body {
   font-size: 14px; 
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+li {
+  margin: 1em 0;
 }
