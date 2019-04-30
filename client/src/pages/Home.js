@@ -17,7 +17,8 @@ import Search from "./Home/Search";
 class Home extends Component {
   constructor(props) {
     super(props);
-    if(this.props.location.state === undefined){
+
+    if (this.props.location.state === undefined) {
       this.state = {
         page: "My Home",
         username: "Username placeholder",
@@ -28,7 +29,7 @@ class Home extends Component {
         DOB: "",
         interest: [],
         skill: [],
-      }
+      };
     } else {
       this.state = {
         page: "My Home",
@@ -46,8 +47,32 @@ class Home extends Component {
     console.log(this.state);
   }
 
-
   render() {
+    // to change header title depending on path
+    let pageName;
+    switch (this.props.location.pathname) {
+      case "/home":
+        pageName = "My Home";
+        break;
+
+      case "/home/profile":
+        pageName = "My Profile";
+        break;
+
+      case "/home/search":
+        pageName = "Find People";
+        break;
+
+      // To be implemented later
+      case "/home/chat":
+        pageName = "My Home";
+        break;
+
+      default:
+        pageName = "My Home";
+        break;
+    }
+
     return (
       <div>
         <header className={styles.header}>
@@ -60,7 +85,7 @@ class Home extends Component {
             src="http://gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3"
           />
           <div className={styles.title}>
-            <h1 className={styles["page-title"]}>{this.state.page}</h1>
+            <h1 className={styles["page-title"]}>{pageName}</h1>
             {/* Implement link to guideline page */}
             <Link to="/guideline">
               <p className={styles.guidelines}>Guidelines</p>
@@ -72,8 +97,7 @@ class Home extends Component {
               to={{
                 pathname: "/home/profile",
                 state: {
-                  ...this.props.location.state
-                  
+                  ...this.props.location.state,
                 },
               }}
             >
@@ -88,9 +112,7 @@ class Home extends Component {
             <NavTab disabled to="/home/chat">
               Chat
             </NavTab>
-            <NavTab disabled to="/home/search">
-              Search
-            </NavTab>
+            <NavTab to="/home/search">Search</NavTab>
           </div>
         </header>
         <hr className={styles.line} />
