@@ -141,13 +141,17 @@ var findUserBasedOnCredential = function(req, res) {
 var findNUsers = function(req, res) {
   var index = parseInt(req.query.from);
   var size = parseInt(req.query.size);
+  var skills = req.query.skills.split(",");
   if (index == null || size == null) {
     res.sendStatus(400);
     console.log("index and size must be defined");
   }
-
-  console.log(`finding ${size} users from ${index}`);
-  User.paginate({}, { offset: index, limit: size }, (err, result) => {
+  var query = {};
+  if (skills != null) {
+    query = { "Skills.Skill": { $all: skills } };
+  }
+  console.log(query);
+  User.paginate(query, { offset: index, limit: size }, (err, result) => {
     if (!err) {
       console.log(`Total data: ${result.totalDocs}`);
       res.send({
