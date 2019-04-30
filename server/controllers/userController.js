@@ -128,10 +128,27 @@ var findUserBasedOnSkills = function(req, res) {
 };
 
 var findUserBasedOnCredential = function(req, res) {
-  console.log(req.body.Credentials);
   User.findOne({ Credentials: req.body.Credentials }, function(err, user) {
     if (!err) {
       res.send(user);
+    } else {
+      console.log(err);
+      res.sendStatus(400);
+    }
+  });
+};
+
+// /users?from=%d&size=%d
+var findNUsers = function(req, res) {
+  var index = parseInt(req.query.from);
+  var size = parseInt(req.query.size);
+  console.log(`finding ${size} users from ${index}`);
+  User.paginate({}, { offset: index, limit: size }, (err, result) => {
+    if (!err) {
+      res.send({
+        users: result.docs,
+        total: result.total,
+      });
     } else {
       console.log(err);
       res.sendStatus(400);
@@ -147,3 +164,4 @@ module.exports.deleteUser = deleteUser;
 module.exports.updateProfile = updateProfile;
 module.exports.findUserBasedOnSkills = findUserBasedOnSkills;
 module.exports.findUserBasedOnCredential = findUserBasedOnCredential;
+module.exports.findNUsers = findNUsers;
