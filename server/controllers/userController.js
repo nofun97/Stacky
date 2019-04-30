@@ -145,9 +145,10 @@ var findNUsers = function(req, res) {
   console.log(`finding ${size} users from ${index}`);
   User.paginate({}, { offset: index, limit: size }, (err, result) => {
     if (!err) {
+      console.log(`Total data: ${result.totalDocs}`);
       res.send({
         users: result.docs,
-        total: result.total,
+        total: result.totalDocs,
       });
     } else {
       console.log(err);
