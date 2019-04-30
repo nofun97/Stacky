@@ -15,6 +15,8 @@ router.get("/user", userController.findAllUsers);
 router.delete("/user/:id", userController.deleteUser);
 router.post("/user/:id", userController.updateProfile);
 router.post("/credential", userController.findUserBasedOnCredential);
+
+// /users?from=%d&size=%d
 router.get("/users", userController.findNUsers);
 // Should get UName from the body
 router.get("/user/name", userController.findUser);

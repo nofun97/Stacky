@@ -138,10 +138,14 @@ var findUserBasedOnCredential = function(req, res) {
   });
 };
 
-// /users?from=%d&size=%d
 var findNUsers = function(req, res) {
   var index = parseInt(req.query.from);
   var size = parseInt(req.query.size);
+  if (index == null || size == null) {
+    res.sendStatus(400);
+    console.log("index and size must be defined");
+  }
+
   console.log(`finding ${size} users from ${index}`);
   User.paginate({}, { offset: index, limit: size }, (err, result) => {
     if (!err) {
