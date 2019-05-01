@@ -29,8 +29,8 @@ var newUser = function(req, res, next) {
   // console.log(finalUser);
   finalUser.setPassword(user.password);
   var ID = finalUser.toAuthJSON()._id;
-  finalUser.save().then(() => res.json({ user: finalUser.toAuthJSON() }));
-  return userController.registerUser(req, res, ID);
+  finalUser.save();
+  return userController.registerUser(req, res, finalUser.toAuthJSON());
 };
 
 // Login

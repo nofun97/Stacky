@@ -16,12 +16,12 @@ var findAllUsers = function(req, res) {
   });
 };
 
-var registerUser = function(req, res, id) {
+var registerUser = function(req, res, credential) {
   var data = new User({
     FirstName: req.body.FirstName,
     LastName: req.body.LastName,
     DOB: req.body.DOB,
-    Credentials: id,
+    Credentials: credential._id,
     UName: req.body.UName,
     IsVerified: req.body.IsVerified,
     Address: req.body.Address,
@@ -29,16 +29,18 @@ var registerUser = function(req, res, id) {
     Interests: req.body.Interests,
   });
   // console.log("Just after defining data for registerUser");
-  data.save();
-  // data.save(function(err, skill) {
-  //   if (!err) {
-  //     res.send(skill);
-  //     // console.log(skill);
-  //   } else {
-  //     console.log(err);
-  //     res.sendStatus(400);
-  //   }
-  // });
+  // data.save();
+  data.save(function(err, skill) {
+    if (!err) {
+      res.set("Content-Type", "application/json");
+      res.set("Set-Cookie", `Token=${credential.token}`);
+      res.send(skill);
+      console.log(skill);
+    } else {
+      console.log(err);
+      res.sendStatus(400);
+    }
+  });
 };
 
 var deleteUser = function(req, res) {
