@@ -17,6 +17,7 @@ import Home from './pages/Home';
 import Guideline from './pages/Guideline';
 import VerificationPass from './pages/VerificationPass';
 import VerificationFail from './pages/VerificationFail';
+import OthersProfile from './pages/OthersProfile';
 
 
 class App extends Component {
@@ -34,6 +35,8 @@ class App extends Component {
           <Route path="/guideline" component={Guideline} />
           <Route path="/verification/pass" component={VerificationPass} />
           <Route path="/verification/fail" component={VerificationFail} />
+          {/* Route for other people profile */}
+          <Route path="/user" component={OthersProfile} />
           <Redirect to="/" />
         </Switch>
       </div>

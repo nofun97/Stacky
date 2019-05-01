@@ -1,0 +1,29 @@
+.layout {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+  width: 100vw;
+  height: 100vh;
+}
+
+.profile {
+  padding-top: 7vh;
+}
+
+.options {
+  grid-column: 1/2;
+  background-color: #ffaa6d;
+}
+
+.interestDisplay {
+  max-width: 500px;
+}
+
+.suboption {
+  color: black;
+  text-decoration: none;
+}
+
+.suboption:hover {
+  color: black;
+  text-decoration: none;
+}

@@ -8,6 +8,7 @@
 .Main {
   padding-left: 6.1vw;
   padding-top: 7vh;
+  padding-bottom: 15px;
   margin-right: 8%;
 }
 
@@ -19,7 +20,7 @@
 }
 
 .subheader {
-  font-family: "lato_bold";
+  font-family: "proxima_nova_semibold";
   font-size: 2em;
   font-style: normal;
   font-stretch: normal;
@@ -35,12 +36,8 @@
   font-style: normal;
   font-stretch: normal;
   line-height: 1em;
-  letter-spacing: 0.4;
+  letter-spacing: 0.014em;
   color: #000000;
-}
-
-li {
-  margin: 1em 0;
 }
 
 .button {
@@ -95,7 +92,7 @@ li {
 }
 
 .image {
-  background-image: url("../../assets/Graphics/tree.svg");
+  background-image: url("../../assets/Graphics/tree sides .svg");
   background-repeat: no-repeat;
   height: 100%;
   background-size: cover;
@@ -103,31 +100,27 @@ li {
 }
 
 @media only screen and (max-width: 426px) { 
+
   .Main {
     padding-left: 6.1vw;
     padding-top: 7vh;
     margin-right: 12%;
   }
-  
+
   .header {
-    font-family: "league_spartanbold";
-    font-size: 2.8em;
-    line-height: 1.3;
-    color: #312d2d;
+    font-size: 2.286em;
   }
-  
   .subheader {
-    font-family: "lato_bold";
-    font-size: 1.9em;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.2;
-    letter-spacing: normal;
-    color: #000000;
+    font-size: 1.429em;
+  }
+  .Information {
+    font-size: 1.143em;
+    line-height: 1.357em; 
+    letter-spacing: 0.014em; 
   }
 
   .image {
-    background-image: url("../../assets/Graphics/tree.svg");
+    background-image: url("../../assets/Graphics/tree sides .svg");
     background-repeat: no-repeat;
     height: 100%;
     background-size: 75vh;
@@ -135,3 +128,4 @@ li {
     background-origin: border-box;
   }
 }
+

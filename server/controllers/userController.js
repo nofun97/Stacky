@@ -29,15 +29,16 @@ var registerUser = function(req, res, id) {
     Interests: req.body.Interests,
   });
   // console.log("Just after defining data for registerUser");
-  data.save(function(err, skill) {
-    if (!err) {
-      res.send(skill);
-      // console.log(skill);
-    } else {
-      console.log(err);
-      res.sendStatus(400);
-    }
-  });
+  data.save();
+  // data.save(function(err, skill) {
+  //   if (!err) {
+  //     res.send(skill);
+  //     // console.log(skill);
+  //   } else {
+  //     console.log(err);
+  //     res.sendStatus(400);
+  //   }
+  // });
 };
 
 var deleteUser = function(req, res) {
@@ -125,6 +126,19 @@ var findUserBasedOnSkills = function(req, res) {
     }
   );
 };
+
+var findUserBasedOnCredential = function(req, res) {
+  console.log(req.body.Credentials);
+  User.findOne({ Credentials: req.body.Credentials }, function(err, user) {
+    if (!err) {
+      res.send(user);
+    } else {
+      console.log(err);
+      res.sendStatus(400);
+    }
+  });
+};
+
 // Export the variable
 module.exports.findAllUsers = findAllUsers;
 module.exports.registerUser = registerUser;
@@ -132,3 +146,4 @@ module.exports.findUser = findUser;
 module.exports.deleteUser = deleteUser;
 module.exports.updateProfile = updateProfile;
 module.exports.findUserBasedOnSkills = findUserBasedOnSkills;
+module.exports.findUserBasedOnCredential = findUserBasedOnCredential;

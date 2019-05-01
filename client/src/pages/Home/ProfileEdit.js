@@ -13,51 +13,242 @@ class ProfileEdit extends Component {
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAddInterest = this.handleAddInterest.bind(this);
+    this.handleAddSkill = this.handleAddSkill.bind(this);
+    this.handleSkillSelect = this.handleSkillSelect.bind(this);
+    this.handleInterestSelect = this.handleInterestSelect.bind(this);
+    this.handleSliderChange = this.handleSliderChange.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
+
+    let interestOption = [
+      { value: "algorithm", label: "algorithm" },
+      { value: "baking", label: "baking" },
+      { value: "caligraphy", label: "caligraphy" },
+    ].filter(
+      opt =>
+        !this.props.location.state.interest
+          .map(x => x.value)
+          .includes(opt.value)
+    );
+
+    let skillOption = [
+      { value: "algorithm", label: "algorithm" },
+      { value: "baking", label: "baking" },
+      { value: "caligraphy", label: "caligraphy" },
+    ].filter(
+      opt =>
+        !this.props.location.state.skill.map(x => x.value).includes(opt.value)
+    );
+
     this.state = {
       submitted: false,
-      editMode: false,
-      name: "Tester man",
-      email: "abc@abc.com",
-      dateOfBirth: "2019-04-04",
-      interestOption: [
-        { value: "a", label: "a" },
-        { value: "b", label: "b" },
-        { value: "c", label: "c" },
-      ],
-      skillOption: [
-        { value: "a", label: "a" },
-        { value: "b", label: "b" },
-        { value: "c", label: "c" },
-      ],
-      selectedInterest: [{ value: "a", level: "Intermediate", id: "a" }],
-      selectedSkill: [{ value: "Algorithm", level: "Advanced", id: "sdsdsd" }],
+      name: this.props.location.state.name,
+      email: this.props.location.state.email,
+      dateOfBirth: this.props.location.state.dateOfBirth,
+      interestOption: interestOption,
+      skillOption: skillOption,
+      selectedInterest: null,
+      selectedSkill: null,
+      userInterest: this.props.location.state.interest,
+      userSkill: this.props.location.state.skill,
+      description: this.props.location.state.description,
     };
   }
 
+  // handle name change
   handleNameChange(event) {
     this.setState({ name: event.target.value });
   }
 
+  // handle email change
   handleEmailChange(event) {
     this.setState({ email: event.target.value });
   }
 
-  // The value of input date is in "2019-04-04" format
+  // handle DOB change ,The value of input date is in "2019-04-04" format
   handleDateChange(event) {
     this.setState({ dateOfBirth: event.target.value });
   }
 
-  // Handler for slider change
-  handleSliderChange() {}
+  // handle description change
+  handleDescriptionChange(event) {
+    this.setState({ description: event.target.value });
+  }
+
+  // handler for the thing selected for interest
+  handleInterestSelect(value) {
+    if (value !== null) {
+      this.setState({
+        selectedInterest: {
+          value: value.value,
+          level: "Beginner",
+          id: value.value,
+          label: value.value,
+        },
+      });
+    } else {
+      this.setState({
+        selectedInterest: null,
+      });
+    }
+  }
+
+  // handler for thing selected for skill
+  handleSkillSelect(value) {
+    if (value !== null) {
+      this.setState({
+        selectedSkill: {
+          value: value.value,
+          level: "Intermediate",
+          id: value.value,
+          label: value.value,
+        },
+      });
+    } else {
+      this.setState({
+        selectedSkill: null,
+      });
+    }
+  }
+
+  // handler when interest add button is clicked (need to remove the option from the select)
+  handleAddInterest() {
+    if (this.state.selectedInterest !== null) {
+      let option = this.state.interestOption.filter(
+        opt => opt.value !== this.state.selectedInterest.value
+      );
+      let userInterest = [
+        this.state.selectedInterest,
+        ...this.state.userInterest,
+      ];
+      this.setState({
+        interestOption: option,
+        userInterest: userInterest,
+        selectedInterest: null,
+      });
+    }
+  }
+
+  // handler when skill add button is clicked (need to remove the option from the select)
+  handleAddSkill() {
+    if (this.state.selectedSkill !== null) {
+      let option = this.state.skillOption.filter(
+        opt => opt.value !== this.state.selectedSkill.value
+      );
+      let userSkill = [this.state.selectedSkill, ...this.state.userSkill];
+      this.setState({
+        skillOption: option,
+        userSkill: userSkill,
+        selectedSkill: null,
+      });
+    }
+  }
+
+  // handler for changes in slider of the interest
+  handleSliderChange(sliderValue, type, keyValue) {
+    var level = 0;
+
+    if (type === "Interest") {
+      switch (sliderValue) {
+        case 0:
+          level = "Beginner";
+          break;
+
+        case 50:
+          level = "Intermediate";
+          break;
+
+        case 100:
+          level = "Advanced";
+          break;
+
+        default:
+          level = "Beginner";
+      }
+      let interestArray = this.state.userInterest;
+      for (let interest of interestArray) {
+        if (interest.value === keyValue) {
+          interest.level = level;
+        }
+      }
+      this.setState({ userInterest: interestArray });
+    } else if (type === "Skill") {
+      switch (sliderValue) {
+        case 0:
+          level = "Intermediate";
+          break;
+
+        case 50:
+          level = "Advanced";
+          break;
+
+        case 100:
+          level = "Expert";
+          break;
+
+        default:
+          level = "Intermediate";
+      }
+      let skillArray = this.state.userSkill;
+      for (let skill of skillArray) {
+        if (skill.value === keyValue) {
+          skill.level = level;
+        }
+      }
+      this.setState({ userSkill: skillArray });
+    }
+  }
+
+  // handler when the interest is removed (need to add the option back to the select)
+  handleRemove(value, type) {
+    console.log(value, type);
+    if (type === "Interest") {
+      let userInterest = this.state.userInterest.filter(
+        opt => opt.value !== value
+      );
+      let option = [
+        { value: value, label: value },
+        ...this.state.interestOption,
+      ];
+      this.setState({
+        userInterest: userInterest,
+        interestOption: option,
+      });
+    } else if (type === "Skill") {
+      let userSkill = this.state.userSkill.filter(opt => opt.value !== value);
+      let option = [{ value: value, label: value }, ...this.state.skillOption];
+      this.setState({
+        userSkill: userSkill,
+        skillOption: option,
+      });
+    }
+  }
 
   handleSubmit() {
-    this.setState({ submitted: true })
+    this.setState({ submitted: true });
   }
 
   render() {
-    if(this.state.submitted === true){
-      return <Redirect to="/home/profile"/>;
+    if (this.state.submitted === true) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/home/profile",
+            state: {
+              LastName: this.state.name,
+              FirstName: "",
+              email: this.state.email,
+              DOB: this.state.dateOfBirth,
+              userInterest: this.state.userInterest,
+              userSkill: this.state.userSkill,
+              description: this.state.description,
+              noBackend: true,
+            },
+          }}
+        />
+      );
     }
 
     return (
@@ -99,17 +290,23 @@ class ProfileEdit extends Component {
             classNamePrefix="select"
             isClearable={true}
             isSearchable={true}
+            value={this.state.selectedInterest}
             name="interest"
             options={this.state.interestOption}
-            onChange={() => {}}
+            onChange={this.handleInterestSelect}
           />
-          <Button className={styles["add-button"]}>Add</Button>
+          <Button
+            className={styles["add-button"]}
+            onClick={this.handleAddInterest}
+          >
+            Add
+          </Button>
           <InterestEditorList
             handleSliderChange={this.handleSliderChange}
             handleRemove={this.handleRemove}
             type="Interest"
             className={styles.editors}
-            values={this.state.selectedInterest}
+            values={this.state.userInterest}
           />
         </section>
         <h3 className={styles.subheader}>Skills</h3>
@@ -119,17 +316,23 @@ class ProfileEdit extends Component {
             classNamePrefix="select"
             isClearable={true}
             isSearchable={true}
+            value={this.state.selectedSkill}
             name="skill"
             options={this.state.skillOption}
-            onChange={() => {}}
+            onChange={this.handleSkillSelect}
           />
-          <Button className={styles["add-button"]}>Add</Button>
+          <Button
+            className={styles["add-button"]}
+            onClick={this.handleAddSkill}
+          >
+            Add
+          </Button>
           <InterestEditorList
             handleSliderChange={this.handleSliderChange}
             handleRemove={this.handleRemove}
             type="Skill"
             className={styles.editors}
-            values={this.state.selectedSkill}
+            values={this.state.userSkill}
           />
         </section>
         <h3 className={styles.subheader}>Description</h3>

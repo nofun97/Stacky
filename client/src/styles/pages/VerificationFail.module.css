@@ -9,6 +9,7 @@
   padding-left: 6.1vw;
   padding-top: 7vh;
   margin-right: 16%;
+  padding-bottom: 15px;
 }
 
 .header {
@@ -51,10 +52,6 @@
   color: #000000;
 }
 
-li {
-  margin: 1.5em 0;
-}
-
 .Illust {
   grid-column: 2/3;
   grid-row: 1/2;
@@ -63,7 +60,7 @@ li {
 }
 
 .image {
-  background-image: url("../../assets/Graphics/tree.svg");
+  background-image: url("../../assets/Graphics/tree sides .svg");
   background-repeat: no-repeat;
   height: 100%;
   background-size: cover;
@@ -76,8 +73,12 @@ li {
     padding-top: 7vh;
   }
 
+  .header {
+    font-size: 2.286em;
+  }
+
   .image {
-    background-image: url("../../assets/Graphics/tree.svg");
+    background-image: url("../../assets/Graphics/tree sides .svg");
     background-repeat: no-repeat;
     height: 100%;
     background-size: 75vh;

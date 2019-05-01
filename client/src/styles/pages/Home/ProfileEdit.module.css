@@ -130,3 +130,13 @@
   outline: none;
   box-shadow: none;
 }
+
+@media only screen and (max-width: 426px){
+  submit-button:hover {
+    font-family: "proxima_nova_semibold";
+    border: solid 1px #ff9d25;
+    background-color: #ff9d25;
+    color: white;
+  }
+
+}

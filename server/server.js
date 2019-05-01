@@ -1,13 +1,16 @@
 require("dotenv").config();
 var cors = require("cors");
 var express = require("express");
+var session = require('express-session');
 var app = express();
 var bodyParser = require("body-parser");
 var path = require("path");
 
 app.use(cors());
+app.use(require('morgan')('dev'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({ secret: 'stacky', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
 
 const PORT = process.env.PORT || 5000;
 

@@ -4,8 +4,6 @@ import { Route, Switch, Redirect, Link } from "react-router-dom";
 import { NavTab } from "react-router-tabs";
 // https://github.com/Sitebase/react-avatar
 import Avatar from "react-avatar";
-// import Navbar from "react-bootstrap/Navbar";
-// import Nav from "react-bootstrap/Nav";
 
 import "../styles/components/HomeTab.css";
 import styles from "../styles/pages/Home.module.css";
@@ -19,12 +17,62 @@ import Search from "./Home/Search";
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      page: "My Home",
-      username: "Tester Man",
-    };
+
+    if (this.props.location.state === undefined) {
+      this.state = {
+        page: "My Home",
+        username: "Username placeholder",
+        email: "Email placeholder",
+        id: "id placeholder",
+        FirstName: "",
+        LastName: "",
+        DOB: "",
+        interest: [],
+        skill: [],
+      };
+    } else {
+      this.state = {
+        page: "My Home",
+        username: "Tester Man",
+        email: this.props.location.state.email,
+        id: this.props.location.state.id,
+        FirstName: "",
+        LastName: "",
+        DOB: "",
+        interest: [],
+        skill: [],
+      };
+    }
+
+    console.log(this.state);
   }
+
   render() {
+    // to change header title depending on path
+    let pageName;
+    switch (this.props.location.pathname) {
+      case "/home":
+        pageName = "My Home";
+        break;
+
+      case "/home/profile":
+        pageName = "My Profile";
+        break;
+
+      case "/home/search":
+        pageName = "Find People";
+        break;
+
+      // To be implemented later
+      case "/home/chat":
+        pageName = "My Home";
+        break;
+
+      default:
+        pageName = "My Home";
+        break;
+    }
+
     return (
       <div>
         <header className={styles.header}>
@@ -37,40 +85,54 @@ class Home extends Component {
             src="http://gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3"
           />
           <div className={styles.title}>
-            <h1 className={styles["page-title"]}>{this.state.page}</h1>
+            <h1 className={styles["page-title"]}>{pageName}</h1>
             {/* Implement link to guideline page */}
             <Link to="/guideline">
               <p className={styles.guidelines}>Guidelines</p>
             </Link>
           </div>
           <div className={styles.tab}>
-            {/* <Navbar collapseOnSelect expand="lg" bg="light">
-              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-              <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="mr-auto">
-                  <Nav.Link href="/home/profile">Profile</Nav.Link>
-                  <Nav.Link href="/home">My Home</Nav.Link>
-                  <Nav.Link href="/home/chat">Chat</Nav.Link>
-                  <Nav.Link href="/home/search">Search</Nav.Link>
-                </Nav>
-              </Navbar.Collapse>
-            </Navbar> */}
-            <NavTab to="/home/profile">Profile</NavTab>
-            <NavTab exact to="/home">
+            {/* For front-end mockup purposes we pass data through navigation */}
+            <NavTab
+              to={{
+                pathname: "/home/profile",
+                state: {
+                  ...this.props.location.state,
+                },
+              }}
+            >
+              Profile
+            </NavTab>
+            <NavTab
+              exact
+              to={{ pathname: "/home", state: this.props.location.state }}
+            >
               My Home
             </NavTab>
             <NavTab disabled to="/home/chat">
               Chat
             </NavTab>
-            <NavTab disabled to="/home/search">
-              Search
-            </NavTab>
+            <NavTab to="/home/search">Search</NavTab>
           </div>
         </header>
         <hr className={styles.line} />
         <Switch>
           <Route exact path="/home" component={Dashboard} />
-          <Route path="/home/profile" component={Profile} />
+          <Route
+            path="/home/profile"
+            render={props => (
+              <Profile
+                {...props}
+                id={this.state.id}
+                email={this.state.email}
+                name={this.state.FirstName + " " + this.state.LastName}
+                dateOfBirth={this.state.DOB}
+                interest={this.state.interest}
+                skill={this.state.skill}
+              />
+            )}
+            // component={Profile}
+          />
           <Route path="/home/profile_edit" component={ProfileEdit} />
           <Route path="/home/chat" component={Chat} />
           <Route path="/home/search" component={Search} />
