@@ -81,7 +81,7 @@ class FilterDrawer extends Component {
         default:
           level = "Beginner";
       }
-      let interestArray = this.state.userInterest;
+      let interestArray = this.state.filterInterest;
       for (let interest of interestArray) {
         if (interest.value === keyValue) {
           interest.level = level;
@@ -105,7 +105,7 @@ class FilterDrawer extends Component {
         default:
           level = "Intermediate";
       }
-      let skillArray = this.state.userSkill;
+      let skillArray = this.state.filterSkill;
       for (let skill of skillArray) {
         if (skill.value === keyValue) {
           skill.level = level;
