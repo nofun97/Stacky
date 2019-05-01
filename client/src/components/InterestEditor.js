@@ -25,8 +25,25 @@ class InterestEditor extends Component {
   render() {
     var slider;
     var styles;
+    var level;
 
     if (this.props.type === "Interest") {
+      switch (this.props.level) {
+        case "Beginner":
+          level = 0;
+          break;
+
+        case "Intermediate":
+          level = 50;
+          break;
+
+        case "Advanced":
+          level = 100;
+          break;
+
+        default:
+          level = 0;
+      }
       slider = (
         <Slider
           railStyle={{ height: "20px", backgroundColor: "#ffb27a" }}
@@ -42,7 +59,7 @@ class InterestEditor extends Component {
           dotStyle={{ display: "None" }}
           activeDotStyle={{ display: "None" }}
           min={0}
-          defaultValue={0}
+          defaultValue={level}
           marks={{
             0: {
               style: {
@@ -80,6 +97,22 @@ class InterestEditor extends Component {
       );
       styles = InterestStyle;
     } else {
+      switch (this.props.level) {
+        case "Intermediate":
+          level = 0;
+          break;
+
+        case "Advanced":
+          level = 50;
+          break;
+
+        case "Expert":
+          level = 100;
+          break;
+
+        default:
+          level = 0;
+      }
       slider = (
         <Slider
           railStyle={{ height: "20px", backgroundColor: "#ff9378" }}
@@ -95,7 +128,7 @@ class InterestEditor extends Component {
           dotStyle={{ display: "None" }}
           activeDotStyle={{ display: "None" }}
           min={0}
-          defaultValue={0}
+          defaultValue={level}
           marks={{
             0: {
               style: {

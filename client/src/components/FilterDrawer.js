@@ -119,7 +119,7 @@ class FilterDrawer extends Component {
   handleRemove(value, type) {
     console.log(value, type);
     if (type === "Interest") {
-      let userInterest = this.state.userInterest.filter(
+      let filterInterest = this.state.filterInterest.filter(
         opt => opt.value !== value
       );
       let option = [
@@ -127,7 +127,7 @@ class FilterDrawer extends Component {
         ...this.state.interestOption,
       ];
       this.setState({
-        userInterest: userInterest,
+        filterInterest: filterInterest,
         interestOption: option,
       });
     } else if (type === "Skill") {
