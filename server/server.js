@@ -43,3 +43,7 @@ app.get("*", (req, res) => {
 app.listen(PORT, function() {
   console.log(`Express listening on port ${PORT}`);
 });
+
+app.use(function(err, req, res, next) {
+  res.redirect("/");
+});
