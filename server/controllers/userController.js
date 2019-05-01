@@ -141,14 +141,15 @@ var findUserBasedOnCredential = function(req, res) {
 var findNUsers = function(req, res) {
   var index = parseInt(req.query.from);
   var size = parseInt(req.query.size);
-  var skills = req.query.skills.split(",");
+
   if (index == null || size == null) {
     res.sendStatus(400);
     console.log("index and size must be defined");
   }
   var query = {};
-  if (skills != null) {
+  if (req.query.skills != null) {
     console.log(skills);
+    var skills = req.query.skills.split(",");
     query = { "Skills.Skill": { $all: skills } };
   }
 
