@@ -57,7 +57,10 @@ var login = (req, res, next) => {
 
   return passport.authenticate(
     "local",
-    { session: false },
+    {
+      session: false,
+      failureRedirect: "/",
+    },
     (err, passportUser, info) => {
       if (err) {
         return next(err);
@@ -67,7 +70,8 @@ var login = (req, res, next) => {
         const user = passportUser;
         user.token = passportUser.generateJWT();
         console.log("Login response");
-        res.set('Content-Type', 'application/json');
+        res.set("Content-Type", "application/json");
+        res.set("Set-Cookie", `Token=${user.token}`);
         return res.json({ user: user.toAuthJSON() });
       }
 
