@@ -5,6 +5,7 @@ var session = require("express-session");
 var app = express();
 var bodyParser = require("body-parser");
 var path = require("path");
+var passport = require("passport");
 
 app.use(cors());
 app.use(require("morgan")("dev"));
@@ -18,6 +19,8 @@ app.use(
     saveUninitialized: false,
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 
 const PORT = process.env.PORT || 5000;
 
