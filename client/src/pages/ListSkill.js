@@ -196,9 +196,40 @@ class ListSkill extends Component {
 
   // handler when submit button is clicked
   handleSubmit() {
-    this.setState({
-      submitted: true,
+    
+    let interests = this.state.userInterest.map(data => {
+      return {
+        Skill: data.id,
+        Level: data.label
+      };
     });
+    let skills = this.state.skillOption.map(data => {
+      return {
+        Skill: data.id,
+        Level: data.label
+      };
+    });
+    console.log(this.props.location.state.ID);
+    //TODO: test update profile
+    fetch(`http://localhost:5000/api/user/${this.props.location.state.ID}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          Skills: skills,
+          Interests: interests,
+        })
+    })
+      .then(response => response.json())
+      .then(data => {
+
+        this.setState({
+          submitted: true,
+        });
+      });
+
+    
   }
 
   render() {
