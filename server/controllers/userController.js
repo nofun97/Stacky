@@ -148,9 +148,10 @@ var findNUsers = function(req, res) {
   }
   var query = {};
   if (skills != null) {
+    console.log(skills);
     query = { "Skills.Skill": { $all: skills } };
   }
-  console.log(query);
+
   User.paginate(query, { offset: index, limit: size }, (err, result) => {
     if (!err) {
       console.log(`Total data: ${result.totalDocs}`);
