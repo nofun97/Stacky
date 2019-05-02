@@ -16,6 +16,16 @@ var findAllUsers = function(req, res) {
   });
 };
 
+var findUserById = function(req, res) {
+  User.findById(req.params.id, (err, user) => {
+    if (!err) {
+      res.send(user);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+};
+
 var registerUser = function(req, res, credential) {
   var data = new User({
     FirstName: req.body.FirstName,
@@ -129,8 +139,8 @@ var findUserBasedOnSkills = function(req, res) {
   );
 };
 
-var findUserBasedOnCredential = function(req, res) {
-  User.findOne({ Credentials: req.body.Credentials }, function(err, user) {
+var findUserBasedOnCredential = function(req, res, credential) {
+  User.findOne({ Credentials: credential }, function(err, user) {
     if (!err) {
       res.send(user);
     } else {
@@ -178,3 +188,4 @@ module.exports.updateProfile = updateProfile;
 module.exports.findUserBasedOnSkills = findUserBasedOnSkills;
 module.exports.findUserBasedOnCredential = findUserBasedOnCredential;
 module.exports.findNUsers = findNUsers;
+module.exports.findUserById = findUserById;
