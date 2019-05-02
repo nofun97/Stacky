@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom';
 
 import Landing from './pages/Landing';
-import About from './components/About';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import InvalidInfo from './pages/InvalidInfo';
@@ -18,7 +17,8 @@ import Guideline from './pages/Guideline';
 import VerificationPass from './pages/VerificationPass';
 import VerificationFail from './pages/VerificationFail';
 import OthersProfile from './pages/OthersProfile';
-import PageNotFound from './pages/PageNotFound'
+import PageNotFound from './pages/PageNotFound';
+import CreateAppointment from './pages/CreateAppointment';
 
 
 class App extends Component {
@@ -27,7 +27,6 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route exact path="/"  component={Landing} />
-          <Route path="/about" component={About} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/invalid_info" component={InvalidInfo} />
@@ -37,8 +36,9 @@ class App extends Component {
           <Route path="/verification/pass" component={VerificationPass} />
           <Route path="/verification/fail" component={VerificationFail} />
           <Route path="/page_not_found" component={PageNotFound} />
+          <Route path="/user/create_appointment" component={CreateAppointment} />
           {/* Route for other people profile */}
-          <Route path="/user" component={OthersProfile} />
+          <Route exact path="/user" component={OthersProfile} />
           <Redirect to="/" />
         </Switch>
       </div>
