@@ -22,7 +22,7 @@ class Login extends Component {
     if (form.checkValidity() === true) {
       console.log("Login...");
       //TODO: put url in env?
-      fetch("/api/login", {
+      fetch("http://localhost:5000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,13 +39,13 @@ class Login extends Component {
         })
         .then(data => {
           console.log("Login successful!");
-          // console.log(data);
+          console.log(data);
 
           // For authentication stuff (if ok then redirect) for now just redirect
           // if (data.ok === true) {
           // }
           // this.props.history.push("/home");
-          this.setState({ id: data.user._id, successful: true });
+          this.setState({ id: data._id, successful: true });
         })
         .catch(err => {
           console.log("Login not succesful");
@@ -59,7 +59,6 @@ class Login extends Component {
 
   render() {
     if (this.state.successful === true) {
-      console.log(this.state);
       return (
         <Redirect
           to={{
@@ -67,7 +66,7 @@ class Login extends Component {
             state: {
               id: this.state.id,
               email: this.state.email,
-              noBackend: false
+              noBackend: false,
             },
           }}
         />
