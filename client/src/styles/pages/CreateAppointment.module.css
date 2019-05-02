@@ -1,0 +1,20 @@
+.CreateAppointment {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Main {
+  padding-left: 6.1vw;
+  padding-top: 7vh;
+  margin-right: 16%;
+  padding-bottom: 15px;
+}
+
+.Illust {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  border: solid 1px #979797;
+  background-color: #ff9a8f;
+}
