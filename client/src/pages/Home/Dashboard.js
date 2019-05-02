@@ -4,7 +4,7 @@ class Dashboard extends Component {
   render() {
     return (
       <section>
-        <h1>This is Dashboard</h1>
+        <h1>Dashboard</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
           facere dicta sapiente numquam voluptate iure deleniti veritatis odit

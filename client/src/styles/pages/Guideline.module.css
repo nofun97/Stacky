@@ -8,6 +8,7 @@
 .Main {
   padding-left: 6.1vw;
   padding-top: 7vh;
+  padding-bottom: 15px;
   margin-right: 8%;
 }
 
@@ -37,10 +38,6 @@
   line-height: 1em;
   letter-spacing: 0.014em;
   color: #000000;
-}
-
-li {
-  margin: 1em 0;
 }
 
 .button {
@@ -107,6 +104,7 @@ li {
   .Main {
     padding-left: 6.1vw;
     padding-top: 7vh;
+    margin-right: 12%;
   }
 
   .header {

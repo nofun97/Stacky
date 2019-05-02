@@ -10,6 +10,7 @@ class InterestEditorList extends Component {
         handleRemove={this.props.handleRemove}
         type={this.props.type}
         className={this.props.className}
+        level={editor.level}
         value={editor.value}
         key={editor.id}
       />
