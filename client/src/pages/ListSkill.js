@@ -196,17 +196,17 @@ class ListSkill extends Component {
 
   // handler when submit button is clicked
   handleSubmit() {
-    
+
     let interests = this.state.userInterest.map(data => {
       return {
         Skill: data.id,
-        Level: data.label
+        Level: data.level
       };
     });
-    let skills = this.state.skillOption.map(data => {
+    let skills = this.state.userSkill.map(data => {
       return {
         Skill: data.id,
-        Level: data.label
+        Level: data.level
       };
     });
     console.log(this.props.location.state.ID);
@@ -229,7 +229,7 @@ class ListSkill extends Component {
         });
       });
 
-    
+
   }
 
   render() {
@@ -239,6 +239,7 @@ class ListSkill extends Component {
           to={{
             pathname: "/home",
             state: {
+              id: this.props.location.state.ID,
               userInterest: this.state.userInterest,
               userSkill: this.state.userSkill,
               noBackend: true,
