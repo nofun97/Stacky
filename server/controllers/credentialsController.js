@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const passport = require("passport");
 const Credentials = mongoose.model("Credentials");
+const User = mongoose.model("Users");
 const userController = require("./userController.js");
 // Creating new Credentials
 var newUser = function(req, res, next) {
@@ -28,7 +29,6 @@ var newUser = function(req, res, next) {
   // console.log("Just after creating finalUser")
   // console.log(finalUser);
   finalUser.setPassword(user.password);
-  var ID = finalUser.toAuthJSON()._id;
   finalUser.save();
   return userController.registerUser(req, res, finalUser.toAuthJSON());
 };
@@ -72,12 +72,12 @@ var login = (req, res, next) => {
         console.log("Login response");
         res.set("Content-Type", "application/json");
         res.set("Set-Cookie", `Token=${user.token}`);
-        return res.json({ user: user.toAuthJSON() });
+        return userController.findUserBasedOnCredential(req, res, user._id);
       }
 
       return res.status(400).json({
         errors: {
-          password: "400 Bad Request",
+          error: "400 Bad Request",
         },
       });
     }
