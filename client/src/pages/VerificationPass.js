@@ -4,6 +4,14 @@ import { Redirect } from "react-router-dom";
 
 import styles from "../styles/pages/VerificationPass.module.css";
 
+import { connect } from "react-redux";
+
+const mapStateToProps = (state /*, ownProps*/) => {
+  return {
+    state: state
+  }
+}
+
 class VerificationPass extends Component {
   constructor(props){
     super(props);
@@ -14,9 +22,10 @@ class VerificationPass extends Component {
   }
 
   handleClick() {
-    this.setState({
-      clicked: true,
-    })
+    console.log(this.props.state);
+    // this.setState({
+    //   clicked: true,
+    // })
   }
 
   render() {
@@ -52,4 +61,4 @@ class VerificationPass extends Component {
   }
 }
 
-export default VerificationPass;
+export default connect(mapStateToProps)(VerificationPass);
