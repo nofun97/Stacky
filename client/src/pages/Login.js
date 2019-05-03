@@ -45,7 +45,7 @@ class Login extends Component {
           // if (data.ok === true) {
           // }
           // this.props.history.push("/home");
-          this.setState({ id: data._id, successful: true });
+          this.setState({ id: data._id, email: data.Email, successful: true });
         })
         .catch(err => {
           console.log("Login not succesful");

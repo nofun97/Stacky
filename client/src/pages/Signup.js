@@ -55,7 +55,7 @@ class Signup extends Component {
         .then(response => response.json())
         .then(data => {
           console.log(data);
-          this.setState({ ID: data._id, successful: true });
+          this.setState({ ID: data._id, email: data.Email, successful: true });
           console.log("Submission successful!");
           console.log(data);
         })

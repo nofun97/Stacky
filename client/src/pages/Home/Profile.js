@@ -64,7 +64,7 @@ class Profile extends Component {
       1}/${dateData.getFullYear()}`;
     this.setState({
       name: `${profile.FirstName} ${profile.LastName}`,
-      email: profile.Email,
+      email: this.props.location.state.email,
       dateOfBirth: date,
       //TODO: add description field
     });

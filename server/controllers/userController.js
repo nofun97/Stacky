@@ -40,12 +40,25 @@ var registerUser = function(req, res, credential) {
   });
   // console.log("Just after defining data for registerUser");
   // data.save();
-  data.save(function(err, skill) {
+  data.save(function(err, user) {
     if (!err) {
       res.set("Content-Type", "application/json");
       res.set("Set-Cookie", `Token=${credential.token}`);
-      res.send(skill);
-      console.log(skill);
+      var toSend = {
+        _id: user._id,
+        FirstName: user.FirstName,
+        LastName: user.LastName,
+        DOB: user.DOB,
+        Credentials: user.Credentials,
+        UName: user.UName,
+        IsVerified: user.IsVerified,
+        Address: user.Address,
+        Skills: user.Skills,
+        Interests: user.Interests,
+        Email: credential.email,
+      };
+      res.send(toSend);
+      console.log(toSend);
     } else {
       console.log(err);
       res.sendStatus(400);
@@ -142,9 +155,20 @@ var findUserBasedOnSkills = function(req, res) {
 var findUserBasedOnCredential = function(req, res, credential) {
   User.findOne({ Credentials: credential._id }, function(err, user) {
     if (!err) {
-      console.log(user);
-      // user.email = credential.email;
-      res.send(user);
+      var toSend = {
+        _id: user._id,
+        FirstName: user.FirstName,
+        LastName: user.LastName,
+        DOB: user.DOB,
+        Credentials: user.Credentials,
+        UName: user.UName,
+        IsVerified: user.IsVerified,
+        Address: user.Address,
+        Skills: user.Skills,
+        Interests: user.Interests,
+        Email: credential.email,
+      };
+      res.send(toSend);
     } else {
       console.log(err);
       res.sendStatus(400);
