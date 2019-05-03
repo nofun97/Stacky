@@ -1,0 +1,30 @@
+.summary {
+  padding: 10px;
+  display: grid;
+  grid-row-gap: 5px;
+}
+
+.spaced {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  background-color: #ff9c40;
+}
+
+.appointment {
+  min-height: 23vh;
+  border: 1px solid #979797;
+  display: grid;
+  grid-template-columns: 15px auto;
+}
+
+.description {
+  border-right: 1px solid #979797;
+  border-left: 1px solid #979797;
+  border-bottom: 1px solid #979797;
+  padding: 10px;
+}
