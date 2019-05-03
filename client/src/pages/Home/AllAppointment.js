@@ -15,15 +15,15 @@ class AllAppointment extends Component {
     return (
       <section className={styles.container}>
         <div className={styles.invites}>
-          <h1>Meeting Invites</h1>
+          <h1 className={styles.headers}>Meeting Invites</h1>
           <AppointmentExpandableList values={this.state.invites} type="invites" handleAccept={()=>{}} handleReject={() => {}} />
         </div>
         <div className={styles.invites}>
-          <h1>Pending Invites</h1>
+          <h1 className={styles.headers}>Upcoming Meetings</h1>
           <AppointmentExpandableList values={this.state.appointments} />
         </div>
         <div className={styles.invites}>
-          <h1>Upcoming Meetings</h1>
+          <h1 className={styles.headers}>Pending Invites</h1>
           <AppointmentExpandableList values={this.state.appointments} />
         </div>
       </section>

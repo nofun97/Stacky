@@ -40,11 +40,11 @@ class AppointmentExpandable extends Component {
     if (this.props.type === "invites") {
       indicator = (
         <div className={styles.indicator}>
-          <IconButton style={{width: '20px', height: '20px', padding: '20px', border: "1px black solid" , marginRight:"10px"}} onClick={this.handleAccept}>
-            <CheckIcon />
+          <IconButton style={{width: '20px', height: '20px', padding: '20px', border: "2px #FF9C40 solid" , marginRight:"10px"}} onClick={this.handleAccept}>
+            <CheckIcon style ={{position:"absolute", color:"#FF9C40"}}/>
           </IconButton>
-          <IconButton style={{width: '20px', height: '20px', padding: '20px', border: "1px black solid"}} onClick={this.handleReject}>
-            <CloseIcon />
+          <IconButton style={{width: '20px', height: '20px', padding: '20px', border: "2px #FF9C40 solid"}} onClick={this.handleReject}>
+            <CloseIcon style ={{position:"absolute", color:"#FF9C40"}} />
           </IconButton>
         </div>
       );
@@ -56,20 +56,20 @@ class AppointmentExpandable extends Component {
         <div className={styles.appointment}>
           <div className={styles.label} />
           <div className={styles.summary}>
-            <h5>Meeting with {this.props.name}</h5>
+            <h5 className={styles.card_heading}>Meeting with {this.props.name}</h5>
             <div className={styles.spaced}>
-              <div>
+              <div className={styles.card_details}>
                 {this.props.date} {this.props.time}
               </div>
               {indicator}
             </div>
 
             <div className={styles.spaced}>
-              <div>
+              <div className={styles.address}>
                 <LocationIcon />
                 {this.props.address}
               </div>
-              <Button onClick={this.handleDetail}>Details</Button>
+              <Button className={styles.address} onClick={this.handleDetail}>Details</Button>
             </div>
           </div>
         </div>
