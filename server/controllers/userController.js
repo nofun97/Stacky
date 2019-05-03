@@ -140,8 +140,10 @@ var findUserBasedOnSkills = function(req, res) {
 };
 
 var findUserBasedOnCredential = function(req, res, credential) {
-  User.findOne({ Credentials: credential }, function(err, user) {
+  User.findOne({ Credentials: credential._id }, function(err, user) {
     if (!err) {
+      console.log(user);
+      // user.email = credential.email;
       res.send(user);
     } else {
       console.log(err);

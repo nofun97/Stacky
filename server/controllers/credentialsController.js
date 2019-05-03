@@ -72,7 +72,7 @@ var login = (req, res, next) => {
         console.log("Login response");
         res.set("Content-Type", "application/json");
         res.set("Set-Cookie", `Token=${user.token}`);
-        return userController.findUserBasedOnCredential(req, res, user._id);
+        return userController.findUserBasedOnCredential(req, res, user);
       }
 
       return res.status(400).json({
