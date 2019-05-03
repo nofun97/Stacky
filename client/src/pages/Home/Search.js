@@ -13,6 +13,7 @@ class Search extends Component {
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.handleSkillFilter = this.handleSkillFilter.bind(this);
     this.handleFetchUsers = this.handleFetchUsers.bind(this);
+    this.handleNextPage = this.handleNextPage.bind(this);
     this.state = {
       user: [
         // {
@@ -141,7 +142,7 @@ class Search extends Component {
           }
         }
       }
-      console.log(data);
+      // console.log(data);
       return {
         firstName: data.firstName,
         lastName: data.lastName,
@@ -166,6 +167,12 @@ class Search extends Component {
       filterSkill:filteredSkills,
     });
   }
+
+  handleNextPage = () => {
+    this.setState({currentIndex: this.state.currentIndex + this.state.dataPerPage + 1})
+    this.handleFetchUsers();
+  }
+
 
   render() {
     return (
@@ -195,7 +202,7 @@ class Search extends Component {
           <span className={styles.pagination}>
             page {this.state.pageNumber} of {this.state.totalPageNumber}
           </span>
-          <Button className={styles["next-btn"]}>></Button>
+          <Button className={styles["next-btn"]} onClick={this.handleNextPage}>></Button>
         </div>
       </section>
     );
