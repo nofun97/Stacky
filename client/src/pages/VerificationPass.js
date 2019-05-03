@@ -23,6 +23,7 @@ class VerificationPass extends Component {
 
   handleClick() {
     console.log(this.props.state);
+    this.props.dispatch({type:"ADD_USER", userID: "ayaya"});
     // this.setState({
     //   clicked: true,
     // })

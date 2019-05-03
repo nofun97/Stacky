@@ -1,8 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import rootReducer from "./reducers/reducers";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/index.css";
 import App from "./App";
@@ -10,9 +7,13 @@ import * as serviceWorker from "./serviceWorker";
 
 import { BrowserRouter } from "react-router-dom";
 
+// Stuff for redux
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import rootReducer from "./reducers/reducers";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import storage from "redux-persist/lib/storage/session";
 const persistConfig = {
   key: "root",
   storage,
