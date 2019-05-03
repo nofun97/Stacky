@@ -12,18 +12,26 @@ class FilterDrawer extends Component {
     this.handleSliderChange = this.handleSliderChange.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
 
-    // to filter selected skill from the option
-    let skillOption = [
-      { value: "algorithm", label: "algorithm" },
-      { value: "baking", label: "baking" },
-      { value: "caligraphy", label: "caligraphy" },
-    ].filter(opt => !this.props.filterSkill.map(skill => skill.value).includes(opt.value));
-
     this.state = {
       selectedSkill: null,
-      skillOption: skillOption,
+      skillOption: [],
       filterSkill: this.props.filterSkill,
     };
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:5000/api/skill")
+      .then(resp => resp.json())
+      .then(data => {
+        for (var i = 0; i < data.length; i++) {
+          this.setState({
+            skillOption: [
+              ...this.state.skillOption,
+              { value: data[i]._id, label: data[i].Name },
+            ],
+          });
+        }
+      });
   }
 
   // handler when skill add button is clicked (need to remove the option from the select)
