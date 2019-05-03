@@ -6,8 +6,9 @@ var appointmentSchema = mongoose.Schema({
   Time: Date,
   Description: String,
   Address: String,
-  Teacher: ObjectId,
-  Student: ObjectId,
+  Creator: ObjectId,
+  Invitee: ObjectId,
+  IsApproved: Boolean,
 });
 
 mongoose.model("Appointments", appointmentSchema, "Appointments");
