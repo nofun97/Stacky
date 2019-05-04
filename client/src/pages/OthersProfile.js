@@ -45,7 +45,7 @@ class OthersProfile extends Component {
       <div className={styles.layout}>
         <aside className={styles.options}>
           {/* specify fontSize (icon size) here */}
-          <IconButton
+          <IconButton 
             color="inherit"
             style={{ fontSize: "30px" }}
             onClick={this.goBack}
