@@ -1,3 +1,8 @@
 .skill-list {
   margin: 0;
 }
+
+.button{
+  position: relative;
+  right: 17px;
+}

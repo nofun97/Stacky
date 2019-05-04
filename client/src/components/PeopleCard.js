@@ -5,7 +5,7 @@ import styles from "../styles/components/PeopleCard.module.css";
 
 class Search extends Component {
   render() {
-    let skillString ="";
+    let skillString = "";
     let count = 0;
     for (let i of this.props.skill) {
       skillString += `${i.Name} `;
@@ -27,9 +27,10 @@ class Search extends Component {
           <Card.Title>
             {this.props.firstName} {this.props.lastName}
           </Card.Title>
-          <Card.Text>Skill: {skillString}
-          </Card.Text>
-          <Button onClick={()=>{}}>Go somewhere</Button>
+          <Card.Text>Skill: {skillString}</Card.Text>
+          <Button className={styles.button} onClick={() => {}}>
+            Go somewhere
+          </Button>
         </Card.Body>
       </Card>
     );
