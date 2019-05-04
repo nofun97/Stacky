@@ -15,6 +15,14 @@
   background-color: #ff9c40;
 }
 
+.check_button{
+  width: 20px;
+  height: 20px;
+  padding: 20px;
+  border: "2px #FF9C40 solid";
+  margin-right:10px; 
+  
+}
 .appointment {
   min-height: 23vh;
   border: 1px solid #979797;
@@ -44,4 +52,5 @@
   font-family: 'proxima_nova_bold'; 
   font-size: 1.16em; 
 }
+
 

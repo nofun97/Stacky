@@ -4,3 +4,30 @@
   margin-right: 8vw;
   margin-bottom: 10px;
 }
+
+.headings{
+  font-family: 'lato_bold'; 
+  font-size: 1.7em; 
+}
+
+.button{
+  font-family: 'proxima_nova_semibold'; 
+  background-color: #FFAA6D; 
+  color: #000000; 
+  border-color: #FFAA6D; 
+
+}
+
+.button:hover{
+  background-color: #FF9D57; 
+  color: #ffffff; 
+  border-color: #FF9D57; 
+}
+
+@media only screen and (max-width: 426px){
+  
+  .headings{
+  font-size: 1.643em; 
+}
+  
+}
