@@ -85,7 +85,6 @@ class Home extends Component {
             round={true}
             src="http://gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3"
           />
-          />
         </div>
       );
     } else {
@@ -99,7 +98,7 @@ class Home extends Component {
         />
       );
     }
-    
+
     return (
       <div>
         <header className={styles.header}>
