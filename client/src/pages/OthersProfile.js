@@ -4,7 +4,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Avatar from "react-avatar";
 import InterestDisplayList from "../components/InterestDisplayList";
 import {
-  Link,
+  Link
   // Redirect
 } from "react-router-dom";
 
@@ -20,12 +20,12 @@ class OthersProfile extends Component {
       description: "pro football player",
       skill: [
         { value: "Juggling", level: "Expert", id: "909" },
-        { value: "Shuffling", level: "Expert", id: "9010" },
+        { value: "Shuffling", level: "Expert", id: "9010" }
       ],
       interest: [
         { value: "Baking", level: "Beginner", id: "11" },
-        { value: "Algorithm", level: "Intermediate", id: "89" },
-      ],
+        { value: "Algorithm", level: "Intermediate", id: "89" }
+      ]
     };
   }
 
@@ -41,11 +41,18 @@ class OthersProfile extends Component {
     //   return <Redirect to="/page_not_found" />
     // }
 
+    let avatar;
+    if(window.innerWidth <= 426){
+      avatar = <div><Avatar size="60px" className = {styles.avatar} name={name} round={true} /></div>
+    } else {
+      avatar = <Avatar className = {styles.avatar} name={name} round={true} />
+    }
+
     return (
       <div className={styles.layout}>
         <aside className={styles.options}>
           {/* specify fontSize (icon size) here */}
-          <IconButton 
+          <IconButton
             color="inherit"
             style={{ fontSize: "30px" }}
             onClick={this.goBack}
@@ -53,7 +60,7 @@ class OthersProfile extends Component {
             <ArrowBackIcon fontSize="inherit" />
             Back
           </IconButton>
-          <h1 className = {styles.option}>Options</h1>
+          <h1 className={styles.option}>Options</h1>
           <Link to="/user/create_appointment">
             <h2 className={styles.suboption}>Set Appointment</h2>
           </Link>
@@ -63,7 +70,7 @@ class OthersProfile extends Component {
         </aside>
 
         <section className={styles.profile}>
-          <Avatar name={name} round={true} />
+          {avatar}
           <h3 className={styles.subheader}>Name</h3>
           <p className={styles.oneliner}>{name}</p>
           <h3 className={styles.subheader}>Description</h3>
