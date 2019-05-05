@@ -12,9 +12,158 @@
   padding-bottom: 15px;
 }
 
+.header {
+  font-family: "league_spartanbold";
+  margin-bottom: 40px;
+}
+
+.subheader {
+  font-family: "lato_bold";
+  font-size: 1.4em;
+}
+
+.avatar {
+  margin-bottom: 15px;
+}
+
+.datetime {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1em;
+}
+
+.date {
+  font-family: "lato_bold";
+  font-size: 1.4em;
+}
+
+.time {
+  font-family: "lato_bold";
+  font-size: 1.4em;
+}
+
+.location {
+  font-family: "lato_bold";
+  font-size: 1.4em;
+}
+
+.description {
+  font-family: "lato_bold";
+  font-size: 1.4em;
+}
+
+/* Need hover and stuff */
+.cancel-button {
+  position: relative;
+  left: 3.8em;
+  padding: 0.4em 2.4em;
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #f97153;
+  background-color: #f97153;
+  color: black;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.cancel-button:focus {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #f97153;
+  background-color: #f97153;
+  color: black;
+  grid-area: confirm;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.cancel-button:hover {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #f97153;
+  background-color: #f97153;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.cancel-button:active {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #f97153;
+  background-color: #f97153 !important;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.confirm-button{
+  position: relative;
+  left: 6em;
+  padding: 0.4em 2.4em;
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.confirm-button:focus {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  grid-area: confirm;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.confirm-button:hover {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.confirm-button:active {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49 !important;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
 .Illust {
   grid-column: 2/3;
   grid-row: 1/2;
   border: solid 1px #979797;
-  background-color: #ff9a8f;
+  background-color: #ffaa6d;
+}
+
+@media only screen and (max-width: 426px) { 
+  .cancel-button {
+    position: relative;
+    left: 2em;
+    padding: 0.3em 0.35em;
+  }
+
+  .confirm-button{
+    position: relative;
+    left: 4em;
+    padding: 0.3em 0.3em;
+  }
 }

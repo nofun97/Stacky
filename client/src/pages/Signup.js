@@ -30,12 +30,10 @@ class Signup extends Component {
 
     if (form.checkValidity() !== false) {
       console.log("Submitting...");
-      console.log(this.state);
-
       // Prevent on double submit on form
       this.refs["submit-btn"].setAttribute("disabled", "disabled");
       //TODO: put url in env?
-      fetch("/api/user", {
+      fetch("http://localhost:5000/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,11 +52,14 @@ class Signup extends Component {
           Address: this.state.Address,
         }),
       })
+        .then(response => response.json())
         .then(data => {
-          this.setState({ ID: data._id, successful: true });
+          console.log(data);
+          this.setState({ ID: data._id, email: data.Email, successful: true });
           console.log("Submission successful!");
           console.log(data);
         })
+        .then(() => this.setState({ successful: true }))
         .catch(err => {
           console.log("Submission not succesful");
           console.log(err);
@@ -68,7 +69,7 @@ class Signup extends Component {
           });
         });
     }
-    this.setState({ successful: true });
+    
     // So that the redirect works well the page shouldn't reload
     event.preventDefault();
     event.stopPropagation();
