@@ -111,7 +111,7 @@ class Search extends Component {
     const userData = await fetch(query);
     const usersPage = await userData.json();
     const users = usersPage.users;
-    const totalData = users.total;
+    const totalData = usersPage.total;
     var skillsObj = {};
     var skillsList = [];
     /*
@@ -175,6 +175,7 @@ class Search extends Component {
     this.setState({
       user: profiles,
       totalItem: totalData / this.state.dataPerPage,
+      totalPageNumber:Math.ceil(totalData / this.state.dataPerPage),
     });
   };
 
@@ -198,6 +199,7 @@ class Search extends Component {
   handleNextPage = () => {
     this.setState({
       currentIndex: this.state.currentIndex + this.state.dataPerPage + 1,
+      pageNumber: this.state.pageNumber + 1,
       changes: true,
     });
     this.handleFetchUsers();
