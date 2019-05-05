@@ -30,6 +30,10 @@
   margin-right: 10px;
 }
 
+.back-btn {
+  margin-right: 5px;
+}
+
 .next-btn {
   font-family: "proxima_nova_semibold";
   font-size: 1.48em;
