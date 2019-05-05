@@ -45,7 +45,7 @@ class OthersProfile extends Component {
       <div className={styles.layout}>
         <aside className={styles.options}>
           {/* specify fontSize (icon size) here */}
-          <IconButton
+          <IconButton 
             color="inherit"
             style={{ fontSize: "30px" }}
             onClick={this.goBack}
@@ -53,9 +53,9 @@ class OthersProfile extends Component {
             <ArrowBackIcon fontSize="inherit" />
             Back
           </IconButton>
-          <h1>Options</h1>
-          <Link to="/user/create_appointment" className={styles.suboption}>
-            <h2>Set Appointment</h2>
+          <h1 className = {styles.option}>Options</h1>
+          <Link to="/user/create_appointment">
+            <h2 className={styles.suboption}>Set Appointment</h2>
           </Link>
           <h2 className={styles.suboption}>Feedback</h2>
           <h2 className={styles.suboption}>Block</h2>

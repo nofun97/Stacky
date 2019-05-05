@@ -13,6 +13,7 @@ import Profile from "./Home/Profile";
 import ProfileEdit from "./Home/ProfileEdit";
 import Chat from "./Home/Chat";
 import Search from "./Home/Search";
+import AllAppointment from "./Home/AllAppointment";
 
 class Home extends Component {
   constructor(props) {
@@ -136,6 +137,7 @@ class Home extends Component {
           <Route path="/home/profile_edit" component={ProfileEdit} />
           <Route path="/home/chat" component={Chat} />
           <Route path="/home/search" component={Search} />
+          <Route path="/home/appointments" component={AllAppointment} />
           <Redirect exact to="/home" />
         </Switch>
       </div>
