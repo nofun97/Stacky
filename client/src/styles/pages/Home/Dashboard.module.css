@@ -23,6 +23,12 @@
   color: #ffffff; 
   border-color: #FF9D57; 
 }
+/*can disregard this if using material icon */ 
+.symbol{
+  color: #FFAA6D; 
+  font-family: 'proxima_nova_bold'; 
+  font-size: 1.7em; 
+}
 
 @media only screen and (max-width: 426px){
   
