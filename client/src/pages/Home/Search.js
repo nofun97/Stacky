@@ -14,6 +14,7 @@ class Search extends Component {
     this.handleSkillFilter = this.handleSkillFilter.bind(this);
     this.handleFetchUsers = this.handleFetchUsers.bind(this);
     this.handleNextPage = this.handleNextPage.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.state = {
       user: [
         // {
@@ -94,7 +95,7 @@ class Search extends Component {
       this.handleFetchUsers();
       this.setState({
         changes: false,
-      })
+      });
     }
   };
 
@@ -103,7 +104,9 @@ class Search extends Component {
       this.state.currentIndex
     }&size=${this.state.dataPerPage}`;
     if (this.state.filterSkill.length > 0) {
-      query += `&skills=${this.state.filterSkill.map(skill=> skill.id).join(",")}`;
+      query += `&skills=${this.state.filterSkill
+        .map(skill => skill.id)
+        .join(",")}`;
     }
     const userData = await fetch(query);
     const usersPage = await userData.json();
@@ -188,6 +191,10 @@ class Search extends Component {
     });
   }
 
+  handleClick = id => {
+    this.props.history.push("/user", {id});
+  };
+
   handleNextPage = () => {
     this.setState({
       currentIndex: this.state.currentIndex + this.state.dataPerPage + 1,
@@ -221,7 +228,10 @@ class Search extends Component {
           />
         </Drawer>
         <div className={styles["card-container"]}>
-          <PeopleCardList values={this.state.user} />
+          <PeopleCardList
+            handleClick={this.handleClick}
+            values={this.state.user}
+          />
         </div>
         <div className={styles.bottom}>
           {/* need to implement this page count */}
