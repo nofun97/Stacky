@@ -84,6 +84,13 @@ class OthersProfile extends Component {
       return <Redirect to="/page_not_found" />
     }
 
+    let avatar;
+    if(window.innerWidth <= 426){
+      avatar = <div><Avatar size="60px" className = {styles.avatar} name={this.state.name} round={true} /></div>
+    } else {
+      avatar = <Avatar className = {styles.avatar} name={this.state.name} round={true} />
+    }
+
     return (
       <div className={styles.layout}>
         <aside className={styles.options}>
@@ -106,7 +113,7 @@ class OthersProfile extends Component {
         </aside>
 
         <section className={styles.profile}>
-          <Avatar name={this.state.name} round={true} />
+          {avatar}
           <h3 className={styles.subheader}>Name</h3>
           <p className={styles.oneliner}>{this.state.name}</p>
           <h3 className={styles.subheader}>Description</h3>

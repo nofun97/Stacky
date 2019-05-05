@@ -14,7 +14,7 @@ class PeopleCard extends Component {
   }
 
   render() {
-    let skillString ="";
+    let skillString = "";
     let count = 0;
     for (let i of this.props.skill) {
       skillString += `${i.Name} `;
@@ -36,9 +36,8 @@ class PeopleCard extends Component {
           <Card.Title>
             {this.props.firstName} {this.props.lastName}
           </Card.Title>
-          <Card.Text>Skill: {skillString}
-          </Card.Text>
-          <Button onClick={this.handleClick}>Go somewhere</Button>
+          <Card.Text>Skill: {skillString}</Card.Text>
+          <Button className={styles.button} onClick={this.handleClick}>Go somewhere</Button>
         </Card.Body>
       </Card>
     );
