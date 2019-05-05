@@ -3,6 +3,28 @@ var Skills = mongoose.model("Skills");
 
 // Function to find all Skills
 var findAllSkills = function(req, res) {
+  if (req.query.id != null) {
+    var ids = req.query.id.split(",");
+    var objectIds = ids.map(data => {
+      return mongoose.Types.ObjectId(data);
+    });
+    Skills.find(
+      {
+        _id: {
+          $in: objectIds,
+        },
+      },
+      (err, skills) => {
+        if (!err) {
+          res.send(skills);
+        } else {
+          res.sendStatus(404);
+        }
+      }
+    );
+    return;
+  }
+
   Skills.find(function(err, skills) {
     if (!err) {
       res.send(skills);

@@ -18,20 +18,31 @@ class ListSkill extends Component {
     this.state = {
       selectedInterest: null,
       selectedSkill: null,
-      interestOption: [
-        { value: "algorithm", label: "algorithm" },
-        { value: "baking", label: "baking" },
-        { value: "caligraphy", label: "caligraphy" },
-      ],
-      skillOption: [
-        { value: "algorithm", label: "algorithm" },
-        { value: "baking", label: "baking" },
-        { value: "caligraphy", label: "caligraphy" },
-      ],
+      interestOption: [],
+      skillOption: [],
       userInterest: [],
       userSkill: [],
       submitted: false,
     };
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:5000/api/skill")
+      .then(resp => resp.json())
+      .then(data => {
+        for (var i = 0; i < data.length; i++) {
+          this.setState({
+            interestOption: [
+              ...this.state.interestOption,
+              { value: data[i]._id, label: data[i].Name },
+            ],
+            skillOption: [
+              ...this.state.skillOption,
+              { value: data[i]._id, label: data[i].Name },
+            ],
+          });
+        }
+      });
   }
 
   // handler for the thing selected for interest
@@ -39,10 +50,10 @@ class ListSkill extends Component {
     if (value !== null) {
       this.setState({
         selectedInterest: {
-          value: value.value,
+          value: value.label,
           level: "Beginner",
           id: value.value,
-          label: value.value,
+          label: value.label,
         },
       });
     } else {
@@ -57,10 +68,10 @@ class ListSkill extends Component {
     if (value !== null) {
       this.setState({
         selectedSkill: {
-          value: value.value,
+          value: value.label,
           level: "Intermediate",
           id: value.value,
-          label: value.value,
+          label: value.label,
         },
       });
     } else {
@@ -74,7 +85,7 @@ class ListSkill extends Component {
   handleAddInterest() {
     if (this.state.selectedInterest !== null) {
       let option = this.state.interestOption.filter(
-        opt => opt.value !== this.state.selectedInterest.value
+        opt => opt.value !== this.state.selectedInterest.id
       );
       let userInterest = [
         this.state.selectedInterest,
@@ -92,7 +103,7 @@ class ListSkill extends Component {
   handleAddSkill() {
     if (this.state.selectedSkill !== null) {
       let option = this.state.skillOption.filter(
-        opt => opt.value !== this.state.selectedSkill.value
+        opt => opt.value !== this.state.selectedSkill.id
       );
       let userSkill = [this.state.selectedSkill, ...this.state.userSkill];
       this.setState({
@@ -161,28 +172,64 @@ class ListSkill extends Component {
   // handler when the interest is removed (need to add the option back to the select)
   handleRemove(value, type) {
     console.log(value, type);
-    if(type === "Interest") {
-      let userInterest = this.state.userInterest.filter(opt => opt.value !== value);
-      let option = [{value: value, label: value}, ...this.state.interestOption];
+    if (type === "Interest") {
+      let userInterest = this.state.userInterest.filter(
+        opt => opt.value !== value
+      );
+      let option = [
+        { value: value, label: value },
+        ...this.state.interestOption,
+      ];
       this.setState({
         userInterest: userInterest,
         interestOption: option,
-      })
-    } else if(type === "Skill") {
+      });
+    } else if (type === "Skill") {
       let userSkill = this.state.userSkill.filter(opt => opt.value !== value);
-      let option = [{value: value, label: value}, ...this.state.skillOption];
+      let option = [{ value: value, label: value }, ...this.state.skillOption];
       this.setState({
         userSkill: userSkill,
         skillOption: option,
-      })
+      });
     }
   }
 
   // handler when submit button is clicked
   handleSubmit() {
-    this.setState({
-      submitted: true,
+
+    let interests = this.state.userInterest.map(data => {
+      return {
+        Skill: data.id,
+        Level: data.level
+      };
     });
+    let skills = this.state.userSkill.map(data => {
+      return {
+        Skill: data.id,
+        Level: data.level
+      };
+    });
+    console.log(this.props.location.state.ID);
+    //TODO: test update profile
+    fetch(`http://localhost:5000/api/user/${this.props.location.state.ID}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          Skills: skills,
+          Interests: interests,
+        })
+    })
+      .then(response => response.json())
+      .then(data => {
+
+        this.setState({
+          submitted: true,
+        });
+      });
+
+
   }
 
   render() {
@@ -192,6 +239,7 @@ class ListSkill extends Component {
           to={{
             pathname: "/home",
             state: {
+              id: this.props.location.state.ID,
               userInterest: this.state.userInterest,
               userSkill: this.state.userSkill,
               noBackend: true,
@@ -242,7 +290,7 @@ class ListSkill extends Component {
             />
           </section>
           <section className={styles.listing}>
-            <h2 className={styles.section}>What would you like to learn?</h2>
+            <h2 className={styles.section}>What would you like to teach?</h2>
             <Select
               className={styles.select}
               classNamePrefix="select"

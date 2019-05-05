@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var ObjectId = mongoose.Schema.Types.ObjectId;
+var mongoosePaginate = require("mongoose-paginate-v2");
 //TODO: remember to change schema and controller for Users to implement credentials
 
 // Details of the Users schema
@@ -25,4 +26,5 @@ var userSchema = mongoose.Schema({
   ],
 });
 
+userSchema.plugin(mongoosePaginate);
 mongoose.model("Users", userSchema, "Users");

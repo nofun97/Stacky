@@ -3,7 +3,16 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import styles from "../styles/components/PeopleCard.module.css";
 
-class Search extends Component {
+class PeopleCard extends Component {
+  constructor(props){
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.props.handleClick(this.props.id);
+  }
+
   render() {
     let skillString = "";
     let count = 0;
@@ -28,13 +37,11 @@ class Search extends Component {
             {this.props.firstName} {this.props.lastName}
           </Card.Title>
           <Card.Text>Skill: {skillString}</Card.Text>
-          <Button className={styles.button} onClick={() => {}}>
-            Go somewhere
-          </Button>
+          <Button className={styles.button} onClick={this.handleClick}>Go somewhere</Button>
         </Card.Body>
       </Card>
     );
   }
 }
 
-export default Search;
+export default PeopleCard;

@@ -7,10 +7,12 @@ class PeopleCardList extends Component {
     const user = this.props.values;
     const userItem = user.map(user => (
       <PeopleCard
+        handleClick={this.props.handleClick}
         firstName={user.firstName}
         lastName={user.lastName}
         image={user.image}
         skill={user.skill}
+        id={user._id}
         key={user._id}
       />
     ));

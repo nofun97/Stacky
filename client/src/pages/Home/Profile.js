@@ -10,7 +10,6 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.handleEdit = this.handleEdit.bind(this);
-    this.handleFetch = this.handleFetch.bind(this);
     let description;
     // setting state
     this.state = {
@@ -51,74 +50,65 @@ class Profile extends Component {
       } else {
         description = this.props.location.state.description;
       }
-
-      if (this.props.location.state.noBackend) {
-        this.state = {
-          editMode: false,
-          name: `${this.props.location.state.FirstName} ${
-            this.props.location.state.LastName
-          }`,
-          email: this.props.location.state.email,
-          dateOfBirth: this.props.location.state.DOB,
-          interest: this.props.location.state.userInterest,
-          skill: this.props.location.state.userSkill,
-          description: description,
-        };
-        console.log(this.state);
-      } else {
-        this.handleFetch(description);
-      }
     }
   }
 
-  handleFetch(description) {
-    if (this.props.location.state.noBackend) return;
-    // fetching user data from express server
-    fetch("/api/credential", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        Credentials: this.props.id,
-      }),
-    })
-      .then(resp => {
-        console.log(resp);
-        return resp.json();
-      })
-      .then(data => {
-        var d = new Date(data.DOB);
-        this.setState({
-          // editMode: true,
-          name: data.FirstName + " " + data.LastName,
-          dateOfBirth:
-            d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(),
-          interest: [
-            {
-              level: "Beginner",
-              value: "Algorithms",
-            },
-            {
-              level: "Advanced",
-              value: "Cooking",
-            },
-          ],
-          skill: [
-            {
-              level: "Advanced",
-              value: "Dancing",
-            },
-            {
-              level: "Intermediate",
-              value: "Data Structure",
-            },
-          ],
-          description: description,
-          email: this.props.location.state.email,
-        });
-      });
-  }
+
+  componentDidMount = async () => {
+    const profileData = await fetch(
+      `http://localhost:5000/api/user/${this.props.location.state.id}`
+    );
+    const profile = await profileData.json();
+    var dateData = new Date(profile.DOB);
+    var date = `${dateData.getDate()}/${dateData.getMonth() +
+      1}/${dateData.getFullYear()}`;
+    this.setState({
+      name: `${profile.FirstName} ${profile.LastName}`,
+      email: this.props.location.state.email,
+      dateOfBirth: date,
+      //TODO: add description field
+    });
+    var skillIds = profile.Skills.map(data => {
+      return data.Skill;
+    }).join(",");
+    var interestsIds = profile.Interests.map(data => {
+      return data.Skill;
+    }).join(",");
+    const skillData = await fetch(
+      `http://localhost:5000/api/skill?id=${skillIds}`
+    );
+    const skills = await skillData.json();
+    const interestsData = await fetch(
+      `http://localhost:5000/api/skill?id=${interestsIds}`
+    );
+    const interests = await interestsData.json();
+
+    var skillProfile = profile.Skills.map(data => {
+      for (var i = 0; i < skills.length; i++) {
+        if (data.Skill === skills[i]._id) {
+          return { level: data.Level, value: skills[i].Name, id: data.Skill };
+        }
+      }
+      return {};
+    }).filter(data => {
+      return data !== {};
+    });
+    var interestsProfile = profile.Interests.map(data => {
+      for (var i = 0; i < interests.length; i++) {
+        if (data.Skill === interests[i]._id) {
+          return {
+            level: data.Level,
+            value: interests[i].Name,
+            id: data.Skill,
+          };
+        }
+      }
+      return {};
+    }).filter(data => {
+      return data !== {};
+    });
+    this.setState({ interest: interestsProfile, skill: skillProfile });
+  };
 
   // handle if edit is clicked
   handleEdit() {

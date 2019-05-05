@@ -12,26 +12,34 @@ class FilterDrawer extends Component {
     this.handleSliderChange = this.handleSliderChange.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
 
-    // to filter selected skill from the option
-    let skillOption = [
-      { value: "algorithm", label: "algorithm" },
-      { value: "baking", label: "baking" },
-      { value: "caligraphy", label: "caligraphy" },
-    ].filter(opt => !this.props.filterSkill.map(skill => skill.value).includes(opt.value));
-
     this.state = {
       selectedSkill: null,
-      skillOption: skillOption,
+      skillOption: [],
       filterSkill: this.props.filterSkill,
     };
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:5000/api/skill")
+      .then(resp => resp.json())
+      .then(data => {
+        for (var i = 0; i < data.length; i++) {
+          this.setState({
+            skillOption: [
+              ...this.state.skillOption,
+              { value: data[i]._id, label: data[i].Name },
+            ],
+          });
+        }
+      });
   }
 
   // handler when skill add button is clicked (need to remove the option from the select)
   handleAddSkill() {
     if (this.state.selectedSkill !== null) {
       let option = this.state.skillOption.filter(
-        opt => opt.value !== this.state.selectedSkill.value
-      );
+        opt => opt.value !== this.state.selectedSkill.id
+      )
       let filterSkill = [this.state.selectedSkill, ...this.state.filterSkill];
       this.setState({
         skillOption: option,
@@ -47,10 +55,10 @@ class FilterDrawer extends Component {
     if (value !== null) {
       this.setState({
         selectedSkill: {
-          value: value.value,
+          value: value.label,
           level: "Intermediate",
           id: value.value,
-          label: value.value,
+          label: value.label,
         },
       });
     } else {
@@ -130,6 +138,7 @@ class FilterDrawer extends Component {
         filterInterest: filterInterest,
         interestOption: option,
       });
+      this.props.onInterestFilter(filterInterest);
     } else if (type === "Skill") {
       let filterSkill = this.state.filterSkill.filter(opt => opt.value !== value);
       let option = [{ value: value, label: value }, ...this.state.skillOption];
@@ -137,6 +146,7 @@ class FilterDrawer extends Component {
         filterSkill: filterSkill,
         skillOption: option,
       });
+      this.props.onSkillFilter(filterSkill);
     }
   }
 
