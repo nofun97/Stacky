@@ -99,6 +99,22 @@ var current = (req, res, next) => {
   });
 };
 
+var checkExistingEmail = (req, res) => {
+  var email = req.params.email;
+  Credentials.find({email: email}, (err, cred) => {
+    if (!err) {
+      if(cred === undefined || cred.length === 0){
+        res.sendStatus(304);
+      } else {
+        res.sendStatus(200);
+      }
+    } else {
+      res.sendStatus(404);
+    }
+  });
+}
+
 module.exports.login = login;
 module.exports.newUser = newUser;
 module.exports.current = current;
+module.exports.checkExistingEmail = checkExistingEmail;
