@@ -37,7 +37,7 @@ class PeopleCard extends Component {
             {this.props.firstName} {this.props.lastName}
           </Card.Title>
           <Card.Text>Skill: {skillString}</Card.Text>
-          <Button className={styles.button} onClick={this.handleClick}>Go somewhere</Button>
+          <Button className={styles.button} onClick={this.handleClick}>Profile</Button>
         </Card.Body>
       </Card>
     );
