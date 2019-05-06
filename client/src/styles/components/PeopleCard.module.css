@@ -5,3 +5,7 @@
 .button{
   position: relative;
 }
+
+.avatar{
+  width: 100% !important;
+}
