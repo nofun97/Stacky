@@ -48,6 +48,11 @@ class Home extends Component {
     console.log(this.state);
   }
 
+  // for responsiveness of the avatar
+  componentDidMount(){
+    window.addEventListener("resize", () => {this.setState({})});
+  }
+
   render() {
     // to change header title depending on path
     let pageName;
@@ -83,7 +88,6 @@ class Home extends Component {
             className={styles.avatar}
             name={this.state.username}
             round={true}
-            src="http://gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3"
           />
         </div>
       );
@@ -94,7 +98,6 @@ class Home extends Component {
           className={styles.avatar}
           name={this.state.username}
           round={true}
-          src="http://gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3"
         />
       );
     }
