@@ -14,6 +14,7 @@ class Search extends Component {
     this.handleSkillFilter = this.handleSkillFilter.bind(this);
     this.handleFetchUsers = this.handleFetchUsers.bind(this);
     this.handleNextPage = this.handleNextPage.bind(this);
+    this.handlePreviousPage = this.handlePreviousPage.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       user: [
@@ -111,7 +112,7 @@ class Search extends Component {
     const userData = await fetch(query);
     const usersPage = await userData.json();
     const users = usersPage.users;
-    const totalData = users.total;
+    const totalData = usersPage.total;
     var skillsObj = {};
     var skillsList = [];
     /*
@@ -175,6 +176,7 @@ class Search extends Component {
     this.setState({
       user: profiles,
       totalItem: totalData / this.state.dataPerPage,
+      totalPageNumber:Math.ceil(totalData / this.state.dataPerPage),
     });
   };
 
@@ -196,11 +198,25 @@ class Search extends Component {
   };
 
   handleNextPage = () => {
-    this.setState({
-      currentIndex: this.state.currentIndex + this.state.dataPerPage + 1,
-      changes: true,
-    });
-    this.handleFetchUsers();
+    if(this.state.pageNumber < this.state.totalPageNumber){
+      this.setState({
+        currentIndex: this.state.currentIndex + this.state.dataPerPage + 1,
+        pageNumber: this.state.pageNumber + 1,
+        changes: true,
+      });
+      this.handleFetchUsers();
+    }
+  };
+
+  handlePreviousPage = () => {
+    if(this.state.currentIndex > 0){
+      this.setState({
+        currentIndex: this.state.currentIndex - this.state.dataPerPage - 1,
+        pageNumber: this.state.pageNumber - 1,
+        changes: true,
+      });
+      this.handleFetchUsers();
+    }
   };
 
   render() {
@@ -238,6 +254,9 @@ class Search extends Component {
           <span className={styles.pagination}>
             page {this.state.pageNumber} of {this.state.totalPageNumber}
           </span>
+          <Button className={`${styles["next-btn"]} ${styles["back-btn"]}`} onClick={this.handlePreviousPage}>
+            {`<`}
+          </Button>
           <Button className={styles["next-btn"]} onClick={this.handleNextPage}>
             >
           </Button>
