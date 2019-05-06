@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Avatar from "react-avatar";
 import styles from "../styles/components/PeopleCard.module.css";
 
 class PeopleCard extends Component {
@@ -26,12 +27,7 @@ class PeopleCard extends Component {
 
     return (
       <Card>
-        <Card.Img
-          variant="top"
-          src={this.props.image}
-          height="150px"
-          width="100px"
-        />
+        <Avatar className={styles.avatar} src={this.props.image} size="150px" name={`${this.props.firstName} ${this.props.lastName}`}></Avatar>
         <Card.Body>
           <Card.Title>
             {this.props.firstName} {this.props.lastName}
