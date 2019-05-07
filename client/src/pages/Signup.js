@@ -197,7 +197,7 @@ class Signup extends Component {
 
             <Button
               ref="submit-btn"
-              className={styles["btn-secondary"]}
+              className={styles["confirm-button"]}
               variant="primary"
               type="submit"
             >
