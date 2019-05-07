@@ -18,6 +18,11 @@ class CreateAppointment extends Component {
     this.render = this.render.bind(this);
   }
 
+  // for responsiveness of the avatar
+  componentDidMount(){
+    window.addEventListener("resize", () => {this.setState({})});
+  }
+
   render() {
     let name = `${this.state.firstName} ${this.state.lastName}`;
 
@@ -26,12 +31,20 @@ class CreateAppointment extends Component {
     //   return <Redirect to="/page_not_found" />
     // }
 
+    let avatar;
+    if(window.innerWidth <= 426){
+      avatar = <div><Avatar size="60px" className = {styles.avatar} name={name} round={true} /></div>
+    } else {
+      avatar = <Avatar className = {styles.avatar} name={name} round={true} />
+    }
+
+
     return (
       <div className={styles.CreateAppointment}>
         <section className={styles.Main}>
           <h1 className={styles.header}>Set up Meeting</h1>
-          <h2>Invitee</h2>
-          <Avatar name={name} round={true} />
+          <h2 className={styles.subheader}>Invitee</h2>
+          {avatar}
           <Form
             className={styles.form}
             onSubmit={e => {
@@ -40,7 +53,7 @@ class CreateAppointment extends Component {
           >
             <Form.Group className={styles.datetime} controlId="dateTime">
               <div>
-                <Form.Label>Date</Form.Label>
+                <Form.Label className={styles.date}>Date</Form.Label>
                 <Form.Control
                   required
                   type="date"
@@ -50,7 +63,7 @@ class CreateAppointment extends Component {
                 />
               </div>
               <div>
-                <Form.Label>time</Form.Label>
+                <Form.Label className={styles.time}>Time</Form.Label>
                 <Form.Control
                   required
                   type="time"
@@ -61,7 +74,7 @@ class CreateAppointment extends Component {
               </div>
             </Form.Group>
 
-            <Form.Group controlId="location">
+            <Form.Group className={styles.location} controlId="location">
               <Form.Label>Location</Form.Label>
               <Form.Control
                 required
@@ -72,7 +85,7 @@ class CreateAppointment extends Component {
               />
             </Form.Group>
 
-            <Form.Group controlId="description">
+            <Form.Group className={styles.description} controlId="description">
               <Form.Label>Description</Form.Label>
               <Form.Control
                 required
@@ -84,7 +97,7 @@ class CreateAppointment extends Component {
             </Form.Group>
 
             <Button
-              className={styles["btn-secondary"]}
+              className={styles["cancel-button"]}
               variant="primary"
               onClick={this.handleCancel}
             >
@@ -93,7 +106,7 @@ class CreateAppointment extends Component {
 
             <Button
               ref="submit-btn"
-              className={styles["btn-secondary"]}
+              className={styles["confirm-button"]}
               variant="primary"
               type="submit"
             >

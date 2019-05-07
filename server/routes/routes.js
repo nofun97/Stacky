@@ -54,5 +54,6 @@ router.post("/appointment/:id", appointmentController.updateAppointments);
 router.post("/login", credentialsController.login);
 router.post("/user", credentialsController.newUser);
 router.get("/current", credentialsController.current);
+router.get("/email/:email", credentialsController.checkExistingEmail);
 // Export the router
 module.exports = router;

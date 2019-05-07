@@ -13,6 +13,7 @@ import Profile from "./Home/Profile";
 import ProfileEdit from "./Home/ProfileEdit";
 import Chat from "./Home/Chat";
 import Search from "./Home/Search";
+import AllAppointment from "./Home/AllAppointment";
 
 class Home extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class Home extends Component {
         LastName: "",
         DOB: "",
         interest: [],
-        skill: [],
+        skill: []
       };
     } else {
       this.state = {
@@ -40,7 +41,7 @@ class Home extends Component {
         LastName: "",
         DOB: "",
         interest: [],
-        skill: [],
+        skill: []
       };
     }
 
@@ -73,17 +74,36 @@ class Home extends Component {
         break;
     }
 
+    let avatar;
+    if (window.innerWidth <= 426) {
+      avatar = (
+        <div>
+          <Avatar
+            size="50px"
+            className={styles.avatar}
+            name={this.state.username}
+            round={true}
+            src="http://gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3"
+          />
+        </div>
+      );
+    } else {
+      avatar = (
+        <Avatar
+          size="100px"
+          className={styles.avatar}
+          name={this.state.username}
+          round={true}
+          src="http://gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3"
+        />
+      );
+    }
+
     return (
       <div>
         <header className={styles.header}>
           {/* Change the avatar src with user picture */}
-          <Avatar
-            name={this.state.username}
-            round={true}
-            size="100px"
-            className={styles.avatar}
-            src="http://gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3"
-          />
+          {avatar}
           <div className={styles.title}>
             <h1 className={styles["page-title"]}>{pageName}</h1>
             {/* Implement link to guideline page */}
@@ -97,8 +117,8 @@ class Home extends Component {
               to={{
                 pathname: "/home/profile",
                 state: {
-                  ...this.props.location.state,
-                },
+                  ...this.props.location.state
+                }
               }}
             >
               Profile
@@ -136,6 +156,7 @@ class Home extends Component {
           <Route path="/home/profile_edit" component={ProfileEdit} />
           <Route path="/home/chat" component={Chat} />
           <Route path="/home/search" component={Search} />
+          <Route path="/home/appointments" component={AllAppointment} />
           <Redirect exact to="/home" />
         </Switch>
       </div>

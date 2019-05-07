@@ -1,16 +1,35 @@
 import React, { Component } from "react";
+import Button from "react-bootstrap/Button";
+import { Redirect } from "react-router-dom";
+import styles from "../../styles/pages/Home/Dashboard.module.css";
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      viewAppointment: false,
+    };
+    this.handleAppointments = this.handleAppointments.bind(this);
+  }
+
+  handleAppointments() {
+    this.setState({
+      viewAppointment: true,
+    });
+  }
+
   render() {
+    if (this.state.viewAppointment === true) {
+      return <Redirect to="/home/appointments" />;
+    }
+
     return (
-      <section>
-        <h1>Dashboard</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-          facere dicta sapiente numquam voluptate iure deleniti veritatis odit
-          veniam non nobis provident exercitationem autem, quam nesciunt
-          quisquam odio asperiores dignissimos.
-        </p>
+      <section className={styles.container}>
+        <div className={styles.appointment}>
+          <h1>Appointments</h1>
+          <Button onClick={this.handleAppointments}>View All</Button>
+          <div>>></div>
+        </div>
       </section>
     );
   }

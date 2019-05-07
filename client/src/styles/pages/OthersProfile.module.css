@@ -1,11 +1,12 @@
 .layout {
   display: grid;
-  grid-template-columns: 0.5fr 1fr;
+  grid-template-columns: 0.4fr 1fr;
   width: 100vw;
   height: 100vh;
 }
 
 .profile {
+  text-align: center;
   padding-top: 7vh;
 }
 
@@ -16,9 +17,21 @@
 
 .interestDisplay {
   max-width: 500px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.option{
+  font-family: "league_spartanbold";
+  margin-top : 80px;
+  margin-left: 90px;
+  margin-bottom: 55px;
 }
 
 .suboption {
+  font-family: "proxima_nova_semibold";
+  margin-left: 90px;
+  margin-bottom: 55px;
   color: black;
   text-decoration: none;
 }
@@ -26,4 +39,76 @@
 .suboption:hover {
   color: black;
   text-decoration: none;
+}
+
+.subheader{
+  text-align: center;
+  font-family: "lato_bold";
+  font-size: 1.5em;
+}
+
+.oneliner{
+  text-align: center;
+  font-family: "lato_light";
+  font-size: 1.5em;
+  font-weight: 300;
+}
+
+.description{
+  text-align: center;
+  font-family: "lato_light";
+  font-size: 1.5em;
+  font-weight: 300;
+}
+
+@media only screen and (max-width: 426px) { 
+  .layout {
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .option{
+    font-family: "league_spartanbold";
+    font-size: 1.429em;
+    margin-top : 80px;
+    margin-bottom: 40px;
+    margin-left: 20px;
+  }
+  
+  .suboption {
+    font-family: "proxima_nova_semibold";
+    font-size: 1.274em;
+    margin-bottom: 40px;
+    margin-left: 20px;
+    color: black;
+    text-decoration: none;
+  }
+  
+  .suboption:hover {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .subheader{
+    text-align: center;
+    font-family: "lato_bold";
+    font-size: 1.3em;
+  }
+  
+  .oneliner{
+    text-align: center;
+    font-family: "lato_light";
+    font-size: 1.3em;
+    font-weight: 300;
+  }
+  
+  .description{
+    text-align: center;
+    font-family: "lato_light";
+    font-size: 1.3em;
+    font-weight: 300;
+  }
+
 }

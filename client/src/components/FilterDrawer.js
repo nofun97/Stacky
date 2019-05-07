@@ -38,8 +38,8 @@ class FilterDrawer extends Component {
   handleAddSkill() {
     if (this.state.selectedSkill !== null) {
       let option = this.state.skillOption.filter(
-        opt => opt.value !== this.state.selectedSkill.value
-      );
+        opt => opt.value !== this.state.selectedSkill.id
+      )
       let filterSkill = [this.state.selectedSkill, ...this.state.filterSkill];
       this.setState({
         skillOption: option,
@@ -55,10 +55,10 @@ class FilterDrawer extends Component {
     if (value !== null) {
       this.setState({
         selectedSkill: {
-          value: value.value,
+          value: value.label,
           level: "Intermediate",
           id: value.value,
-          label: value.value,
+          label: value.label,
         },
       });
     } else {
@@ -138,6 +138,7 @@ class FilterDrawer extends Component {
         filterInterest: filterInterest,
         interestOption: option,
       });
+      this.props.onInterestFilter(filterInterest);
     } else if (type === "Skill") {
       let filterSkill = this.state.filterSkill.filter(opt => opt.value !== value);
       let option = [{ value: value, label: value }, ...this.state.skillOption];
@@ -145,6 +146,7 @@ class FilterDrawer extends Component {
         filterSkill: filterSkill,
         skillOption: option,
       });
+      this.props.onSkillFilter(filterSkill);
     }
   }
 
