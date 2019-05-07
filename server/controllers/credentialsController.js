@@ -3,6 +3,31 @@ const passport = require("passport");
 const Credentials = mongoose.model("Credentials");
 const User = mongoose.model("Users");
 const userController = require("./userController.js");
+
+var updateEmail = function(req, res, userData) {
+  Credentials.findOneAndUpdate(
+    {
+      _id: userData.Credentials,
+    },
+    {
+      email: req.body.Email,
+    },
+    function(err, cred) {
+      console.log(req.body.Email);
+      if (!err) {
+        console.log(cred);
+        res.send({
+          ...userData,
+          email: cred.email,
+        });
+      } else {
+        console.log(err);
+        res.send({ error: err });
+      }
+    }
+  );
+};
+
 // Creating new Credentials
 var newUser = function(req, res, next) {
   // console.log("Creating new user");
@@ -101,9 +126,9 @@ var current = (req, res, next) => {
 
 var checkExistingEmail = (req, res) => {
   var email = req.params.email;
-  Credentials.find({email: email}, (err, cred) => {
+  Credentials.find({ email: email }, (err, cred) => {
     if (!err) {
-      if(cred === undefined || cred.length === 0){
+      if (cred === undefined || cred.length === 0) {
         res.sendStatus(304);
       } else {
         res.sendStatus(200);
@@ -112,9 +137,10 @@ var checkExistingEmail = (req, res) => {
       res.sendStatus(404);
     }
   });
-}
+};
 
 module.exports.login = login;
 module.exports.newUser = newUser;
 module.exports.current = current;
 module.exports.checkExistingEmail = checkExistingEmail;
+module.exports.updateEmail = updateEmail;

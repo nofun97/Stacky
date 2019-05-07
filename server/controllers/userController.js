@@ -85,7 +85,7 @@ var deleteUser = function(req, res) {
 };
 
 var updateProfile = function(req, res) {
-  User.updateOne(
+  User.findOneAndUpdate(
     {
       _id: req.params.id,
     },
@@ -93,7 +93,6 @@ var updateProfile = function(req, res) {
       FirstName: req.body.FirstName,
       LastName: req.body.LastName,
       DOB: req.body.DOB,
-      Credentials: credential._id,
       UName: req.body.UName,
       IsVerified: req.body.IsVerified,
       Address: req.body.Address,
@@ -102,7 +101,11 @@ var updateProfile = function(req, res) {
     },
     { strict: true, omitUndefined: true },
     function(err, user) {
-      if (!err) {
+      if (!err && req.body.Email !== undefined && req.body.Email.length > 0) {
+        console.log("updating email");
+        console.log(req.body.Email);
+        credentialsController.updateEmail(req, res, user);
+      } else if (!err) {
         res.send(user);
       } else {
         console.log(err);
