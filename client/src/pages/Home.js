@@ -111,7 +111,7 @@ class Home extends Component {
             <h1 className={styles["page-title"]}>{pageName}</h1>
             {/* Implement link to guideline page */}
             <Link to="/guideline">
-              <p className={styles.guidelines}>Guidelines</p>
+              <div className={styles.guidelines}>Guidelines</div>
             </Link>
           </div>
           <div className={styles.tab}>
