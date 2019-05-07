@@ -48,6 +48,33 @@
   box-shadow: none;
 }
 
+.firstName{
+  font-size: 1.48em;
+  margin-bottom: 0.1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lastName{
+  font-size: 1.48em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cardText{
+  margin-bottom: 20px;
+  height: 5em;
+}
+
+.skill{
+  line-height: 1.5em;
+  max-height: 1.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .avatar{
   width: 100% !important;
 }
@@ -55,5 +82,14 @@
 @media only screen and (max-width: 426px) { 
   .button{
     padding: 0.3em 0.35em;
+  }
+
+  .firstName{
+    font-size: 1.23em;
+    margin-bottom: 0.06em;
+  }
+  
+  .lastName{
+    font-size: 1.23em;
   }
 }
