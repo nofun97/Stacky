@@ -109,7 +109,7 @@ class Login extends Component {
               />
             </Form.Group>
             <Button
-              className={styles["btn-secondary"]}
+              className={styles["login-button"]}
               variant="primary"
               type="submit"
             >
