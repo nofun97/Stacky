@@ -5,10 +5,11 @@ import AppointmentExpandableList from "../../components/AppointmentExpandableLis
 class AllAppointment extends Component {
   constructor(props) {
     super(props);
-    this.state={
-      invites: [{firstName: "Frisco", lastName: "Saol", description: "Meeting to study about essay writing", time: "16.00 pm", date: "03/20/2019", address: "200 Cardigan St, Carlton 3053", _id:"909"}],
-      appointments: [{firstName: "Frisco", lastName: "Saol", description: "Meeting to study about algorithm", time: "16.00 pm", date: "03/20/2019", address: "200 Cardigan St, Carlton 3053", _id:"1000"}],
-    }
+    this.state = {
+      invites: [],
+      appointments: [],
+      pendingInvites: [],
+    };
   }
 
   render() {
@@ -16,7 +17,12 @@ class AllAppointment extends Component {
       <section className={styles.container}>
         <div className={styles.invites}>
           <h1 className={styles.headers}>Meeting Invites</h1>
-          <AppointmentExpandableList values={this.state.invites} type="invites" handleAccept={()=>{}} handleReject={() => {}} />
+          <AppointmentExpandableList
+            values={this.state.invites}
+            type="invites"
+            handleAccept={() => {}}
+            handleReject={() => {}}
+          />
         </div>
         <div className={styles.invites}>
           <h1 className={styles.headers}>Upcoming Meetings</h1>
@@ -24,10 +30,56 @@ class AllAppointment extends Component {
         </div>
         <div className={styles.invites}>
           <h1 className={styles.headers}>Pending Invites</h1>
-          <AppointmentExpandableList values={this.state.appointments} />
+          <AppointmentExpandableList values={this.state.pendingInvites} />
         </div>
       </section>
     );
+  }
+
+  componentDidMount = async () => {
+    var appointmentsData = await fetch(`http://localhost:5000/api/appointment?user=${this.props.id}`);
+
+    var appointments = await appointmentsData.json();
+
+    appointments.forEach(data => {
+      if (data.Invitee === this.props.id){
+        var time = new Date(data.Time);
+        this.setState({
+          ...this.state,
+          invites: [
+            ...this.state.invites,
+            {
+              firstName: data.CreatorFirstName,
+              lastName: data.CreatorLastName,
+              description: data.Description,
+              time: `${time.getHours()}:${time.getMinutes()}`,
+              date: `${time.getDate()}/${time.getMonth()}/${time.getFullYear()}`,
+              address: data.Address,
+              _id: data._id
+            }
+          ]
+        })
+      } else if (data.Creator === this.props.id){
+        var time = new Date(data.Time);
+        this.setState({
+          ...this.state,
+          appointments: [
+            ...this.state.appointments,
+            {
+              firstName: data.InviteeFirstName,
+              lastName: data.InviteeLastName,
+              description: data.Description,
+              time: `${time.getHours()}:${time.getMinutes()}`,
+              date: `${time.getDate()}/${time.getMonth()}/${time.getFullYear()}`,
+              address: data.Address,
+              _id: data._id
+            }
+          ]
+        })
+      }
+    });
+
+    console.log(this.state);
   }
 }
 
