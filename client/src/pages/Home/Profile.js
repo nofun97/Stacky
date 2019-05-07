@@ -125,6 +125,7 @@ class Profile extends Component {
           to={{
             pathname: "/home/profile_edit",
             state: this.state,
+            id: this.props.location.state.id,
           }}
         />
       );

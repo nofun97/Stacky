@@ -22,39 +22,58 @@ class ProfileEdit extends Component {
     this.handleSliderChange = this.handleSliderChange.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
 
-    let interestOption = [
-      { value: "algorithm", label: "algorithm" },
-      { value: "baking", label: "baking" },
-      { value: "caligraphy", label: "caligraphy" },
-    ].filter(
-      opt =>
-        !this.props.location.state.interest
-          .map(x => x.value)
-          .includes(opt.value)
-    );
+    // let interestOption = [
+    //   { value: "algorithm", label: "algorithm" },
+    //   { value: "baking", label: "baking" },
+    //   { value: "caligraphy", label: "caligraphy" },
+    // ].filter(
+    //   opt =>
+    //     !this.props.location.state.interest
+    //       .map(x => x.value)
+    //       .includes(opt.value)
+    // );
 
-    let skillOption = [
-      { value: "algorithm", label: "algorithm" },
-      { value: "baking", label: "baking" },
-      { value: "caligraphy", label: "caligraphy" },
-    ].filter(
-      opt =>
-        !this.props.location.state.skill.map(x => x.value).includes(opt.value)
-    );
+    // let skillOption = [
+    //   { value: "algorithm", label: "algorithm" },
+    //   { value: "baking", label: "baking" },
+    //   { value: "caligraphy", label: "caligraphy" },
+    // ].filter(
+    //   opt =>
+    //     !this.props.location.state.skill.map(x => x.value).includes(opt.value)
+    // );
 
     this.state = {
       submitted: false,
       name: this.props.location.state.name,
       email: this.props.location.state.email,
       dateOfBirth: this.props.location.state.dateOfBirth,
-      interestOption: interestOption,
-      skillOption: skillOption,
+      interestOption: [],
+      skillOption: [],
       selectedInterest: null,
       selectedSkill: null,
       userInterest: this.props.location.state.interest,
       userSkill: this.props.location.state.skill,
       description: this.props.location.state.description,
     };
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:5000/api/skill")
+      .then(resp => resp.json())
+      .then(data => {
+        for (var i = 0; i < data.length; i++) {
+          this.setState({
+            interestOption: [
+              ...this.state.interestOption,
+              { value: data[i]._id, label: data[i].Name },
+            ],
+            skillOption: [
+              ...this.state.skillOption,
+              { value: data[i]._id, label: data[i].Name },
+            ],
+          });
+        }
+      });
   }
 
   // handle name change
@@ -227,7 +246,41 @@ class ProfileEdit extends Component {
   }
 
   handleSubmit() {
-    this.setState({ submitted: true });
+    fetch("http://localhost:5000/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // body: JSON.stringify(this.state.Submission)
+      body: JSON.stringify({
+        user: {
+          email: this.state.email,
+          password: this.state.password,
+        },
+        FirstName: this.state.firstName,
+        LastName: this.state.lastName,
+        DOB: this.state.dateOfBirth,
+
+        //TODO: implement this on the sign up form
+        UName: this.state.UName,
+        IsVerified: this.state.IsVerified,
+        Address: this.state.Address,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        this.setState({ ID: data._id, email: data.Email, successful: true });
+        console.log("Submission successful!");
+        console.log(data);
+      })
+      .catch(err => {
+        console.log("Submission not succesful");
+        console.log(err);
+        this.setState({
+          InvalidInfo: true,
+        });
+      });
   }
 
   render() {
@@ -237,14 +290,7 @@ class ProfileEdit extends Component {
           to={{
             pathname: "/home/profile",
             state: {
-              LastName: this.state.name,
-              FirstName: "",
-              email: this.state.email,
-              DOB: this.state.dateOfBirth,
-              userInterest: this.state.userInterest,
-              userSkill: this.state.userSkill,
-              description: this.state.description,
-              noBackend: true,
+              id: this.props.location.state.id
             },
           }}
         />
