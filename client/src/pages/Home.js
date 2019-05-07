@@ -156,7 +156,13 @@ class Home extends Component {
           <Route path="/home/profile_edit" component={ProfileEdit} />
           <Route path="/home/chat" component={Chat} />
           <Route path="/home/search" component={Search} />
-          <Route path="/home/appointments" component={AllAppointment} />
+          <Route path="/home/appointments"
+            render={props => (
+              <AllAppointment
+                {...props}
+                id={this.state.id} />
+            )}
+          />
           <Redirect exact to="/home" />
         </Switch>
       </div>
