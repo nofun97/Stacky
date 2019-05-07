@@ -15,64 +15,7 @@ class Search extends Component {
     this.handleFetchUsers = this.handleFetchUsers.bind(this);
     this.handleNextPage = this.handleNextPage.bind(this);
     this.state = {
-      user: [
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [{Name:"Baking", category:"Cooking", Description:"Nothing"},{Name:"Algorithm", category:"Computing", Description:"Nothing"}],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-      ],
+      user: [],
       drawerOpen: false,
       pageNumber: 1,
       totalPageNumber: 1,
