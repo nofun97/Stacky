@@ -35,6 +35,7 @@ class Login extends Component {
       email: "",
       id: "",
       successful: false,
+      user: {},
     };
     this.handleLogin = this.handleLogin.bind(this);
   }
@@ -69,7 +70,7 @@ class Login extends Component {
         // if (data.ok === true) {
         // }
         // this.props.history.push("/home");
-        this.setState({ id: data._id, email: data.Email, successful: true });
+        this.setState({ id: data._id, email: data.Email, successful: true, user: data });
       })
       .catch(err => {
         console.log("Login not succesful");
@@ -87,6 +88,7 @@ class Login extends Component {
               id: this.state.id,
               email: this.state.email,
               noBackend: false,
+              user: this.state.user
             },
           }}
         />

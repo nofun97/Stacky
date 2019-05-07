@@ -137,7 +137,17 @@ class Search extends Component {
   }
 
   handleClick = id => {
-    this.props.history.push("/user", {id});
+    // this.props.history.push("/user", {id});
+    console.log(this.props);
+    this.props.history.push({
+      pathname: "/user",
+      state: {
+        id: id,
+        userID: this.props.id,
+        userFirstName: this.props.firstName,
+        userLastName: this.props.lastName
+      }
+    });
   };
 
   handleNextPage = () => {
@@ -189,6 +199,9 @@ class Search extends Component {
         <div className={styles["card-container"]}>
           <PeopleCardList
             handleClick={this.handleClick}
+            id={this.props.id}
+            firstName={this.props.firstName}
+            lastName={this.props.lastName}
             values={this.state.user}
           />
         </div>

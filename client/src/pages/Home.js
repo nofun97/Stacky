@@ -37,15 +37,15 @@ class Home extends Component {
         username: "Tester Man",
         email: this.props.location.state.email,
         id: this.props.location.state.id,
-        FirstName: "",
-        LastName: "",
+        FirstName: this.props.location.state.user.FirstName,
+        LastName: this.props.location.state.user.LastName,
         DOB: "",
         interest: [],
         skill: []
       };
     }
 
-    console.log(this.state);
+    console.log(this.props);
   }
 
   render() {
@@ -155,7 +155,14 @@ class Home extends Component {
           />
           <Route path="/home/profile_edit" component={ProfileEdit} />
           <Route path="/home/chat" component={Chat} />
-          <Route path="/home/search" component={Search} />
+          <Route path="/home/search" render={props =>(
+            <Search
+              {...props}
+              id={this.state.id}
+              firstName={this.state.FirstName}
+              lastName={this.state.LastName} 
+            />
+          )} />
           <Route path="/home/appointments"
             render={props => (
               <AllAppointment

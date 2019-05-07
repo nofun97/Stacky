@@ -57,6 +57,7 @@ class Signup extends Component {
       Address: "",
       confirmPassword: "",
       ID: "",
+      user: {},
       InvalidInfo: false,
       successful: false,
     };
@@ -101,7 +102,7 @@ class Signup extends Component {
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        this.setState({ ID: data._id, email: data.Email, successful: true });
+        this.setState({ ID: data._id, email: data.Email, successful: true, user: data });
         console.log("Submission successful!");
         console.log(data);
       })
