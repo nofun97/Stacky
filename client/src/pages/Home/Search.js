@@ -251,12 +251,12 @@ class Search extends Component {
         </div>
         <div className={styles.bottom}>
           {/* need to implement this page count */}
-          <span className={styles.pagination}>
-            page {this.state.pageNumber} of {this.state.totalPageNumber}
-          </span>
           <Button className={`${styles["next-btn"]} ${styles["back-btn"]}`} onClick={this.handlePreviousPage}>
             {`<`}
           </Button>
+          <span className={styles.pagination}>
+            page {this.state.pageNumber} of {this.state.totalPageNumber}
+          </span>
           <Button className={styles["next-btn"]} onClick={this.handleNextPage}>
             >
           </Button>
