@@ -5,7 +5,13 @@ var Appointments = mongoose.model("Appointments");
 
 // Function to find all appointments
 var findAllAppointments = function(req, res) {
-  Appointments.find(function(err, appointment) {
+  var user = req.query.user;
+  if (user === undefined){
+    return res.send({"error": "user ID is required"});
+  }
+  user = mongoose.Types.ObjectId(user);
+  var query = {"$or": [{"Creator": user}, {"Invitee": user}]};
+  Appointments.find(query, function(err, appointment) {
     if (!err) {
       res.send(appointment);
     } else {
@@ -20,8 +26,13 @@ var addNewAppointments = function(req, res) {
     Time: req.body.Time,
     Description: req.body.Description,
     Address: req.body.Address,
-    Teacher: req.body.Teacher,
-    Student: req.body.Student,
+    Invitee: req.body.Invitee,
+    InviteeFirstName: req.body.InviteeFirstName,
+    InviteeLastName: req.body.InviteeLastName,
+    Creator: req.body.Creator,
+    CreatorFirstName: req.body.CreatorFirstName,
+    CreatorLastName: req.body.CreatorLastName,
+    IsApproved: false,
   });
   appointment.save(function(err, appointment) {
     if (!err) {
@@ -51,8 +62,10 @@ var updateAppointments = function(req, res) {
     Time: req.body.Time,
     Description: req.body.Description,
     Address: req.body.Address,
-    Teacher: req.body.Teacher,
-    Student: req.body.Student,
+    // You can't change the parties involved in the invite
+    // Invitee: req.body.Invitee,
+    // Creator: req.body.Creator,
+    IsApproved: false,
   };
   var options = { omitUndefined: true };
   Appointments.findByIdAndUpdate(id, appointment, options, function(err, updated) {
@@ -64,8 +77,20 @@ var updateAppointments = function(req, res) {
   });
 };
 
+var approveAppointment = function(req, res){
+  var id = req.params.id;
+  Appointments.findByIdAndUpdate(id, {IsApproved: true}, function(err, updated) {
+    if (!err && updated != null) {
+      res.send({ UpdateSuccessful: true });
+    } else {
+      res.sendStatus(400);
+    }
+  })
+}
+
 // Export the variable
 module.exports.findAllAppointments = findAllAppointments;
 module.exports.addNewAppointments = addNewAppointments;
 module.exports.deleteAppointments = deleteAppointments;
 module.exports.updateAppointments = updateAppointments;
+module.exports.approveAppointment = approveAppointment;
