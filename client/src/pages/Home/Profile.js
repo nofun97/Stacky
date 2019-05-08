@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 // https://github.com/Sitebase/react-avatar
 import Avatar from "react-avatar";
 import Button from "@material-ui/core/Button";
@@ -6,11 +7,18 @@ import { Redirect } from "react-router-dom";
 import InterestDisplayList from "../../components/InterestDisplayList";
 import styles from "../../styles/pages/Home/Profile.module.css";
 
+
+const mapStateToProps = (state) => {
+  return {
+    state: state
+  }
+}
+
+
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.handleEdit = this.handleEdit.bind(this);
-    let description;
     // setting state
     this.state = {
       editMode: false,
@@ -23,41 +31,11 @@ class Profile extends Component {
       lastName: "",
       description: "",
     };
-
-    // if props is undefined, put placeholders
-    if (this.props.location.state === undefined) {
-      description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-        facere dicta sapiente numquam voluptate iure deleniti veritatis odit
-        veniam non nobis provident exercitationem autem, quam nesciunt
-        quisquam odio asperiores dignissimos.`;
-      this.state = {
-        editMode: false,
-        name: "placeholder for name",
-        email: "placeholder for email",
-        dateOfBirth: "placeholder for DOB",
-        interest: [],
-        skill: [],
-        description: description,
-      };
-    } else {
-      // if description is undefined put placeholders
-      if (
-        this.props.location.state.description === undefined ||
-        this.props.location.state.description === ""
-      ) {
-        description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-        facere dicta sapiente numquam voluptate iure deleniti veritatis odit
-        veniam non nobis provident exercitationem autem, quam nesciunt
-        quisquam odio asperiores dignissimos.`;
-      } else {
-        description = this.props.location.state.description;
-      }
-    }
   }
 
   componentDidMount = async () => {
     const profileData = await fetch(
-      `http://localhost:5000/api/user/${this.props.location.state.id}`
+      `http://localhost:5000/api/user/${this.props.state.user._id}`
     );
     const profile = await profileData.json();
     var dateData = new Date(profile.DOB);
@@ -67,7 +45,7 @@ class Profile extends Component {
       firstName: profile.FirstName,
       lastName: profile.LastName,
       name: `${profile.FirstName} ${profile.LastName}`,
-      email: this.props.location.state.email,
+      email: this.props.state.user.Email,
       dateOfBirth: date,
       //TODO: add description field
     });
@@ -110,6 +88,8 @@ class Profile extends Component {
     }).filter(data => {
       return data !== {};
     });
+    this.props.dispatch({type: "USER_ADD_SKILL", skills: skillProfile});
+    this.props.dispatch({type: "USER_ADD_INTEREST", interests: interestsProfile});
     this.setState({ interest: interestsProfile, skill: skillProfile });
   };
 
@@ -129,7 +109,6 @@ class Profile extends Component {
             pathname: "/home/profile_edit",
             state: {
               ...this.state,
-              id: this.props.location.state.id,
               firstName: this.state.firstName,
               lastName: this.state.lastName,
             },
@@ -172,4 +151,4 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+export default connect(mapStateToProps)(Profile);

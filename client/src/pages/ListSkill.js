@@ -2,8 +2,15 @@ import React, { Component } from "react";
 import Select from "react-select";
 import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import InterestEditorList from "../components/InterestEditorList";
 import styles from "../styles/pages/ListSkill.module.css";
+
+const mapStateToProps = (state) => {
+  return {
+    state: state
+  }
+}
 
 class ListSkill extends Component {
   constructor(props) {
@@ -209,9 +216,8 @@ class ListSkill extends Component {
         Level: data.level
       };
     });
-    console.log(this.props.location.state.ID);
     //TODO: test update profile
-    fetch(`http://localhost:5000/api/user/${this.props.location.state.ID}`, {
+    fetch(`http://localhost:5000/api/user/${this.props.state.user._id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -223,13 +229,12 @@ class ListSkill extends Component {
     })
       .then(response => response.json())
       .then(data => {
-
+        this.props.dispatch({type: "USER_ADD_SKILL", skills});
+        this.props.dispatch({type: "USER_ADD_INTEREST", interests});
         this.setState({
           submitted: true,
         });
       });
-
-
   }
 
   render() {
@@ -238,13 +243,6 @@ class ListSkill extends Component {
         <Redirect
           to={{
             pathname: "/home",
-            state: {
-              id: this.props.location.state.ID,
-              userInterest: this.state.userInterest,
-              userSkill: this.state.userSkill,
-              noBackend: true,
-              ...this.props.location.state,
-            },
           }}
         />
       );
@@ -329,4 +327,4 @@ class ListSkill extends Component {
   }
 }
 
-export default ListSkill;
+export default connect(mapStateToProps)(ListSkill);

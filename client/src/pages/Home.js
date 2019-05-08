@@ -4,6 +4,7 @@ import { Route, Switch, Redirect, Link } from "react-router-dom";
 import { NavTab } from "react-router-tabs";
 // https://github.com/Sitebase/react-avatar
 import Avatar from "react-avatar";
+import { connect } from "react-redux";
 
 import "../styles/components/HomeTab.css";
 import styles from "../styles/pages/Home.module.css";
@@ -15,37 +16,28 @@ import Chat from "./Home/Chat";
 import Search from "./Home/Search";
 import AllAppointment from "./Home/AllAppointment";
 
+
+const mapStateToProps = (state) => {
+  return {
+    state: state
+  }
+}
+
 class Home extends Component {
   constructor(props) {
     super(props);
 
-    if (this.props.location.state === undefined) {
-      this.state = {
-        page: "My Home",
-        username: "Username placeholder",
-        email: "Email placeholder",
-        id: "id placeholder",
-        FirstName: "",
-        LastName: "",
-        DOB: "",
-        interest: [],
-        skill: []
-      };
-    } else {
-      this.state = {
-        page: "My Home",
-        username: "Tester Man",
-        email: this.props.location.state.email,
-        id: this.props.location.state.id,
-        FirstName: this.props.location.state.user.FirstName,
-        LastName: this.props.location.state.user.LastName,
-        DOB: "",
-        interest: [],
-        skill: []
-      };
-    }
-
-    console.log(this.props);
+    this.state = {
+      page: "My Home",
+      username: "Tester Man",
+      email: this.props.state.user.Email,
+      id: this.props.state.user._id,
+      FirstName: this.props.state.user.FirstName,
+      LastName: this.props.state.user.LastName,
+      DOB: "",
+      interest: [],
+      skill: []
+    };
   }
 
   // for responsiveness of the avatar
@@ -80,13 +72,14 @@ class Home extends Component {
     }
 
     let avatar;
+    let name = `${this.props.state.user.FirstName} ${this.props.state.user.LastName}`;
     if (window.innerWidth <= 426) {
       avatar = (
         <div>
           <Avatar
             size="50px"
             className={styles.avatar}
-            name={this.state.username}
+            name={name}
             round={true}
           />
         </div>
@@ -96,7 +89,7 @@ class Home extends Component {
         <Avatar
           size="100px"
           className={styles.avatar}
-          name={this.state.username}
+          name={name}
           round={true}
         />
       );
@@ -119,16 +112,13 @@ class Home extends Component {
             <NavTab
               to={{
                 pathname: "/home/profile",
-                state: {
-                  ...this.props.location.state
-                }
               }}
             >
               Profile
             </NavTab>
             <NavTab
               exact
-              to={{ pathname: "/home", state: this.props.location.state }}
+              to={{ pathname: "/home"}}
             >
               My Home
             </NavTab>
@@ -180,4 +170,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default connect(mapStateToProps)(Home);

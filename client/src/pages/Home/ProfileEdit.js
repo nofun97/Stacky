@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 // https://github.com/Sitebase/react-avatar
 import Avatar from "react-avatar";
 import Select from "react-select";
@@ -6,6 +7,12 @@ import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
 import InterestEditorList from "../../components/InterestEditorList";
 import styles from "../../styles/pages/Home/ProfileEdit.module.css";
+
+const mapStateToProps = state => {
+  return {
+    state: state,
+  };
+};
 
 class ProfileEdit extends Component {
   constructor(props) {
@@ -21,24 +28,24 @@ class ProfileEdit extends Component {
     this.handleInterestSelect = this.handleInterestSelect.bind(this);
     this.handleSliderChange = this.handleSliderChange.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
-    console.log(this.props.location.state);
     this.state = {
       submitted: false,
-      firstName: this.props.location.state.firstName,
-      lastName: this.props.location.state.lastName,
-      name: `${this.props.location.state.firstName} ${
-        this.props.location.state.lastName
+      firstName: this.props.state.user.FirstName,
+      lastName: this.props.state.user.LastName,
+      name: `${this.props.state.user.FirstName} ${
+        this.props.state.user.LastName
       }`,
-      email: this.props.location.state.email,
-      dateOfBirth: this.props.location.state.dateOfBirth,
+      email: this.props.state.user.Email,
+      dateOfBirth: this.props.state.user.DOB.slice(0, 10),
       interestOption: [],
       skillOption: [],
       selectedInterest: null,
       selectedSkill: null,
-      userInterest: this.props.location.state.interest,
-      userSkill: this.props.location.state.skill,
+      userInterest: this.props.state.user.Interests,
+      userSkill: this.props.state.user.Skills,
       description: this.props.location.state.description,
     };
+    console.log(this.state);
   }
 
   componentDidMount() {
@@ -237,7 +244,7 @@ class ProfileEdit extends Component {
     let newInterests = this.state.userInterest.map(data => {
       return { Skill: data.id, Level: data.level };
     });
-    fetch(`http://localhost:5000/api/user/${this.props.location.state.id}`, {
+    fetch(`http://localhost:5000/api/user/${this.props.state.user._id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -259,8 +266,21 @@ class ProfileEdit extends Component {
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        // this.setState({ ID: data._id, email: data.Email, successful: true });
         console.log("Submission successful!");
+        let userUpdate = {
+          Email: this.state.email,
+          FirstName: this.state.firstName,
+          LastName: this.state.lastName,
+          DOB: this.state.dateOfBirth,
+
+          //TODO: implement this on the sign up form
+          UName: this.state.UName,
+          Address: this.state.Address,
+          Skills: newSkills,
+          Interests: newInterests,
+        };
+        this.props.dispatch({type: "USER_AUTH", user: userUpdate});
+        this.setState({ submitted: true });
       })
       .catch(err => {
         console.log("Submission not succesful");
@@ -277,9 +297,6 @@ class ProfileEdit extends Component {
         <Redirect
           to={{
             pathname: "/home/profile",
-            state: {
-              id: this.props.location.state.id,
-            },
           }}
         />
       );
@@ -396,4 +413,4 @@ class ProfileEdit extends Component {
   }
 }
 
-export default ProfileEdit;
+export default connect(mapStateToProps)(ProfileEdit);

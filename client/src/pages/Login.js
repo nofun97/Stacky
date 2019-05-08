@@ -5,6 +5,13 @@ import styles from "../styles/pages/Login.module.css";
 import { Redirect } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+  return {
+    state: state
+  }
+}
 
 // Input validation schema
 const schema = yup.object({
@@ -45,7 +52,6 @@ class Login extends Component {
     this.submitButton.setAttribute("disabled", "disabled");
 
     // Login logic
-    console.log("Login...");
     // TODO: put url in env?
     fetch("http://localhost:5000/api/login", {
       method: "POST",
@@ -63,13 +69,11 @@ class Login extends Component {
         return response.json();
       })
       .then(data => {
-        console.log("Login successful!");
-        console.log(data);
-
         // For authentication stuff (if ok then redirect) for now just redirect
         // if (data.ok === true) {
         // }
         // this.props.history.push("/home");
+        this.props.dispatch({type: 'USER_AUTH', user: data});
         this.setState({ id: data._id, email: data.Email, successful: true, user: data });
       })
       .catch(err => {
@@ -84,12 +88,6 @@ class Login extends Component {
         <Redirect
           to={{
             pathname: "/home",
-            state: {
-              id: this.state.id,
-              email: this.state.email,
-              noBackend: false,
-              user: this.state.user
-            },
           }}
         />
       );
@@ -166,4 +164,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(mapStateToProps)(Login);
