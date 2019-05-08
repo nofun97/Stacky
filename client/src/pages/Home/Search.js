@@ -153,7 +153,7 @@ class Search extends Component {
   handleNextPage = () => {
     if(this.state.pageNumber < this.state.totalPageNumber){
       this.setState({
-        currentIndex: this.state.currentIndex + this.state.dataPerPage + 1,
+        currentIndex: this.state.currentIndex + this.state.dataPerPage,
         pageNumber: this.state.pageNumber + 1,
         changes: true,
       });
@@ -164,7 +164,7 @@ class Search extends Component {
   handlePreviousPage = () => {
     if(this.state.currentIndex > 0){
       this.setState({
-        currentIndex: this.state.currentIndex - this.state.dataPerPage - 1,
+        currentIndex: this.state.currentIndex - this.state.dataPerPage,
         pageNumber: this.state.pageNumber - 1,
         changes: true,
       });
@@ -213,9 +213,6 @@ class Search extends Component {
           <span className={styles.pagination}>
             page {this.state.pageNumber} of {this.state.totalPageNumber}
           </span>
-          <Button className={`${styles["next-btn"]} ${styles["back-btn"]}`} onClick={this.handlePreviousPage}>
-            {`<`}
-          </Button>
           <Button className={styles["next-btn"]} onClick={this.handleNextPage}>
             >
           </Button>
