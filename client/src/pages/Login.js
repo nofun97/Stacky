@@ -127,7 +127,6 @@ class Login extends Component {
                     We'll never share your email with anyone else.
                   </Form.Text>
                 </Form.Group>
-
                 <Form.Group
                   className={styles.password}
                   controlId="formBasicPassword"
@@ -149,7 +148,7 @@ class Login extends Component {
                   ref={submitButton => {
                     this.submitButton = submitButton;
                   }}
-                  className={styles["btn-secondary"]}
+                  className={styles["login-button"]}
                   variant="primary"
                   type="submit"
                 >

@@ -26,9 +26,9 @@ class Dashboard extends Component {
     return (
       <section className={styles.container}>
         <div className={styles.appointment}>
-          <h1>Appointments</h1>
-          <Button onClick={this.handleAppointments}>View All</Button>
-          <div>>></div>
+          <h1 className={styles.headings}>Appointments</h1>
+          <Button className={styles["button"]} onClick={this.handleAppointments}>View All</Button>
+          <div className={styles.symbol}>>></div>
         </div>
       </section>
     );

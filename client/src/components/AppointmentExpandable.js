@@ -39,8 +39,9 @@ class AppointmentExpandable extends Component {
     let indicator;
     if (this.props.type === "invites") {
       indicator = (
+        /*need help w hover here*/
         <div className={styles.indicator}>
-          <IconButton style={{width: '20px', height: '20px', padding: '20px', border: "2px #FF9C40 solid" , marginRight:"10px"}} onClick={this.handleAccept}>
+          <IconButton style={{width: '20px', height: '20px', padding: '20px', border: "2px #FF9C40 solid", marginRight:"10px"}} onClick={this.handleAccept}>
             <CheckIcon style ={{position:"absolute", color:"#FF9C40"}}/>
           </IconButton>
           <IconButton style={{width: '20px', height: '20px', padding: '20px', border: "2px #FF9C40 solid"}} onClick={this.handleReject}>

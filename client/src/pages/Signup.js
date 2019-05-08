@@ -276,12 +276,11 @@ class Signup extends Component {
                     {errors.confirmPassword}
                   </Form.Control.Feedback>
                 </Form.Group>
-
                 <Button
                   ref={submitButton => {
                     this.submitButton = submitButton;
                   }}
-                  className={styles["btn-secondary"]}
+                  className={styles["confirm-button"]}
                   variant="primary"
                   type="submit"
                 >

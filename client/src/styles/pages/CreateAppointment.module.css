@@ -147,6 +147,17 @@
   box-shadow: none;
 }
 
+.confirm-button:disabled{
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #f1aa55;
+  background-color: #f1aa55 !important;
+  color: black;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
 .Illust {
   grid-column: 2/3;
   grid-row: 1/2;

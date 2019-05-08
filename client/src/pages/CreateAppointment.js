@@ -21,7 +21,13 @@ class CreateAppointment extends Component {
       description: "",
     };
     this.render = this.render.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  // go back to other profile page when cancel is pressed
+  handleCancel(){
+    this.props.history.goBack();
   }
 
   // for responsiveness of the avatar
