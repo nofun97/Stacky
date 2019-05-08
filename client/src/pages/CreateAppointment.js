@@ -2,7 +2,21 @@ import React, { Component } from "react";
 import Avatar from "react-avatar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Formik } from "formik";
+import * as yup from "yup";
 import styles from "../styles/pages/CreateAppointment.module.css";
+
+// Input validation schema
+const schema = yup.object({
+  date: yup.string().required("Please provide a date"),
+  time: yup.string().required("Please provide a time"),
+  location: yup
+    .string()
+    .required("Please provide the location of the appointment"),
+  description: yup
+    .string()
+    .required("Please provide the description of the appointment"),
+});
 
 class CreateAppointment extends Component {
   constructor(props) {
@@ -17,7 +31,7 @@ class CreateAppointment extends Component {
       inviteeID: this.props.location.state.InviteeID,
       date: "",
       time: "",
-      location: "", 
+      location: "",
       description: "",
     };
     this.render = this.render.bind(this);
@@ -26,39 +40,42 @@ class CreateAppointment extends Component {
   }
 
   // go back to other profile page when cancel is pressed
-  handleCancel(){
+  handleCancel() {
     this.props.history.goBack();
   }
 
   // for responsiveness of the avatar
-  componentDidMount(){
-    window.addEventListener("resize", () => {this.setState({})});
+  componentDidMount() {
+    window.addEventListener("resize", () => {
+      this.setState({});
+    });
   }
 
-  handleSubmit = async () => {
-    var date = new Date(`${this.state.date.getFullYear()}-${this.state.date.getMonth()+1}-${this.state.date.getDate()}T
-    ${this.state.time.getTime()}`);
+  handleSubmit = async (values, action) => {
+    console.log(values);
+    var date = new Date(`${values.date}T${values.time}:00`);
     var submissionData = await fetch(`http://localhost:5000/api/appointment`, {
       method: "POST",
       header: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         Time: date,
-        Description: this.state.description,
-        Address: this.state.location,
+        Description: values.description,
+        Address: values.location,
         Invitee: this.state.inviteeID,
         InviteeFirstName: this.state.inviteeFirstName,
         InviteeLastName: this.state.inviteeLastName,
         Creator: this.state.creatorID,
         CreatorFirstName: this.state.creatorFirstName,
-        CreatorLastName: this.state.creatorLastName
-      })
+        CreatorLastName: this.state.creatorLastName,
+      }),
     });
-    var res = submissionData.json();
+    var res = await submissionData.json();
+    this.props.history.goBack();
     //TODO: do error handling here
     console.log(res);
-  }
+  };
 
   render() {
     let name = `${this.state.inviteeFirstName} ${this.state.inviteeLastName}`;
@@ -69,12 +86,20 @@ class CreateAppointment extends Component {
     // }
 
     let avatar;
-    if(window.innerWidth <= 426){
-      avatar = <div><Avatar size="60px" className = {styles.avatar} name={name} round={true} /></div>
+    if (window.innerWidth <= 426) {
+      avatar = (
+        <div>
+          <Avatar
+            size="60px"
+            className={styles.avatar}
+            name={name}
+            round={true}
+          />
+        </div>
+      );
     } else {
-      avatar = <Avatar className = {styles.avatar} name={name} round={true} />
+      avatar = <Avatar className={styles.avatar} name={name} round={true} />;
     }
-
 
     return (
       <div className={styles.CreateAppointment}>
@@ -82,72 +107,105 @@ class CreateAppointment extends Component {
           <h1 className={styles.header}>Set up Meeting</h1>
           <h2 className={styles.subheader}>Invitee</h2>
           {avatar}
-          <Form
-            className={styles.form}
+          <Formik
+            initialValues={{
+              date: "",
+              time: "",
+              location: "",
+              description: "",
+            }}
+            validationSchema={schema}
+            validateOnBlur={false}
+            validateOnChange={false}
             onSubmit={this.handleSubmit}
           >
-            <Form.Group className={styles.datetime} controlId="dateTime">
-              <div>
-                <Form.Label className={styles.date}>Date</Form.Label>
-                <Form.Control
-                  required
-                  type="date"
-                  placeholder="Enter Date"
-                  onChange={e => this.setState({ date: e.target.value })}
-                  value={this.state.date || ""}
-                />
-              </div>
-              <div>
-                <Form.Label className={styles.time}>Time</Form.Label>
-                <Form.Control
-                  required
-                  type="time"
-                  placeholder="Enter Time"
-                  onChange={e => this.setState({ time: e.target.value })}
-                  value={this.state.time || ""}
-                />
-              </div>
-            </Form.Group>
+            {({ handleSubmit, handleChange, values, errors }) => (
+              <Form
+                noValidate
+                className={styles.form}
+                onSubmit={handleSubmit}
+              >
+                <Form.Group className={styles.datetime} controlId="dateTime">
+                  <div>
+                    <Form.Label className={styles.date}>Date</Form.Label>
+                    <Form.Control
+                      name="date"
+                      type="date"
+                      placeholder="Enter Date"
+                      onChange={handleChange}
+                      value={values.date}
+                      isInvalid={!!errors.date}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.date}
+                    </Form.Control.Feedback>
+                  </div>
+                  <div>
+                    <Form.Label className={styles.time}>Time</Form.Label>
+                    <Form.Control
+                      name="time"
+                      type="time"
+                      placeholder="Enter Time"
+                      onChange={handleChange}
+                      value={values.time}
+                      isInvalid={!!errors.time}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.time}
+                    </Form.Control.Feedback>
+                  </div>
+                </Form.Group>
 
-            <Form.Group className={styles.location} controlId="location">
-              <Form.Label>Location</Form.Label>
-              <Form.Control
-                required
-                as="textarea"
-                rows="3"
-                onChange={e => this.setState({ location: e.target.value })}
-                value={this.state.location || ""}
-              />
-            </Form.Group>
+                <Form.Group className={styles.location} controlId="location">
+                  <Form.Label>Location</Form.Label>
+                  <Form.Control
+                    name="location"
+                    as="textarea"
+                    onChange={handleChange}
+                    value={values.location}
+                    isInvalid={!!errors.location}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.location}
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-            <Form.Group className={styles.description} controlId="description">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                required
-                as="textarea"
-                rows="3"
-                onChange={e => this.setState({ description: e.target.value })}
-                value={this.state.description || ""}
-              />
-            </Form.Group>
+                <Form.Group
+                  className={styles.description}
+                  controlId="description"
+                >
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    name="description"
+                    as="textarea"
+                    onChange={handleChange}
+                    value={values.description}
+                    isInvalid={!!errors.description}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.description}
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-            <Button
-              className={styles["cancel-button"]}
-              variant="primary"
-              onClick={this.handleCancel}
-            >
-              Cancel
-            </Button>
+                <Button
+                  className={styles["cancel-button"]}
+                  variant="primary"
+                  onClick={this.handleCancel}
+                >
+                  Cancel
+                </Button>
 
-            <Button
-              ref="submit-btn"
-              className={styles["confirm-button"]}
-              variant="primary"
-              type="submit"
-            >
-              Confirm
-            </Button>
-          </Form>
+                <Button
+                  ref="submit-btn"
+                  className={styles["confirm-button"]}
+                  variant="primary"
+                  type="submit"
+                >
+                  Confirm
+                </Button>
+              </Form>
+            )}
+          </Formik>
         </section>
         <aside className={styles.Illust} />
       </div>
