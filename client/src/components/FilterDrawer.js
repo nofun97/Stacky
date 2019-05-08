@@ -20,7 +20,9 @@ class FilterDrawer extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:5000/api/skill")
+    fetch("http://localhost:5000/api/skill", {
+      credentials: "include",
+    })
       .then(resp => resp.json())
       .then(data => {
         for (var i = 0; i < data.length; i++) {
@@ -39,7 +41,7 @@ class FilterDrawer extends Component {
     if (this.state.selectedSkill !== null) {
       let option = this.state.skillOption.filter(
         opt => opt.value !== this.state.selectedSkill.id
-      )
+      );
       let filterSkill = [this.state.selectedSkill, ...this.state.filterSkill];
       this.setState({
         skillOption: option,
@@ -140,7 +142,9 @@ class FilterDrawer extends Component {
       });
       this.props.onInterestFilter(filterInterest);
     } else if (type === "Skill") {
-      let filterSkill = this.state.filterSkill.filter(opt => opt.value !== value);
+      let filterSkill = this.state.filterSkill.filter(
+        opt => opt.value !== value
+      );
       let option = [{ value: value, label: value }, ...this.state.skillOption];
       this.setState({
         filterSkill: filterSkill,

@@ -6,11 +6,11 @@ import { connect } from "react-redux";
 import InterestEditorList from "../components/InterestEditorList";
 import styles from "../styles/pages/ListSkill.module.css";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    state: state
-  }
-}
+    state: state,
+  };
+};
 
 class ListSkill extends Component {
   constructor(props) {
@@ -34,7 +34,9 @@ class ListSkill extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:5000/api/skill")
+    fetch("http://localhost:5000/api/skill", {
+      credentials: "include",
+    })
       .then(resp => resp.json())
       .then(data => {
         for (var i = 0; i < data.length; i++) {
@@ -203,34 +205,36 @@ class ListSkill extends Component {
 
   // handler when submit button is clicked
   handleSubmit() {
-
     let interests = this.state.userInterest.map(data => {
       return {
         Skill: data.id,
-        Level: data.level
+        Level: data.level,
+        Name: data.label,
       };
     });
     let skills = this.state.userSkill.map(data => {
       return {
         Skill: data.id,
-        Level: data.level
+        Level: data.level,
+        Name: data.label,
       };
     });
     //TODO: test update profile
     fetch(`http://localhost:5000/api/user/${this.props.state.user._id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          Skills: skills,
-          Interests: interests,
-        })
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Skills: skills,
+        Interests: interests,
+      }),
+      credentials: "include",
     })
       .then(response => response.json())
       .then(data => {
-        this.props.dispatch({type: "USER_ADD_SKILL", skills});
-        this.props.dispatch({type: "USER_ADD_INTEREST", interests});
+        this.props.dispatch({ type: "USER_ADD_SKILL", skills });
+        this.props.dispatch({ type: "USER_ADD_INTEREST", interests });
         this.setState({
           submitted: true,
         });

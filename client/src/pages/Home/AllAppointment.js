@@ -37,12 +37,17 @@ class AllAppointment extends Component {
   }
 
   componentDidMount = async () => {
-    var appointmentsData = await fetch(`http://localhost:5000/api/appointment?user=${this.props.id}`);
+    var appointmentsData = await fetch(
+      `http://localhost:5000/api/appointment?user=${this.props.id}`,
+      {
+        credentials: "include",
+      }
+    );
 
     var appointments = await appointmentsData.json();
 
     appointments.forEach(data => {
-      if (data.Invitee === this.props.id){
+      if (data.Invitee === this.props.id) {
         var time = new Date(data.Time);
         this.setState({
           ...this.state,
@@ -55,11 +60,11 @@ class AllAppointment extends Component {
               time: `${time.getHours()}:${time.getMinutes()}`,
               date: `${time.getDate()}/${time.getMonth()}/${time.getFullYear()}`,
               address: data.Address,
-              _id: data._id
-            }
-          ]
-        })
-      } else if (data.Creator === this.props.id){
+              _id: data._id,
+            },
+          ],
+        });
+      } else if (data.Creator === this.props.id) {
         var time = new Date(data.Time);
         this.setState({
           ...this.state,
@@ -72,15 +77,15 @@ class AllAppointment extends Component {
               time: `${time.getHours()}:${time.getMinutes()}`,
               date: `${time.getDate()}/${time.getMonth()}/${time.getFullYear()}`,
               address: data.Address,
-              _id: data._id
-            }
-          ]
-        })
+              _id: data._id,
+            },
+          ],
+        });
       }
     });
 
     console.log(this.state);
-  }
+  };
 }
 
 export default AllAppointment;

@@ -7,13 +7,11 @@ import { Redirect } from "react-router-dom";
 import InterestDisplayList from "../../components/InterestDisplayList";
 import styles from "../../styles/pages/Home/Profile.module.css";
 
-
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    state: state
-  }
-}
-
+    state: state,
+  };
+};
 
 class Profile extends Component {
   constructor(props) {
@@ -35,8 +33,12 @@ class Profile extends Component {
 
   componentDidMount = async () => {
     const profileData = await fetch(
-      `http://localhost:5000/api/user/${this.props.state.user._id}`
+      `http://localhost:5000/api/user/${this.props.state.user._id}`,
+      {
+        credentials: "include",
+      }
     );
+
     const profile = await profileData.json();
     var dateData = new Date(profile.DOB);
     var date = `${dateData.getDate()}/${dateData.getMonth() +
@@ -45,52 +47,21 @@ class Profile extends Component {
       firstName: profile.FirstName,
       lastName: profile.LastName,
       name: `${profile.FirstName} ${profile.LastName}`,
-      email: this.props.state.user.Email,
+      email: profile.Email,
       dateOfBirth: date,
-      //TODO: add description field
+      skill: profile.Skills.map(data => {
+        return { level: data.Level, value: data.Name, id: data.Skill };
+      }),
+      interest: profile.Interests.map(data => {
+        return { level: data.Level, value: data.Name, id: data.Skill };
+      }),
+      description: profile.Description,
     });
-    var skillIds = profile.Skills.map(data => {
-      return data.Skill;
-    }).join(",");
-    var interestsIds = profile.Interests.map(data => {
-      return data.Skill;
-    }).join(",");
-    const skillData = await fetch(
-      `http://localhost:5000/api/skill?id=${skillIds}`
-    );
-    const skills = await skillData.json();
-    const interestsData = await fetch(
-      `http://localhost:5000/api/skill?id=${interestsIds}`
-    );
-    const interests = await interestsData.json();
-
-    var skillProfile = profile.Skills.map(data => {
-      for (var i = 0; i < skills.length; i++) {
-        if (data.Skill === skills[i]._id) {
-          return { level: data.Level, value: skills[i].Name, id: data.Skill };
-        }
-      }
-      return {};
-    }).filter(data => {
-      return data !== {};
+    this.props.dispatch({ type: "USER_ADD_SKILL", skills: profile.Skills });
+    this.props.dispatch({
+      type: "USER_ADD_INTEREST",
+      interests: profile.Interests,
     });
-    var interestsProfile = profile.Interests.map(data => {
-      for (var i = 0; i < interests.length; i++) {
-        if (data.Skill === interests[i]._id) {
-          return {
-            level: data.Level,
-            value: interests[i].Name,
-            id: data.Skill,
-          };
-        }
-      }
-      return {};
-    }).filter(data => {
-      return data !== {};
-    });
-    this.props.dispatch({type: "USER_ADD_SKILL", skills: skillProfile});
-    this.props.dispatch({type: "USER_ADD_INTEREST", interests: interestsProfile});
-    this.setState({ interest: interestsProfile, skill: skillProfile });
   };
 
   // handle if edit is clicked

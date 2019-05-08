@@ -59,6 +59,7 @@ class CreateAppointment extends Component {
       header: {
         "Content-Type": "application/json",
       },
+      credentials: 'include',
       body: JSON.stringify({
         Time: date,
         Description: values.description,

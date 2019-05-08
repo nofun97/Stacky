@@ -52,14 +52,16 @@ class Search extends Component {
         .map(skill => skill.id)
         .join(",")}`;
     }
-    const userData = await fetch(query);
+    const userData = await fetch(query, {
+      credentials: "include",
+    });
     const usersPage = await userData.json();
     const users = usersPage.users;
     const totalData = usersPage.total;
     var skillsObj = {};
     var skillsList = [];
     /*
-      user data list of 
+      user data list of
       {
         firstName: string,
         lastName: string,
@@ -87,7 +89,10 @@ class Search extends Component {
     }
 
     const skillsData = await fetch(
-      `http://localhost:5000/api/skill?id=${skillsList.join(",")}`
+      `http://localhost:5000/api/skill?id=${skillsList.join(",")}`,
+      {
+        credentials: "include",
+      }
     );
     const skills = await skillsData.json();
 
@@ -119,7 +124,7 @@ class Search extends Component {
     this.setState({
       user: profiles,
       totalItem: totalData / this.state.dataPerPage,
-      totalPageNumber:Math.ceil(totalData / this.state.dataPerPage),
+      totalPageNumber: Math.ceil(totalData / this.state.dataPerPage),
     });
   };
 
@@ -145,13 +150,13 @@ class Search extends Component {
         id: id,
         userID: this.props.id,
         userFirstName: this.props.firstName,
-        userLastName: this.props.lastName
-      }
+        userLastName: this.props.lastName,
+      },
     });
   };
 
   handleNextPage = () => {
-    if(this.state.pageNumber < this.state.totalPageNumber){
+    if (this.state.pageNumber < this.state.totalPageNumber) {
       this.setState({
         currentIndex: this.state.currentIndex + this.state.dataPerPage,
         pageNumber: this.state.pageNumber + 1,
@@ -162,7 +167,7 @@ class Search extends Component {
   };
 
   handlePreviousPage = () => {
-    if(this.state.currentIndex > 0){
+    if (this.state.currentIndex > 0) {
       this.setState({
         currentIndex: this.state.currentIndex - this.state.dataPerPage,
         pageNumber: this.state.pageNumber - 1,
@@ -207,7 +212,10 @@ class Search extends Component {
         </div>
         <div className={styles.bottom}>
           {/* need to implement this page count */}
-          <Button className={`${styles["next-btn"]} ${styles["back-btn"]}`} onClick={this.handlePreviousPage}>
+          <Button
+            className={`${styles["next-btn"]} ${styles["back-btn"]}`}
+            onClick={this.handlePreviousPage}
+          >
             {`<`}
           </Button>
           <span className={styles.pagination}>

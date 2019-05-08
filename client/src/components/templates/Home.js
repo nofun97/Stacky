@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 class Home extends Component {
-  // initialize our state 
+  // initialize our state
   state = {
     data: [],
     id: 0,
@@ -11,11 +11,11 @@ class Home extends Component {
     intervalIsSet: false,
     idToDelete: null,
     idToUpdate: null,
-    objectToUpdate: null
+    objectToUpdate: null,
   };
 
   // when component mounts, first thing it does is fetch all existing data in our db
-  // then we incorporate a polling logic so that we can easily see if our db has 
+  // then we incorporate a polling logic so that we can easily see if our db has
   // changed and implement those changes into our UI
   componentDidMount() {
     this.getDataFromDb();
@@ -25,7 +25,7 @@ class Home extends Component {
     }
   }
 
-  // never let a process live forever 
+  // never let a process live forever
   // always kill a process everytime we are done using it
   componentWillUnmount() {
     if (this.state.intervalIsSet) {
@@ -34,15 +34,17 @@ class Home extends Component {
     }
   }
 
-  // just a note, here, in the front end, we use the id key of our data object 
+  // just a note, here, in the front end, we use the id key of our data object
   // in order to identify which we want to Update or delete.
-  // for our back end, we use the object id assigned by MongoDB to modify 
+  // for our back end, we use the object id assigned by MongoDB to modify
   // data base entries
 
-  // our first get method that uses our backend api to 
+  // our first get method that uses our backend api to
   // fetch data from our data base
   getDataFromDb = () => {
-    fetch("/api/user")
+    fetch("/api/user", {
+      credentials: "include",
+    })
       .then(data => data.json())
       .then(res => this.setState({ data: res }));
   };
@@ -58,25 +60,23 @@ class Home extends Component {
 
     axios.post("/api/user", {
       id: idToBeAdded,
-      message: message
+      message: message,
     });
   };
 
-
-  // our delete method that uses our backend api 
+  // our delete method that uses our backend api
   // to remove existing database information
   deleteFromDB = idTodelete => {
     let objIdToDelete = null;
     this.state.data.forEach(dat => {
       if (dat.id === Number(idTodelete)) {
         objIdToDelete = dat._id;
-        console.log("yeay",objIdToDelete);
+        console.log("yeay", objIdToDelete);
       }
     });
 
-    axios.delete(`/api/user/${objIdToDelete}`, { });
+    axios.delete(`/api/user/${objIdToDelete}`, {});
   };
-
 
   // our update method that uses our backend api
   // to overwrite existing data base information
@@ -90,13 +90,12 @@ class Home extends Component {
 
     axios.post(`/api/user/${objIdToUpdate}`, {
       id: objIdToUpdate,
-      update: { message: updateToApply }
+      update: { message: updateToApply },
     });
   };
 
-
   // here is our UI
-  // it is easy to understand their functions when you 
+  // it is easy to understand their functions when you
   // see them render into our screen
   render() {
     const { data } = this.state;
@@ -120,9 +119,7 @@ class Home extends Component {
             placeholder="add something in the database"
             style={{ width: "200px" }}
           />
-          <button onClick={() => {}}>
-            ADD
-          </button>
+          <button onClick={() => {}}>ADD</button>
         </div>
         <div style={{ padding: "10px" }}>
           <input
@@ -131,9 +128,7 @@ class Home extends Component {
             onChange={e => this.setState({ idToDelete: e.target.value })}
             placeholder="put id of item to delete here"
           />
-          <button onClick={() => {}}>
-            DELETE
-          </button>
+          <button onClick={() => {}}>DELETE</button>
         </div>
         <div style={{ padding: "10px" }}>
           <input
@@ -148,12 +143,7 @@ class Home extends Component {
             onChange={e => this.setState({ updateToApply: e.target.value })}
             placeholder="put new value of the item here"
           />
-          <button
-            onClick={() => {}
-            }
-          >
-            UPDATE
-          </button>
+          <button onClick={() => {}}>UPDATE</button>
         </div>
       </div>
     );

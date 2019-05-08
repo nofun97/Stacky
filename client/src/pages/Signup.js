@@ -29,17 +29,19 @@ const schema = yup.object({
   email: yup
     .string()
     .required("Please provide an email")
-    .email("Please provide valid email")
-    // for checking whether email has already been regustered
-    .test("Email in database", " ", async (value) => {
-      var query = `http://localhost:5000/api/email/${value}`;
-      const userData = await fetch(query);
-      if(userData.status === 200){
-        return false;
-      } else {
-        return true;
-      }
-    }),
+    .email("Please provide valid email"),
+  // for checking whether email has already been regustered
+  // .test("Email in database", " ", async value => {
+  //   var query = `http://localhost:5000/api/email/${value}`;
+  //   const userData = await fetch(query, {
+  //     credentials: "include",
+  //   });
+  //   if (userData.status === 200) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }),
   password: yup
     .string()
     .required("Please provide a password")
@@ -78,29 +80,29 @@ class Signup extends Component {
     this.submitButton.setAttribute("disabled", "disabled");
 
     // Checking the age if it's lower than 18 redirect
-    if(Math.floor((Date.now() - Date.parse(values.dateOfBirth)) / (1000*60*60*24)) < 18){
+    if (
+      Math.floor(
+        (Date.now() - Date.parse(values.dateOfBirth)) / (1000 * 60 * 60 * 24)
+      ) < 18
+    ) {
       this.props.history.push("/verification/fail");
       return;
     }
 
     //TODO: put url in env?
-    fetch("http://localhost:5000/api/user", {
+    fetch("http://localhost:5000/api/register", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       // body: JSON.stringify(this.state.Submission)
       body: JSON.stringify({
-        user: {
-          email: values.email,
-          password: values.password,
-        },
+        Email: values.email,
+        Password: values.password,
         FirstName: values.firstName,
         LastName: values.lastName,
         DOB: values.dateOfBirth,
-
-        //TODO: implement this on the sign up form
-        UName: this.state.UName,
         IsVerified: this.state.IsVerified,
         Address: this.state.Address,
       }),

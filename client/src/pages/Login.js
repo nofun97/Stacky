@@ -18,17 +18,18 @@ const schema = yup.object({
   email: yup
     .string()
     .required("Please provide an email")
-    .email("Please provide valid email")
-    // For checking whether the email is already in database or not
-    .test("Email in database", " ", async (value) => {
-      var query = `http://localhost:5000/api/email/${value}`;
-      const userData = await fetch(query);
-      if(userData.status !== 200){
-        return false;
-      } else {
-        return true;
-      }
-    }),
+    .email("Please provide valid email"),
+  // For checking whether the email is already in database or not
+  // .test("Email in database", " ", async (value) => {
+  //   var query = `http://localhost:5000/api/email/${value}`;
+  //   const userData = await fetch(query);
+  //   if(userData.status !== 200){
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }),
+
   password: yup
     .string()
     .required("Please provide a password")
@@ -55,15 +56,15 @@ class Login extends Component {
     // TODO: put url in env?
     fetch("http://localhost:5000/api/login", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        user: {
-          email: values.email,
-          password: values.password,
-        },
+        Email: values.email,
+        Password: values.password,
       }),
+      credentials: 'include',
     })
       .then(response => {
         return response.json();

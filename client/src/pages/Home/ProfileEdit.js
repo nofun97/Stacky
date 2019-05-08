@@ -49,7 +49,9 @@ class ProfileEdit extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:5000/api/skill")
+    fetch("http://localhost:5000/api/skill", {
+      credentials: "include",
+    })
       .then(resp => resp.json())
       .then(data => {
         for (var i = 0; i < data.length; i++) {
@@ -262,6 +264,7 @@ class ProfileEdit extends Component {
         Skills: newSkills,
         Interests: newInterests,
       }),
+      credentials: "include",
     })
       .then(response => response.json())
       .then(data => {
