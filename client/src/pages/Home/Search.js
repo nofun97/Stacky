@@ -17,64 +17,7 @@ class Search extends Component {
     this.handlePreviousPage = this.handlePreviousPage.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.state = {
-      user: [
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [{Name:"Baking", category:"Cooking", Description:"Nothing"},{Name:"Algorithm", category:"Computing", Description:"Nothing"}],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-        // {
-        //   firstName: "Frisco",
-        //   lastName: "Saol",
-        //   image: "holder.js/100px100",
-        //   skill: [],
-        //   _id: "key",
-        // },
-      ],
+      user: [],
       drawerOpen: false,
       pageNumber: 1,
       totalPageNumber: 1,
@@ -194,7 +137,17 @@ class Search extends Component {
   }
 
   handleClick = id => {
-    this.props.history.push("/user", {id});
+    // this.props.history.push("/user", {id});
+    console.log(this.props);
+    this.props.history.push({
+      pathname: "/user",
+      state: {
+        id: id,
+        userID: this.props.id,
+        userFirstName: this.props.firstName,
+        userLastName: this.props.lastName
+      }
+    });
   };
 
   handleNextPage = () => {
@@ -246,6 +199,9 @@ class Search extends Component {
         <div className={styles["card-container"]}>
           <PeopleCardList
             handleClick={this.handleClick}
+            id={this.props.id}
+            firstName={this.props.firstName}
+            lastName={this.props.lastName}
             values={this.state.user}
           />
         </div>
@@ -257,6 +213,9 @@ class Search extends Component {
           <span className={styles.pagination}>
             page {this.state.pageNumber} of {this.state.totalPageNumber}
           </span>
+          <Button className={`${styles["next-btn"]} ${styles["back-btn"]}`} onClick={this.handlePreviousPage}>
+            {`<`}
+          </Button>
           <Button className={styles["next-btn"]} onClick={this.handleNextPage}>
             >
           </Button>

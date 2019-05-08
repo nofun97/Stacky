@@ -49,10 +49,12 @@ router.get("/appointment", appointmentController.findAllAppointments);
 router.post("/appointment", appointmentController.addNewAppointments);
 router.delete("/appointment/:id", appointmentController.deleteAppointments);
 router.post("/appointment/:id", appointmentController.updateAppointments);
+router.post("/appointment/approve/:id", appointmentController.approveAppointment);
 
 // Credentials Model Routes
 router.post("/login", credentialsController.login);
 router.post("/user", credentialsController.newUser);
 router.get("/current", credentialsController.current);
+router.get("/email/:email", credentialsController.checkExistingEmail);
 // Export the router
 module.exports = router;

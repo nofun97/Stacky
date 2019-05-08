@@ -14,12 +14,16 @@ class OthersProfile extends Component {
   constructor(props) {
     super(props);
     this.goBack = this.goBack.bind(this);
+    console.log('Others Profile');
     console.log(this.props.location.state);
     this.state = {
       name: "",
+      firstName: "",
+      lastName: "",
       description: "Hello I'm new to Skill tree",
       skill: [],
       interest: [],
+      id: this.props.location.state.id,
     };
   }
 
@@ -29,6 +33,8 @@ class OthersProfile extends Component {
     );
     const profile = await profileData.json();
     this.setState({
+      lastName: profile.LastName,
+      firstName: profile.FirstName,
       name: `${profile.FirstName} ${profile.LastName}`,
       //TODO: add description field
     });
@@ -104,7 +110,17 @@ class OthersProfile extends Component {
             Back
           </IconButton>
           <h1 className={styles.option}>Options</h1>
-          <Link to="/user/create_appointment">
+          <Link to={{
+            pathname: "/user/create_appointment",
+            state: {
+              InviteeFirstName: this.state.firstName,
+              InviteeLastName: this.state.lastName,
+              InviteeID: this.state.id,
+              CreatorID: this.props.location.state.userID,
+              CreatorFirstName: this.props.location.state.userFirstName,
+              CreatorLastName: this.props.location.state.userLastName
+            }
+          }}>
             <h2 className={styles.suboption}>Set Appointment</h2>
           </Link>
           <h2 className={styles.suboption}>Feedback</h2>

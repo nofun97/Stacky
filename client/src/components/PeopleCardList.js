@@ -14,6 +14,9 @@ class PeopleCardList extends Component {
         skill={user.skill}
         id={user._id}
         key={user._id}
+        userID={this.props.id}
+        userFirstName={this.props.firstName}
+        userLastName={this.props.lastName}
       />
     ));
 

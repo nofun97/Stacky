@@ -21,40 +21,43 @@ class ProfileEdit extends Component {
     this.handleInterestSelect = this.handleInterestSelect.bind(this);
     this.handleSliderChange = this.handleSliderChange.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
-
-    let interestOption = [
-      { value: "algorithm", label: "algorithm" },
-      { value: "baking", label: "baking" },
-      { value: "caligraphy", label: "caligraphy" },
-    ].filter(
-      opt =>
-        !this.props.location.state.interest
-          .map(x => x.value)
-          .includes(opt.value)
-    );
-
-    let skillOption = [
-      { value: "algorithm", label: "algorithm" },
-      { value: "baking", label: "baking" },
-      { value: "caligraphy", label: "caligraphy" },
-    ].filter(
-      opt =>
-        !this.props.location.state.skill.map(x => x.value).includes(opt.value)
-    );
-
+    console.log(this.props.location.state);
     this.state = {
       submitted: false,
-      name: this.props.location.state.name,
+      firstName: this.props.location.state.firstName,
+      lastName: this.props.location.state.lastName,
+      name: `${this.props.location.state.firstName} ${
+        this.props.location.state.lastName
+      }`,
       email: this.props.location.state.email,
       dateOfBirth: this.props.location.state.dateOfBirth,
-      interestOption: interestOption,
-      skillOption: skillOption,
+      interestOption: [],
+      skillOption: [],
       selectedInterest: null,
       selectedSkill: null,
       userInterest: this.props.location.state.interest,
       userSkill: this.props.location.state.skill,
       description: this.props.location.state.description,
     };
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:5000/api/skill")
+      .then(resp => resp.json())
+      .then(data => {
+        for (var i = 0; i < data.length; i++) {
+          this.setState({
+            interestOption: [
+              ...this.state.interestOption,
+              { value: data[i]._id, label: data[i].Name },
+            ],
+            skillOption: [
+              ...this.state.skillOption,
+              { value: data[i]._id, label: data[i].Name },
+            ],
+          });
+        }
+      });
   }
 
   // handle name change
@@ -82,10 +85,10 @@ class ProfileEdit extends Component {
     if (value !== null) {
       this.setState({
         selectedInterest: {
-          value: value.value,
+          value: value.label,
           level: "Beginner",
           id: value.value,
-          label: value.value,
+          label: value.label,
         },
       });
     } else {
@@ -100,10 +103,10 @@ class ProfileEdit extends Component {
     if (value !== null) {
       this.setState({
         selectedSkill: {
-          value: value.value,
+          value: value.label,
           level: "Intermediate",
           id: value.value,
-          label: value.value,
+          label: value.label,
         },
       });
     } else {
@@ -129,6 +132,7 @@ class ProfileEdit extends Component {
         selectedInterest: null,
       });
     }
+    console.log(this.state);
   }
 
   // handler when skill add button is clicked (need to remove the option from the select)
@@ -227,7 +231,44 @@ class ProfileEdit extends Component {
   }
 
   handleSubmit() {
-    this.setState({ submitted: true });
+    let newSkills = this.state.userSkill.map(data => {
+      return { Skill: data.id, Level: data.level };
+    });
+    let newInterests = this.state.userInterest.map(data => {
+      return { Skill: data.id, Level: data.level };
+    });
+    fetch(`http://localhost:5000/api/user/${this.props.location.state.id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // body: JSON.stringify(this.state.Submission)
+      body: JSON.stringify({
+        Email: this.state.email,
+        FirstName: this.state.firstName,
+        LastName: this.state.lastName,
+        DOB: this.state.dateOfBirth,
+
+        //TODO: implement this on the sign up form
+        UName: this.state.UName,
+        Address: this.state.Address,
+        Skills: newSkills,
+        Interests: newInterests,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        // this.setState({ ID: data._id, email: data.Email, successful: true });
+        console.log("Submission successful!");
+      })
+      .catch(err => {
+        console.log("Submission not succesful");
+        console.log(err);
+        this.setState({
+          InvalidInfo: true,
+        });
+      });
   }
 
   render() {
@@ -237,14 +278,7 @@ class ProfileEdit extends Component {
           to={{
             pathname: "/home/profile",
             state: {
-              LastName: this.state.name,
-              FirstName: "",
-              email: this.state.email,
-              DOB: this.state.dateOfBirth,
-              userInterest: this.state.userInterest,
-              userSkill: this.state.userSkill,
-              description: this.state.description,
-              noBackend: true,
+              id: this.props.location.state.id,
             },
           }}
         />
@@ -262,12 +296,19 @@ class ProfileEdit extends Component {
           />
           <p className={styles.edit}>Edit Mode</p>
         </div>
-        <h3 className={styles.subheader}>Name</h3>
+        <h3 className={styles.subheader}>First Name</h3>
         <input
           className={styles.input}
           type="text"
-          value={this.state.name}
-          onChange={this.handleNameChange}
+          value={this.state.firstName}
+          onChange={e => this.setState({ firstName: e.target.value })}
+        />
+        <h3 className={styles.subheader}>Last Name</h3>
+        <input
+          className={styles.input}
+          type="text"
+          value={this.state.lastName}
+          onChange={e => this.setState({ lastName: e.target.value })}
         />
         <h3 className={styles.subheader}>Email</h3>
         <input

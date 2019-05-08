@@ -19,6 +19,8 @@ class Profile extends Component {
       dateOfBirth: "",
       interest: [],
       skill: [],
+      firstName: "",
+      lastName: "",
       description: "",
     };
 
@@ -53,7 +55,6 @@ class Profile extends Component {
     }
   }
 
-
   componentDidMount = async () => {
     const profileData = await fetch(
       `http://localhost:5000/api/user/${this.props.location.state.id}`
@@ -63,6 +64,8 @@ class Profile extends Component {
     var date = `${dateData.getDate()}/${dateData.getMonth() +
       1}/${dateData.getFullYear()}`;
     this.setState({
+      firstName: profile.FirstName,
+      lastName: profile.LastName,
       name: `${profile.FirstName} ${profile.LastName}`,
       email: this.props.location.state.email,
       dateOfBirth: date,
@@ -124,7 +127,12 @@ class Profile extends Component {
           exact
           to={{
             pathname: "/home/profile_edit",
-            state: this.state,
+            state: {
+              ...this.state,
+              id: this.props.location.state.id,
+              firstName: this.state.firstName,
+              lastName: this.state.lastName,
+            },
           }}
         />
       );

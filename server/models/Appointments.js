@@ -7,7 +7,11 @@ var appointmentSchema = mongoose.Schema({
   Description: String,
   Address: String,
   Creator: ObjectId,
+  CreatorFirstName: String,
+  CreatorLastName: String,
   Invitee: ObjectId,
+  InviteeFirstName: String,
+  InviteeLastName: String,
   IsApproved: Boolean,
 });
 
