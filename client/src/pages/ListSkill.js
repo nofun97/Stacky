@@ -97,7 +97,11 @@ class ListSkill extends Component {
         opt => opt.value !== this.state.selectedInterest.id
       );
       let userInterest = [
-        this.state.selectedInterest,
+        {
+          Name: this.state.selectedInterest.value,
+          Level: this.state.selectedInterest.level,
+          Skill: this.state.selectedInterest.id,
+        },
         ...this.state.userInterest,
       ];
       this.setState({
@@ -114,7 +118,11 @@ class ListSkill extends Component {
       let option = this.state.skillOption.filter(
         opt => opt.value !== this.state.selectedSkill.id
       );
-      let userSkill = [this.state.selectedSkill, ...this.state.userSkill];
+      let userSkill = [{
+        Name: this.state.selectedSkill.value,
+        Level: this.state.selectedSkill.level,
+        Skill: this.state.selectedSkill.id,
+      }, ...this.state.userSkill];
       this.setState({
         skillOption: option,
         userSkill: userSkill,
@@ -124,7 +132,7 @@ class ListSkill extends Component {
   }
 
   // handler for changes in slider of the interest
-  handleSliderChange(sliderValue, type, keyValue) {
+  handleSliderChange(sliderValue, type, id) {
     var level = 0;
 
     if (type === "Interest") {
@@ -146,8 +154,8 @@ class ListSkill extends Component {
       }
       let interestArray = this.state.userInterest;
       for (let interest of interestArray) {
-        if (interest.value === keyValue) {
-          interest.level = level;
+        if (interest.Skill === id) {
+          interest.Level = level;
         }
       }
       this.setState({ userInterest: interestArray });
@@ -170,8 +178,8 @@ class ListSkill extends Component {
       }
       let skillArray = this.state.userSkill;
       for (let skill of skillArray) {
-        if (skill.value === keyValue) {
-          skill.level = level;
+        if (skill.Skill === id) {
+          skill.Level = level;
         }
       }
       this.setState({ userSkill: skillArray });
@@ -179,14 +187,13 @@ class ListSkill extends Component {
   }
 
   // handler when the interest is removed (need to add the option back to the select)
-  handleRemove(value, type) {
-    console.log(value, type);
+  handleRemove(value, type, id) {
     if (type === "Interest") {
       let userInterest = this.state.userInterest.filter(
-        opt => opt.value !== value
+        opt => opt.Skill !== id
       );
       let option = [
-        { value: value, label: value },
+        { value: id, label: value },
         ...this.state.interestOption,
       ];
       this.setState({
@@ -194,8 +201,8 @@ class ListSkill extends Component {
         interestOption: option,
       });
     } else if (type === "Skill") {
-      let userSkill = this.state.userSkill.filter(opt => opt.value !== value);
-      let option = [{ value: value, label: value }, ...this.state.skillOption];
+      let userSkill = this.state.userSkill.filter(opt => opt.Skill !== id);
+      let option = [{ value: id, label: value }, ...this.state.skillOption];
       this.setState({
         userSkill: userSkill,
         skillOption: option,
@@ -207,16 +214,16 @@ class ListSkill extends Component {
   handleSubmit() {
     let interests = this.state.userInterest.map(data => {
       return {
-        Skill: data.id,
-        Level: data.level,
-        Name: data.label,
+        Skill: data.Skill,
+        Level: data.Level,
+        Name: data.Name,
       };
     });
     let skills = this.state.userSkill.map(data => {
       return {
-        Skill: data.id,
-        Level: data.level,
-        Name: data.label,
+        Skill: data.Skill,
+        Level: data.Level,
+        Name: data.Name,
       };
     });
     //TODO: test update profile
