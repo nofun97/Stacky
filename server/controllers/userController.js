@@ -137,9 +137,23 @@ var findNUsers = function(req, res) {
 
   User.paginate(query, { offset: index, limit: size }, (err, result) => {
     if (!err) {
-      console.log(`Total data: ${result.totalDocs}`);
+      var newDocs = result.docs.map(data => {
+        return {
+          FirstName: data.FirstName,
+          LastName: data.LastName,
+          DOB: data.DOB,
+          IsVerified: data.IsVerified,
+          Description: data.Description,
+          Address: data.Address,
+          Skills: data.Skills,
+          Interests: data.Interests,
+          Description: data.Description,
+          Email: data.Email,
+          _id: data._id,
+        };
+      });
       res.send({
-        users: result.docs,
+        users: newDocs,
         total: result.totalDocs,
       });
     } else {
