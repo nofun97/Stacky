@@ -36,54 +36,14 @@ class OthersProfile extends Component {
       lastName: profile.LastName,
       firstName: profile.FirstName,
       name: `${profile.FirstName} ${profile.LastName}`,
-      //TODO: add description field
+      skill: profile.Skills.map(data => {
+        return { level: data.Level, value: data.Name, id: data.Skill };
+      }),
+      interest: profile.Interests.map(data => {
+        return { level: data.Level, value: data.Name, id: data.Skill };
+      }),
+      description: profile.Description,
     });
-    var skillIds = profile.Skills.map(data => {
-      return data.Skill;
-    }).join(",");
-    var interestsIds = profile.Interests.map(data => {
-      return data.Skill;
-    }).join(",");
-    const skillData = await fetch(
-      `http://localhost:5000/api/skill?id=${skillIds}`,
-      {
-        credentials: "include",
-      }
-    );
-    const skills = await skillData.json();
-    const interestsData = await fetch(
-      `http://localhost:5000/api/skill?id=${interestsIds}`,
-      {
-        credentials: "include",
-      }
-    );
-    const interests = await interestsData.json();
-
-    var skillProfile = profile.Skills.map(data => {
-      for (var i = 0; i < skills.length; i++) {
-        if (data.Skill === skills[i]._id) {
-          return { level: data.Level, value: skills[i].Name, id: data.Skill };
-        }
-      }
-      return {};
-    }).filter(data => {
-      return data !== {};
-    });
-    var interestsProfile = profile.Interests.map(data => {
-      for (var i = 0; i < interests.length; i++) {
-        if (data.Skill === interests[i]._id) {
-          return {
-            level: data.Level,
-            value: interests[i].Name,
-            id: data.Skill,
-          };
-        }
-      }
-      return {};
-    }).filter(data => {
-      return data !== {};
-    });
-    this.setState({ interest: interestsProfile, skill: skillProfile });
   };
 
   goBack() {
@@ -91,6 +51,7 @@ class OthersProfile extends Component {
   }
 
   render() {
+    console.log(this.state);
     /* for later when it's connected to backend need to uncomment to block people from accessing the route */
     if (this.props.location.state === undefined) {
       return <Redirect to="/page_not_found" />;
