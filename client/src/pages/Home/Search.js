@@ -3,9 +3,16 @@ import Drawer from "@material-ui/core/Drawer";
 import Button from "react-bootstrap/Button";
 import IconButton from "@material-ui/core/IconButton";
 import FilterListIcon from "@material-ui/icons/FilterList";
+import { connect } from "react-redux";
 import PeopleCardList from "../../components/PeopleCardList";
 import FilterDrawer from "../../components/FilterDrawer";
 import styles from "../../styles/pages/Home/Search.module.css";
+
+const mapStateToProps = state => {
+  return {
+    state: state,
+  };
+};
 
 class Search extends Component {
   constructor(props) {
@@ -49,7 +56,7 @@ class Search extends Component {
     }&size=${this.state.dataPerPage}`;
     if (this.state.filterSkill.length > 0) {
       query += `&skills=${this.state.filterSkill
-        .map(skill => skill.id)
+        .map(skill => skill.Skill)
         .join(",")}`;
     }
     const userData = await fetch(query, {
@@ -119,12 +126,12 @@ class Search extends Component {
         skill: userSkills,
         _id: data._id,
       };
-    });
+    }).filter(user => user._id !== this.props.state.user._id);
     // console.log(users);
     this.setState({
       user: profiles,
-      totalItem: totalData / this.state.dataPerPage,
-      totalPageNumber: Math.ceil(totalData / this.state.dataPerPage),
+      totalItem: (totalData - 1) / this.state.dataPerPage,
+      totalPageNumber: Math.ceil((totalData - 1) / this.state.dataPerPage),
     });
   };
 
@@ -230,4 +237,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default connect(mapStateToProps)(Search);
