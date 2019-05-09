@@ -18,16 +18,18 @@ class Profile extends Component {
     super(props);
     this.handleEdit = this.handleEdit.bind(this);
     // setting state
+    let DOB = this.props.state.user.DOB;
+    let date = `${Number(DOB.slice(8, 10))}/${Number(DOB.slice(5,7))}/${DOB.slice(0,4)}`
     this.state = {
       editMode: false,
-      name: "",
-      email: "",
-      dateOfBirth: "",
-      interest: [],
-      skill: [],
-      firstName: "",
-      lastName: "",
-      description: "",
+      name: `${this.props.state.user.FirstName} ${this.props.state.user.LastName}`,
+      email: this.props.state.user.Email,
+      dateOfBirth: date,
+      interest: this.props.state.user.Interests,
+      skill: this.props.state.user.Skills,
+      firstName: this.props.state.user.FirstName,
+      lastName: this.props.state.user.LastName,
+      description: this.props.state.user.Description,
     };
   }
 
@@ -50,10 +52,10 @@ class Profile extends Component {
       email: profile.Email,
       dateOfBirth: date,
       skill: profile.Skills.map(data => {
-        return { level: data.Level, value: data.Name, id: data.Skill };
+        return { Level: data.Level, Name: data.Name, Skill: data.Skill };
       }),
       interest: profile.Interests.map(data => {
-        return { level: data.Level, value: data.Name, id: data.Skill };
+        return { Level: data.Level, Name: data.Name, Skill: data.Skill };
       }),
       description: profile.Description,
     });
