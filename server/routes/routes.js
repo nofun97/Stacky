@@ -113,6 +113,7 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
     IsVerified: req.user.IsVerified,
     Address: req.user.Address,
     Skills: req.user.Skills,
+    Description: req.user.Description,
     Interests: req.user.Interests,
     _id: req.user._id,
   });
@@ -130,6 +131,7 @@ router.post(
       IsVerified: req.user.IsVerified,
       Address: req.user.Address,
       Skills: req.user.Skills,
+      Description: req.user.Description,
       Interests: req.user.Interests,
       _id: req.user._id,
     });
