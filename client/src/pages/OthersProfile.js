@@ -3,10 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Avatar from "react-avatar";
 import InterestDisplayList from "../components/InterestDisplayList";
-import {
-  Link,
-  Redirect
-} from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import styles from "../styles/pages/OthersProfile.module.css";
 
@@ -14,7 +11,7 @@ class OthersProfile extends Component {
   constructor(props) {
     super(props);
     this.goBack = this.goBack.bind(this);
-    console.log('Others Profile');
+    console.log("Others Profile");
     console.log(this.props.location.state);
     this.state = {
       name: "",
@@ -29,55 +26,24 @@ class OthersProfile extends Component {
 
   componentDidMount = async () => {
     const profileData = await fetch(
-      `http://localhost:5000/api/user/${this.props.location.state.id}`
+      `http://localhost:5000/api/user/${this.props.location.state.id}`,
+      {
+        credentials: "include",
+      }
     );
     const profile = await profileData.json();
     this.setState({
       lastName: profile.LastName,
       firstName: profile.FirstName,
       name: `${profile.FirstName} ${profile.LastName}`,
-      //TODO: add description field
+      skill: profile.Skills.map(data => {
+        return { Level: data.Level, Name: data.Name, Skill: data.Skill };
+      }),
+      interest: profile.Interests.map(data => {
+        return { Level: data.Level, Name: data.Name, Skill: data.Skill };
+      }),
+      description: profile.Description,
     });
-    var skillIds = profile.Skills.map(data => {
-      return data.Skill;
-    }).join(",");
-    var interestsIds = profile.Interests.map(data => {
-      return data.Skill;
-    }).join(",");
-    const skillData = await fetch(
-      `http://localhost:5000/api/skill?id=${skillIds}`
-    );
-    const skills = await skillData.json();
-    const interestsData = await fetch(
-      `http://localhost:5000/api/skill?id=${interestsIds}`
-    );
-    const interests = await interestsData.json();
-
-    var skillProfile = profile.Skills.map(data => {
-      for (var i = 0; i < skills.length; i++) {
-        if (data.Skill === skills[i]._id) {
-          return { level: data.Level, value: skills[i].Name, id: data.Skill };
-        }
-      }
-      return {};
-    }).filter(data => {
-      return data !== {};
-    });
-    var interestsProfile = profile.Interests.map(data => {
-      for (var i = 0; i < interests.length; i++) {
-        if (data.Skill === interests[i]._id) {
-          return {
-            level: data.Level,
-            value: interests[i].Name,
-            id: data.Skill,
-          };
-        }
-      }
-      return {};
-    }).filter(data => {
-      return data !== {};
-    });
-    this.setState({ interest: interestsProfile, skill: skillProfile });
   };
 
   goBack() {
@@ -85,16 +51,28 @@ class OthersProfile extends Component {
   }
 
   render() {
+    console.log(this.state);
     /* for later when it's connected to backend need to uncomment to block people from accessing the route */
-    if(this.props.location.state === undefined){
-      return <Redirect to="/page_not_found" />
+    if (this.props.location.state === undefined) {
+      return <Redirect to="/page_not_found" />;
     }
 
     let avatar;
-    if(window.innerWidth <= 426){
-      avatar = <div><Avatar size="60px" className = {styles.avatar} name={this.state.name} round={true} /></div>
+    if (window.innerWidth <= 426) {
+      avatar = (
+        <div>
+          <Avatar
+            size="60px"
+            className={styles.avatar}
+            name={this.state.name}
+            round={true}
+          />
+        </div>
+      );
     } else {
-      avatar = <Avatar className = {styles.avatar} name={this.state.name} round={true} />
+      avatar = (
+        <Avatar className={styles.avatar} name={this.state.name} round={true} />
+      );
     }
 
     return (
@@ -110,17 +88,19 @@ class OthersProfile extends Component {
             Back
           </IconButton>
           <h1 className={styles.option}>Options</h1>
-          <Link to={{
-            pathname: "/user/create_appointment",
-            state: {
-              InviteeFirstName: this.state.firstName,
-              InviteeLastName: this.state.lastName,
-              InviteeID: this.state.id,
-              CreatorID: this.props.location.state.userID,
-              CreatorFirstName: this.props.location.state.userFirstName,
-              CreatorLastName: this.props.location.state.userLastName
-            }
-          }}>
+          <Link
+            to={{
+              pathname: "/user/create_appointment",
+              state: {
+                InviteeFirstName: this.state.firstName,
+                InviteeLastName: this.state.lastName,
+                InviteeID: this.state.id,
+                CreatorID: this.props.location.state.userID,
+                CreatorFirstName: this.props.location.state.userFirstName,
+                CreatorLastName: this.props.location.state.userLastName,
+              },
+            }}
+          >
             <h2 className={styles.suboption}>Set Appointment</h2>
           </Link>
           <h2 className={styles.suboption}>Feedback</h2>

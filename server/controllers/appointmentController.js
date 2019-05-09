@@ -6,15 +6,17 @@ var Appointments = mongoose.model("Appointments");
 // Function to find all appointments
 var findAllAppointments = function(req, res) {
   var user = req.query.user;
-  if (user === undefined){
-    return res.send({"error": "user ID is required"});
+  if (user === undefined) {
+    return res.send({ error: "user ID is required" });
   }
   user = mongoose.Types.ObjectId(user);
-  var query = {"$or": [{"Creator": user}, {"Invitee": user}]};
+  var query = { $or: [{ Creator: user }, { Invitee: user }] };
   Appointments.find(query, function(err, appointment) {
     if (!err) {
+      console.log(appointment);
       res.send(appointment);
     } else {
+      console.log(err);
       res.sendStatus(404);
     }
   });
@@ -68,7 +70,10 @@ var updateAppointments = function(req, res) {
     IsApproved: false,
   };
   var options = { omitUndefined: true };
-  Appointments.findByIdAndUpdate(id, appointment, options, function(err, updated) {
+  Appointments.findByIdAndUpdate(id, appointment, options, function(
+    err,
+    updated
+  ) {
     if (!err && updated != null) {
       res.send({ UpdateSuccessful: true });
     } else {
@@ -77,16 +82,19 @@ var updateAppointments = function(req, res) {
   });
 };
 
-var approveAppointment = function(req, res){
+var approveAppointment = function(req, res) {
   var id = req.params.id;
-  Appointments.findByIdAndUpdate(id, {IsApproved: true}, function(err, updated) {
+  Appointments.findByIdAndUpdate(id, { IsApproved: true }, function(
+    err,
+    updated
+  ) {
     if (!err && updated != null) {
       res.send({ UpdateSuccessful: true });
     } else {
       res.sendStatus(400);
     }
-  })
-}
+  });
+};
 
 // Export the variable
 module.exports.findAllAppointments = findAllAppointments;

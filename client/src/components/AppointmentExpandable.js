@@ -26,9 +26,17 @@ class AppointmentExpandable extends Component {
   }
 
   // for invite types handler
-  handleAccept() {
-    this.props.handleAccept();
-  }
+  handleAccept = async () => {
+    var acceptData = await fetch(
+      `http://localhost:5000/api/appointment/approve/${this.props.id}`,
+      {
+        credentials: "include",
+        method: "POST",
+      }
+    );
+    var data = await acceptData.json();
+    console.log(data);
+  };
 
   // for invite types handler
   handleReject() {
@@ -78,7 +86,9 @@ class AppointmentExpandable extends Component {
         <div className={styles.appointment}>
           <div className={styles.label} />
           <div className={styles.summary}>
-            <h5 className={styles.card_heading}>Meeting with {this.props.name}</h5>
+            <h5 className={styles.card_heading}>
+              Meeting with {this.props.name}
+            </h5>
             <div className={styles.spaced}>
               <div className={styles.card_details}>
                 {this.props.date} {this.props.time}

@@ -3,8 +3,7 @@ var mongoose = require("mongoose");
 // Require the model that's related for this controller
 var User = mongoose.model("Users");
 var Skills = mongoose.model("Skills");
-var credentialsController = require("./credentialsController.js");
-
+var passport = require("passport");
 // Define the function to be used (create, remove, update, findall, etc.)
 var findAllUsers = function(req, res) {
   User.find(function(err, users) {
@@ -26,42 +25,25 @@ var findUserById = function(req, res) {
   });
 };
 
-var registerUser = function(req, res, credential) {
+var registerUser = function(req, res, next) {
   var data = new User({
+    Email: req.body.Email,
     FirstName: req.body.FirstName,
     LastName: req.body.LastName,
     DOB: req.body.DOB,
-    Credentials: credential._id,
-    UName: req.body.UName,
     IsVerified: req.body.IsVerified,
+    Description: req.body.Description,
     Address: req.body.Address,
     Skills: req.body.Skills,
     Interests: req.body.Interests,
   });
-  // console.log("Just after defining data for registerUser");
-  // data.save();
-  data.save(function(err, user) {
-    if (!err) {
-      res.set("Content-Type", "application/json");
-      res.set("Set-Cookie", `Token=${credential.token}`);
-      var toSend = {
-        _id: user._id,
-        FirstName: user.FirstName,
-        LastName: user.LastName,
-        DOB: user.DOB,
-        Credentials: user.Credentials,
-        UName: user.UName,
-        IsVerified: user.IsVerified,
-        Address: user.Address,
-        Skills: user.Skills,
-        Interests: user.Interests,
-        Email: credential.email,
-      };
-      res.send(toSend);
-      console.log(toSend);
+
+  console.log("Registering...");
+  User.register(data, req.body.Password, function(err, user) {
+    if (err) {
+      next(null, err);
     } else {
-      console.log(err);
-      res.sendStatus(400);
+      next(null, { Email: data.Email, Password: req.body.Password });
     }
   });
 };
@@ -93,33 +75,15 @@ var updateProfile = function(req, res) {
       FirstName: req.body.FirstName,
       LastName: req.body.LastName,
       DOB: req.body.DOB,
-      UName: req.body.UName,
       IsVerified: req.body.IsVerified,
+      Description: req.body.Description,
       Address: req.body.Address,
       Skills: req.body.Skills,
       Interests: req.body.Interests,
+      Description: req.body.Description,
+      Email: req.body.Email,
     },
     { strict: true, omitUndefined: true },
-    function(err, user) {
-      if (!err && req.body.Email !== undefined && req.body.Email.length > 0) {
-        console.log("updating email");
-        console.log(req.body.Email);
-        credentialsController.updateEmail(req, res, user);
-      } else if (!err) {
-        res.send(user);
-      } else {
-        console.log(err);
-        res.sendStatus(400);
-      }
-    }
-  );
-};
-
-var findUser = function(req, res) {
-  User.findOne(
-    {
-      UName: req.body.UName,
-    },
     function(err, user) {
       if (!err) {
         res.send(user);
@@ -156,30 +120,6 @@ var findUserBasedOnSkills = function(req, res) {
   );
 };
 
-var findUserBasedOnCredential = function(req, res, credential) {
-  User.findOne({ Credentials: credential._id }, function(err, user) {
-    if (!err) {
-      var toSend = {
-        _id: user._id,
-        FirstName: user.FirstName,
-        LastName: user.LastName,
-        DOB: user.DOB,
-        Credentials: user.Credentials,
-        UName: user.UName,
-        IsVerified: user.IsVerified,
-        Address: user.Address,
-        Skills: user.Skills,
-        Interests: user.Interests,
-        Email: credential.email,
-      };
-      res.send(toSend);
-    } else {
-      console.log(err);
-      res.sendStatus(400);
-    }
-  });
-};
-
 var findNUsers = function(req, res) {
   var index = parseInt(req.query.from);
   var size = parseInt(req.query.size);
@@ -197,9 +137,23 @@ var findNUsers = function(req, res) {
 
   User.paginate(query, { offset: index, limit: size }, (err, result) => {
     if (!err) {
-      console.log(`Total data: ${result.totalDocs}`);
+      var newDocs = result.docs.map(data => {
+        return {
+          FirstName: data.FirstName,
+          LastName: data.LastName,
+          DOB: data.DOB,
+          IsVerified: data.IsVerified,
+          Description: data.Description,
+          Address: data.Address,
+          Skills: data.Skills,
+          Interests: data.Interests,
+          Description: data.Description,
+          Email: data.Email,
+          _id: data._id,
+        };
+      });
       res.send({
-        users: result.docs,
+        users: newDocs,
         total: result.totalDocs,
       });
     } else {
@@ -212,10 +166,8 @@ var findNUsers = function(req, res) {
 // Export the variable
 module.exports.findAllUsers = findAllUsers;
 module.exports.registerUser = registerUser;
-module.exports.findUser = findUser;
 module.exports.deleteUser = deleteUser;
 module.exports.updateProfile = updateProfile;
 module.exports.findUserBasedOnSkills = findUserBasedOnSkills;
-module.exports.findUserBasedOnCredential = findUserBasedOnCredential;
 module.exports.findNUsers = findNUsers;
 module.exports.findUserById = findUserById;

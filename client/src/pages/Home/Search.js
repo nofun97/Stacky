@@ -3,9 +3,16 @@ import Drawer from "@material-ui/core/Drawer";
 import Button from "react-bootstrap/Button";
 import IconButton from "@material-ui/core/IconButton";
 import FilterListIcon from "@material-ui/icons/FilterList";
+import { connect } from "react-redux";
 import PeopleCardList from "../../components/PeopleCardList";
 import FilterDrawer from "../../components/FilterDrawer";
 import styles from "../../styles/pages/Home/Search.module.css";
+
+const mapStateToProps = state => {
+  return {
+    state: state,
+  };
+};
 
 class Search extends Component {
   constructor(props) {
@@ -49,17 +56,19 @@ class Search extends Component {
     }&size=${this.state.dataPerPage}`;
     if (this.state.filterSkill.length > 0) {
       query += `&skills=${this.state.filterSkill
-        .map(skill => skill.id)
+        .map(skill => skill.Skill)
         .join(",")}`;
     }
-    const userData = await fetch(query);
+    const userData = await fetch(query, {
+      credentials: "include",
+    });
     const usersPage = await userData.json();
     const users = usersPage.users;
     const totalData = usersPage.total;
     var skillsObj = {};
     var skillsList = [];
     /*
-      user data list of 
+      user data list of
       {
         firstName: string,
         lastName: string,
@@ -87,7 +96,10 @@ class Search extends Component {
     }
 
     const skillsData = await fetch(
-      `http://localhost:5000/api/skill?id=${skillsList.join(",")}`
+      `http://localhost:5000/api/skill?id=${skillsList.join(",")}`,
+      {
+        credentials: "include",
+      }
     );
     const skills = await skillsData.json();
 
@@ -114,12 +126,12 @@ class Search extends Component {
         skill: userSkills,
         _id: data._id,
       };
-    });
+    }).filter(user => user._id !== this.props.state.user._id);
     // console.log(users);
     this.setState({
       user: profiles,
-      totalItem: totalData / this.state.dataPerPage,
-      totalPageNumber:Math.ceil(totalData / this.state.dataPerPage),
+      totalItem: (totalData - 1) / this.state.dataPerPage,
+      totalPageNumber: Math.ceil((totalData - 1) / this.state.dataPerPage),
     });
   };
 
@@ -145,15 +157,15 @@ class Search extends Component {
         id: id,
         userID: this.props.id,
         userFirstName: this.props.firstName,
-        userLastName: this.props.lastName
-      }
+        userLastName: this.props.lastName,
+      },
     });
   };
 
   handleNextPage = () => {
-    if(this.state.pageNumber < this.state.totalPageNumber){
+    if (this.state.pageNumber < this.state.totalPageNumber) {
       this.setState({
-        currentIndex: this.state.currentIndex + this.state.dataPerPage + 1,
+        currentIndex: this.state.currentIndex + this.state.dataPerPage,
         pageNumber: this.state.pageNumber + 1,
         changes: true,
       });
@@ -162,9 +174,9 @@ class Search extends Component {
   };
 
   handlePreviousPage = () => {
-    if(this.state.currentIndex > 0){
+    if (this.state.currentIndex > 0) {
       this.setState({
-        currentIndex: this.state.currentIndex - this.state.dataPerPage - 1,
+        currentIndex: this.state.currentIndex - this.state.dataPerPage,
         pageNumber: this.state.pageNumber - 1,
         changes: true,
       });
@@ -207,15 +219,15 @@ class Search extends Component {
         </div>
         <div className={styles.bottom}>
           {/* need to implement this page count */}
-          <Button className={`${styles["next-btn"]} ${styles["back-btn"]}`} onClick={this.handlePreviousPage}>
+          <Button
+            className={`${styles["next-btn"]} ${styles["back-btn"]}`}
+            onClick={this.handlePreviousPage}
+          >
             {`<`}
           </Button>
           <span className={styles.pagination}>
             page {this.state.pageNumber} of {this.state.totalPageNumber}
           </span>
-          <Button className={`${styles["next-btn"]} ${styles["back-btn"]}`} onClick={this.handlePreviousPage}>
-            {`<`}
-          </Button>
           <Button className={styles["next-btn"]} onClick={this.handleNextPage}>
             >
           </Button>
@@ -225,4 +237,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default connect(mapStateToProps)(Search);
