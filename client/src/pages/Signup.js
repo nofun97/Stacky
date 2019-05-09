@@ -69,7 +69,7 @@ class Signup extends Component {
     // Checking the age if it's lower than 18 redirect
     if (
       Math.floor(
-        (Date.now() - Date.parse(values.dateOfBirth)) / (1000 * 60 * 60 * 24)
+        (Date.now() - Date.parse(values.dateOfBirth)) / (1000 * 60 * 60 * 24 * 365)
       ) < 18
     ) {
       this.props.history.push("/verification/fail");
