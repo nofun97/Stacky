@@ -51,31 +51,34 @@ class CreateAppointment extends Component {
     });
   }
 
-  handleSubmit = async (values, action) => {
+  handleSubmit = (values, action) => {
     console.log(values);
     var date = new Date(`${values.date}T${values.time}:00`);
-    var submissionData = await fetch(`http://localhost:5000/api/appointment`, {
+    var body = JSON.stringify({
+      Time: date,
+      Description: values.description,
+      Address: values.location,
+      Invitee: this.state.inviteeID,
+      InviteeFirstName: this.state.inviteeFirstName,
+      InviteeLastName: this.state.inviteeLastName,
+      Creator: this.state.creatorID,
+      CreatorFirstName: this.state.creatorFirstName,
+      CreatorLastName: this.state.creatorLastName,
+    });
+    console.log(body);
+    fetch(`http://localhost:5000/api/appointment`, {
       method: "POST",
-      header: {
+      headers: {
         "Content-Type": "application/json",
       },
-      credentials: 'include',
-      body: JSON.stringify({
-        Time: date,
-        Description: values.description,
-        Address: values.location,
-        Invitee: this.state.inviteeID,
-        InviteeFirstName: this.state.inviteeFirstName,
-        InviteeLastName: this.state.inviteeLastName,
-        Creator: this.state.creatorID,
-        CreatorFirstName: this.state.creatorFirstName,
-        CreatorLastName: this.state.creatorLastName,
-      }),
-    });
-    var res = await submissionData.json();
-    this.props.history.goBack();
-    //TODO: do error handling here
-    console.log(res);
+      credentials: "include",
+      body: body,
+    })
+      .then(resp => resp.json())
+      .then(resp => {
+        console.log(resp);
+        this.props.history.goBack();
+      });
   };
 
   render() {
@@ -121,11 +124,7 @@ class CreateAppointment extends Component {
             onSubmit={this.handleSubmit}
           >
             {({ handleSubmit, handleChange, values, errors }) => (
-              <Form
-                noValidate
-                className={styles.form}
-                onSubmit={handleSubmit}
-              >
+              <Form noValidate className={styles.form} onSubmit={handleSubmit}>
                 <Form.Group className={styles.datetime} controlId="dateTime">
                   <div>
                     <Form.Label className={styles.date}>Date</Form.Label>
