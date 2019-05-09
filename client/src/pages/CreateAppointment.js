@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 import { Formik } from "formik";
 import * as yup from "yup";
 import styles from "../styles/pages/CreateAppointment.module.css";
-const axios = require("axios");
 
 // Input validation schema
 const schema = yup.object({
