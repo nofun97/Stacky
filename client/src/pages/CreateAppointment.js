@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import { Formik } from "formik";
 import * as yup from "yup";
 import styles from "../styles/pages/CreateAppointment.module.css";
+const axios = require("axios");
 
 // Input validation schema
 const schema = yup.object({
@@ -54,13 +55,9 @@ class CreateAppointment extends Component {
   handleSubmit = async (values, action) => {
     console.log(values);
     var date = new Date(`${values.date}T${values.time}:00`);
-    var submissionData = await fetch(`http://localhost:5000/api/appointment`, {
-      method: "POST",
-      header: {
-        "Content-Type": "application/json",
-      },
-      credentials: 'include',
-      body: JSON.stringify({
+    var submissionData = await axios.post(
+      `http://localhost:5000/api/appointment`,
+      {
         Time: date,
         Description: values.description,
         Address: values.location,
@@ -70,8 +67,9 @@ class CreateAppointment extends Component {
         Creator: this.state.creatorID,
         CreatorFirstName: this.state.creatorFirstName,
         CreatorLastName: this.state.creatorLastName,
-      }),
-    });
+      },
+      { withCredentials: true }
+    );
     var res = await submissionData.json();
     this.props.history.goBack();
     //TODO: do error handling here
@@ -121,11 +119,7 @@ class CreateAppointment extends Component {
             onSubmit={this.handleSubmit}
           >
             {({ handleSubmit, handleChange, values, errors }) => (
-              <Form
-                noValidate
-                className={styles.form}
-                onSubmit={handleSubmit}
-              >
+              <Form noValidate className={styles.form} onSubmit={handleSubmit}>
                 <Form.Group className={styles.datetime} controlId="dateTime">
                   <div>
                     <Form.Label className={styles.date}>Date</Form.Label>
