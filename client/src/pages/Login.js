@@ -19,17 +19,6 @@ const schema = yup.object({
     .string()
     .required("Please provide an email")
     .email("Please provide valid email"),
-  // For checking whether the email is already in database or not
-  // .test("Email in database", " ", async (value) => {
-  //   var query = `http://localhost:5000/api/email/${value}`;
-  //   const userData = await fetch(query);
-  //   if(userData.status !== 200){
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }),
-
   password: yup
     .string()
     .required("Please provide a password")
@@ -50,7 +39,7 @@ class Login extends Component {
 
   handleLogin(values, actions) {
     // make the submit button disabled
-    this.submitButton.setAttribute("disabled", "disabled");
+    this.submitButton.setAttribute("disabled", true);
 
     // Login logic
     // TODO: put url in env?
@@ -64,7 +53,6 @@ class Login extends Component {
         Email: values.email,
         Password: values.password,
       }),
-      credentials: 'include',
     })
       .then(response => {
         return response.json();
@@ -78,8 +66,10 @@ class Login extends Component {
         this.setState({ id: data._id, email: data.Email, successful: true, user: data });
       })
       .catch(err => {
-        console.log("Login not succesful");
-        console.log(err);
+        // enable submit button
+        this.submitButton.removeAttribute("disabled");
+        // set error in email address
+        actions.setFieldError("email","Email or Password is wrong");
       });
   }
 
