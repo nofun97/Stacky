@@ -11,8 +11,6 @@ class OthersProfile extends Component {
   constructor(props) {
     super(props);
     this.goBack = this.goBack.bind(this);
-    console.log("Others Profile");
-    console.log(this.props.location.state);
     this.state = {
       name: "",
       firstName: "",
@@ -51,7 +49,6 @@ class OthersProfile extends Component {
   }
 
   render() {
-    console.log(this.state);
     /* for later when it's connected to backend need to uncomment to block people from accessing the route */
     if (this.props.location.state === undefined) {
       return <Redirect to="/page_not_found" />;
