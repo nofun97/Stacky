@@ -37,10 +37,10 @@ class OthersProfile extends Component {
       firstName: profile.FirstName,
       name: `${profile.FirstName} ${profile.LastName}`,
       skill: profile.Skills.map(data => {
-        return { level: data.Level, value: data.Name, id: data.Skill };
+        return { Level: data.Level, Name: data.Name, Skill: data.Skill };
       }),
       interest: profile.Interests.map(data => {
-        return { level: data.Level, value: data.Name, id: data.Skill };
+        return { Level: data.Level, Name: data.Name, Skill: data.Skill };
       }),
       description: profile.Description,
     });
