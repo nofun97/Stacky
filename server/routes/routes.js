@@ -19,8 +19,6 @@ router.post("/user/:id", userController.updateProfile);
 
 // /users?from=%d&size=%d%skill=%s
 router.get("/users", userController.findNUsers);
-// Should get UName from the body
-router.get("/user/name", userController.findUser);
 // Should get SkillName from the body
 router.get("/user/skills", userController.findUserBasedOnSkills);
 

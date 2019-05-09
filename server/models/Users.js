@@ -12,7 +12,6 @@ const userSchema = mongoose.Schema({
   Description: String,
   IsVerified: Boolean,
   Address: String,
-  Description: String,
   Skills: [
     {
       Name: String,
