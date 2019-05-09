@@ -7,10 +7,9 @@ var bodyParser = require("body-parser");
 var path = require("path");
 var passport = require("passport");
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000", }));
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 app.use(require("morgan")("dev"));
-app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(
   session({
@@ -19,7 +18,8 @@ app.use(
     saveUninitialized: false, //required
   })
 );
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
