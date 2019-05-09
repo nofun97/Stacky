@@ -26,9 +26,17 @@ class AppointmentExpandable extends Component {
   }
 
   // for invite types handler
-  handleAccept() {
-    this.props.handleAccept();
-  }
+  handleAccept = async () => {
+    var acceptData = await fetch(
+      `http://localhost:5000/api/appointment/approve/${this.props.id}`,
+      {
+        credentials: "include",
+        method: "POST",
+      }
+    );
+    var data = await acceptData.json();
+    console.log(data);
+  };
 
   // for invite types handler
   handleReject() {
@@ -41,11 +49,28 @@ class AppointmentExpandable extends Component {
       indicator = (
         /*need help w hover here*/
         <div className={styles.indicator}>
-          <IconButton style={{width: '20px', height: '20px', padding: '20px', border: "2px #FF9C40 solid", marginRight:"10px"}} onClick={this.handleAccept}>
-            <CheckIcon style ={{position:"absolute", color:"#FF9C40"}}/>
+          <IconButton
+            style={{
+              width: "20px",
+              height: "20px",
+              padding: "20px",
+              border: "2px #FF9C40 solid",
+              marginRight: "10px",
+            }}
+            onClick={this.handleAccept}
+          >
+            <CheckIcon style={{ position: "absolute", color: "#FF9C40" }} />
           </IconButton>
-          <IconButton style={{width: '20px', height: '20px', padding: '20px', border: "2px #FF9C40 solid"}} onClick={this.handleReject}>
-            <CloseIcon style ={{position:"absolute", color:"#FF9C40"}} />
+          <IconButton
+            style={{
+              width: "20px",
+              height: "20px",
+              padding: "20px",
+              border: "2px #FF9C40 solid",
+            }}
+            onClick={this.handleReject}
+          >
+            <CloseIcon style={{ position: "absolute", color: "#FF9C40" }} />
           </IconButton>
         </div>
       );
@@ -57,7 +82,9 @@ class AppointmentExpandable extends Component {
         <div className={styles.appointment}>
           <div className={styles.label} />
           <div className={styles.summary}>
-            <h5 className={styles.card_heading}>Meeting with {this.props.name}</h5>
+            <h5 className={styles.card_heading}>
+              Meeting with {this.props.name}
+            </h5>
             <div className={styles.spaced}>
               <div className={styles.card_details}>
                 {this.props.date} {this.props.time}
@@ -70,7 +97,9 @@ class AppointmentExpandable extends Component {
                 <LocationIcon />
                 {this.props.address}
               </div>
-              <Button className={styles.address} onClick={this.handleDetail}>Details</Button>
+              <Button className={styles.address} onClick={this.handleDetail}>
+                Details
+              </Button>
             </div>
           </div>
         </div>

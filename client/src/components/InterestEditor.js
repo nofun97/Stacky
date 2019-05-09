@@ -15,11 +15,11 @@ class InterestEditor extends Component {
   }
 
   handleChange(value) {
-    this.props.handleSliderChange(value, this.props.type, this.props.value);
+    this.props.handleSliderChange(value, this.props.type, this.props.id);
   }
 
   handleRemove() {
-    this.props.handleRemove(this.props.value, this.props.type);
+    this.props.handleRemove(this.props.value , this.props.type, this.props.id);
   }
 
   render() {

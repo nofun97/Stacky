@@ -7,18 +7,19 @@ var bodyParser = require("body-parser");
 var path = require("path");
 var passport = require("passport");
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+
 app.use(require("morgan")("dev"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
 app.use(
   session({
-    secret: "stacky",
-    cookie: { maxAge: 60000 },
-    resave: false,
-    saveUninitialized: false,
+    secret: "stacky-chan", //pick a random string to make the hash that is generated secure
+    resave: false, //required
+    saveUninitialized: false, //required
   })
 );
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 

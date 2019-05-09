@@ -1,11 +1,45 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 // https://github.com/Sitebase/react-avatar
 import Avatar from "react-avatar";
 import Select from "react-select";
+import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
+import { Formik } from "formik";
+import * as yup from "yup";
 import InterestEditorList from "../../components/InterestEditorList";
 import styles from "../../styles/pages/Home/ProfileEdit.module.css";
+
+const mapStateToProps = state => {
+  return {
+    state: state,
+  };
+};
+
+// Input validation schema
+const schema = yup.object({
+  firstName: yup
+    .string()
+    .required("Please provide your first name")
+    .matches(/^(?!(<script>)).*/, "first name can't contain <script>"),
+  lastName: yup
+    .string()
+    .required("Please provide your last name")
+    .matches(/^(?!(<script>)).*/, "last name can't contain <script>"),
+  dateOfBirth: yup
+    .string()
+    .required("Please provide your date of birth")
+    .test("under 18", "Please make sure you're above 18!", (value) => {
+      if(Math.floor((Date.now() - Date.parse(value)) / (1000 * 60 * 60 * 24 * 365)) < 18){
+        return false;
+      }
+      return true;
+    }),
+  description: yup
+    .string()
+    .required("Please provide the description of the appointment"),
+});
 
 class ProfileEdit extends Component {
   constructor(props) {
@@ -21,28 +55,29 @@ class ProfileEdit extends Component {
     this.handleInterestSelect = this.handleInterestSelect.bind(this);
     this.handleSliderChange = this.handleSliderChange.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
-    console.log(this.props.location.state);
     this.state = {
       submitted: false,
-      firstName: this.props.location.state.firstName,
-      lastName: this.props.location.state.lastName,
-      name: `${this.props.location.state.firstName} ${
-        this.props.location.state.lastName
+      firstName: this.props.state.user.FirstName,
+      lastName: this.props.state.user.LastName,
+      name: `${this.props.state.user.FirstName} ${
+        this.props.state.user.LastName
       }`,
-      email: this.props.location.state.email,
-      dateOfBirth: this.props.location.state.dateOfBirth,
+      email: this.props.state.user.Email,
+      dateOfBirth: this.props.state.user.DOB.slice(0, 10),
       interestOption: [],
       skillOption: [],
       selectedInterest: null,
       selectedSkill: null,
-      userInterest: this.props.location.state.interest,
-      userSkill: this.props.location.state.skill,
-      description: this.props.location.state.description,
+      userInterest: this.props.state.user.Interests,
+      userSkill: this.props.state.user.Skills,
+      description: this.props.state.user.Description,
     };
   }
 
   componentDidMount() {
-    fetch("http://localhost:5000/api/skill")
+    fetch("http://localhost:5000/api/skill", {
+      credentials: "include",
+    })
       .then(resp => resp.json())
       .then(data => {
         for (var i = 0; i < data.length; i++) {
@@ -50,11 +85,21 @@ class ProfileEdit extends Component {
             interestOption: [
               ...this.state.interestOption,
               { value: data[i]._id, label: data[i].Name },
-            ],
+            ].filter(
+              opt =>
+                !this.state.userInterest
+                  .map(interest => interest.Skill)
+                  .includes(opt.value)
+            ),
             skillOption: [
               ...this.state.skillOption,
               { value: data[i]._id, label: data[i].Name },
-            ],
+            ].filter(
+              opt =>
+                !this.state.userSkill
+                  .map(interest => interest.Skill)
+                  .includes(opt.value)
+            ),
           });
         }
       });
@@ -120,10 +165,14 @@ class ProfileEdit extends Component {
   handleAddInterest() {
     if (this.state.selectedInterest !== null) {
       let option = this.state.interestOption.filter(
-        opt => opt.value !== this.state.selectedInterest.value
+        opt => opt.value !== this.state.selectedInterest.id
       );
       let userInterest = [
-        this.state.selectedInterest,
+        {
+          Name: this.state.selectedInterest.value,
+          Level: this.state.selectedInterest.level,
+          Skill: this.state.selectedInterest.id,
+        },
         ...this.state.userInterest,
       ];
       this.setState({
@@ -132,16 +181,22 @@ class ProfileEdit extends Component {
         selectedInterest: null,
       });
     }
-    console.log(this.state);
   }
 
   // handler when skill add button is clicked (need to remove the option from the select)
   handleAddSkill() {
     if (this.state.selectedSkill !== null) {
       let option = this.state.skillOption.filter(
-        opt => opt.value !== this.state.selectedSkill.value
+        opt => opt.value !== this.state.selectedSkill.id
       );
-      let userSkill = [this.state.selectedSkill, ...this.state.userSkill];
+      let userSkill = [
+        {
+          Name: this.state.selectedSkill.value,
+          Level: this.state.selectedSkill.level,
+          Skill: this.state.selectedSkill.id,
+        },
+        ...this.state.userSkill,
+      ];
       this.setState({
         skillOption: option,
         userSkill: userSkill,
@@ -151,7 +206,7 @@ class ProfileEdit extends Component {
   }
 
   // handler for changes in slider of the interest
-  handleSliderChange(sliderValue, type, keyValue) {
+  handleSliderChange(sliderValue, type, id) {
     var level = 0;
 
     if (type === "Interest") {
@@ -173,8 +228,8 @@ class ProfileEdit extends Component {
       }
       let interestArray = this.state.userInterest;
       for (let interest of interestArray) {
-        if (interest.value === keyValue) {
-          interest.level = level;
+        if (interest.Skill === id) {
+          interest.Level = level;
         }
       }
       this.setState({ userInterest: interestArray });
@@ -197,8 +252,8 @@ class ProfileEdit extends Component {
       }
       let skillArray = this.state.userSkill;
       for (let skill of skillArray) {
-        if (skill.value === keyValue) {
-          skill.level = level;
+        if (skill.Skill === id) {
+          skill.Level = level;
         }
       }
       this.setState({ userSkill: skillArray });
@@ -206,23 +261,19 @@ class ProfileEdit extends Component {
   }
 
   // handler when the interest is removed (need to add the option back to the select)
-  handleRemove(value, type) {
-    console.log(value, type);
+  handleRemove(value, type, id) {
     if (type === "Interest") {
       let userInterest = this.state.userInterest.filter(
-        opt => opt.value !== value
+        opt => opt.Skill !== id
       );
-      let option = [
-        { value: value, label: value },
-        ...this.state.interestOption,
-      ];
+      let option = [{ value: id, label: value }, ...this.state.interestOption];
       this.setState({
         userInterest: userInterest,
         interestOption: option,
       });
     } else if (type === "Skill") {
-      let userSkill = this.state.userSkill.filter(opt => opt.value !== value);
-      let option = [{ value: value, label: value }, ...this.state.skillOption];
+      let userSkill = this.state.userSkill.filter(opt => opt.Skill !== id);
+      let option = [{ value: id, label: value }, ...this.state.skillOption];
       this.setState({
         userSkill: userSkill,
         skillOption: option,
@@ -230,41 +281,55 @@ class ProfileEdit extends Component {
     }
   }
 
-  handleSubmit() {
+  handleSubmit(values, actions) {
+    // make the submit button disabled
+    this.submitButton.setAttribute("disabled", true);
     let newSkills = this.state.userSkill.map(data => {
-      return { Skill: data.id, Level: data.level };
+      return { Skill: data.Skill, Level: data.Level, Name: data.Name };
     });
     let newInterests = this.state.userInterest.map(data => {
-      return { Skill: data.id, Level: data.level };
+      return { Skill: data.Skill, Level: data.Level, Name: data.Name };
     });
-    fetch(`http://localhost:5000/api/user/${this.props.location.state.id}`, {
+
+    fetch(`http://localhost:5000/api/user/${this.props.state.user._id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       // body: JSON.stringify(this.state.Submission)
       body: JSON.stringify({
-        Email: this.state.email,
-        FirstName: this.state.firstName,
-        LastName: this.state.lastName,
-        DOB: this.state.dateOfBirth,
-
+        FirstName: values.firstName,
+        LastName: values.lastName,
+        DOB: values.dateOfBirth,
+        Description: values.description,
         //TODO: implement this on the sign up form
-        UName: this.state.UName,
         Address: this.state.Address,
+
         Skills: newSkills,
         Interests: newInterests,
       }),
+      credentials: "include",
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        // this.setState({ ID: data._id, email: data.Email, successful: true });
-        console.log("Submission successful!");
+        let userUpdate = {
+          Email: values.email,
+          FirstName: values.firstName,
+          LastName: values.lastName,
+          DOB: values.dateOfBirth,
+          Description: this.state.description,
+          //TODO: implement this on the sign up form
+          Address: this.state.Address,
+
+          Skills: newSkills,
+          Interests: newInterests,
+        };
+        this.props.dispatch({ type: "USER_AUTH", user: userUpdate });
+        this.setState({ submitted: true });
       })
       .catch(err => {
-        console.log("Submission not succesful");
-        console.log(err);
+        // enable submit button
+        this.submitButton.removeAttribute("disabled");
         this.setState({
           InvalidInfo: true,
         });
@@ -277,9 +342,6 @@ class ProfileEdit extends Component {
         <Redirect
           to={{
             pathname: "/home/profile",
-            state: {
-              id: this.props.location.state.id,
-            },
           }}
         />
       );
@@ -288,112 +350,157 @@ class ProfileEdit extends Component {
     return (
       <section className={styles.profile}>
         <div className={styles.avatarEdit}>
-          <Avatar
-            name={this.state.name}
-            onClick={() => {
-              console.log("clicked");
-            }}
-          />
+          <Avatar name={this.state.name} onClick={() => {}} />
           <p className={styles.edit}>Edit Mode</p>
         </div>
-        <h3 className={styles.subheader}>First Name</h3>
-        <input
-          className={styles.input}
-          type="text"
-          value={this.state.firstName}
-          onChange={e => this.setState({ firstName: e.target.value })}
-        />
-        <h3 className={styles.subheader}>Last Name</h3>
-        <input
-          className={styles.input}
-          type="text"
-          value={this.state.lastName}
-          onChange={e => this.setState({ lastName: e.target.value })}
-        />
-        <h3 className={styles.subheader}>Email</h3>
-        <input
-          className={styles.input}
-          type="email"
-          value={this.state.email}
-          onChange={this.handleEmailChange}
-        />
-        <h3 className={styles.subheader}>Date of Birth</h3>
-        <input
-          className={styles.input}
-          type="date"
-          value={this.state.dateOfBirth}
-          onChange={this.handleDateChange}
-        />
-        <h3 className={styles.subheader}>Interests</h3>
-        <section className={styles.listing}>
-          <Select
-            className={styles.select}
-            classNamePrefix="select"
-            isClearable={true}
-            isSearchable={true}
-            value={this.state.selectedInterest}
-            name="interest"
-            options={this.state.interestOption}
-            onChange={this.handleInterestSelect}
-          />
-          <Button
-            className={styles["add-button"]}
-            onClick={this.handleAddInterest}
-          >
-            Add
-          </Button>
-          <InterestEditorList
-            handleSliderChange={this.handleSliderChange}
-            handleRemove={this.handleRemove}
-            type="Interest"
-            className={styles.editors}
-            values={this.state.userInterest}
-          />
-        </section>
-        <h3 className={styles.subheader}>Skills</h3>
-        <section className={styles.listing}>
-          <Select
-            className={styles.select}
-            classNamePrefix="select"
-            isClearable={true}
-            isSearchable={true}
-            value={this.state.selectedSkill}
-            name="skill"
-            options={this.state.skillOption}
-            onChange={this.handleSkillSelect}
-          />
-          <Button
-            className={styles["add-button"]}
-            onClick={this.handleAddSkill}
-          >
-            Add
-          </Button>
-          <InterestEditorList
-            handleSliderChange={this.handleSliderChange}
-            handleRemove={this.handleRemove}
-            type="Skill"
-            className={styles.editors}
-            values={this.state.userSkill}
-          />
-        </section>
-        <h3 className={styles.subheader}>Description</h3>
-        <p>Write a little bit about yourself.</p>
-        <textarea
-          rows="10"
-          className={styles.textarea}
-          value={this.state.description}
-          onChange={this.handleDescriptionChange}
-        />
-        <Button
-          className={styles["submit-button"]}
-          variant="primary"
-          onClick={this.handleSubmit}
+        <Formik
+          initialValues={{
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            dateOfBirth: this.state.dateOfBirth,
+            description: this.state.description,
+          }}
+          validateOnBlur={false}
+          validateOnChange={false}
+          validationSchema={schema}
+          onSubmit={this.handleSubmit}
         >
-          Confirm
-        </Button>
+          {({ handleSubmit, handleChange, values, errors }) => (
+            <Form noValidate className={styles.form} onSubmit={handleSubmit}>
+              <Form.Group controlId="formBasicFirstName">
+                <Form.Label className={styles.subheader}>First Name</Form.Label>
+                <Form.Control
+                  name="firstName"
+                  className={styles.input}
+                  type="text"
+                  value={values.firstName}
+                  onChange={handleChange}
+                  isInvalid={!!errors.firstName}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.firstName}
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group controlId="formBasicLastName">
+                <Form.Label className={styles.subheader}>Last Name</Form.Label>
+                <Form.Control
+                  name="lastName"
+                  className={styles.input}
+                  type="text"
+                  value={values.lastName}
+                  onChange={handleChange}
+                  isInvalid={!!errors.lastName}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.lastName}
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group controlId="formBasicDateOfBirth">
+                <Form.Label className={styles.subheader}>
+                  Date of Birth
+                </Form.Label>
+                <Form.Control
+                  name="dateOfBirth"
+                  className={styles.input}
+                  type="date"
+                  value={values.dateOfBirth}
+                  onChange={handleChange}
+                  isInvalid={!!errors.dateOfBirth}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.dateOfBirth}
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <h3 className={styles.subheader}>Interests</h3>
+              <section className={styles.listing}>
+                <Select
+                  className={styles.select}
+                  classNamePrefix="select"
+                  isClearable={true}
+                  isSearchable={true}
+                  value={this.state.selectedInterest}
+                  name="interest"
+                  options={this.state.interestOption}
+                  onChange={this.handleInterestSelect}
+                />
+                <Button
+                  className={styles["add-button"]}
+                  onClick={this.handleAddInterest}
+                >
+                  Add
+                </Button>
+                <InterestEditorList
+                  handleSliderChange={this.handleSliderChange}
+                  handleRemove={this.handleRemove}
+                  type="Interest"
+                  className={styles.editors}
+                  values={this.state.userInterest}
+                />
+              </section>
+              <h3 className={styles.subheader}>Skills</h3>
+              <section className={styles.listing}>
+                <Select
+                  className={styles.select}
+                  classNamePrefix="select"
+                  isClearable={true}
+                  isSearchable={true}
+                  value={this.state.selectedSkill}
+                  name="skill"
+                  options={this.state.skillOption}
+                  onChange={this.handleSkillSelect}
+                />
+                <Button
+                  className={styles["add-button"]}
+                  onClick={this.handleAddSkill}
+                >
+                  Add
+                </Button>
+                <InterestEditorList
+                  handleSliderChange={this.handleSliderChange}
+                  handleRemove={this.handleRemove}
+                  type="Skill"
+                  className={styles.editors}
+                  values={this.state.userSkill}
+                />
+              </section>
+
+              <Form.Group controlId="formBasicDateOfBirth">
+                <Form.Label className={styles.subheader}>
+                  Description
+                </Form.Label>
+                <p>Write a little bit about yourself.</p>
+                <Form.Control
+                  name="description"
+                  as="textarea"
+                  rows="10"
+                  className={styles.textarea}
+                  value={values.description}
+                  onChange={handleChange}
+                  isInvalid={!!errors.description}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.description}
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Button
+                ref={submitButton => {
+                  this.submitButton = submitButton;
+                }}
+                className={styles["submit-button"]}
+                variant="primary"
+                type="submit"
+              >
+                Confirm
+              </Button>
+            </Form>
+          )}
+        </Formik>
       </section>
     );
   }
 }
 
-export default ProfileEdit;
+export default connect(mapStateToProps)(ProfileEdit);

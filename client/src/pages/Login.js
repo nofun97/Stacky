@@ -5,23 +5,20 @@ import styles from "../styles/pages/Login.module.css";
 import { Redirect } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+  return {
+    state: state
+  }
+}
 
 // Input validation schema
 const schema = yup.object({
   email: yup
     .string()
     .required("Please provide an email")
-    .email("Please provide valid email")
-    // For checking whether the email is already in database or not
-    .test("Email in database", " ", async (value) => {
-      var query = `http://localhost:5000/api/email/${value}`;
-      const userData = await fetch(query);
-      if(userData.status !== 200){
-        return false;
-      } else {
-        return true;
-      }
-    }),
+    .email("Please provide valid email"),
   password: yup
     .string()
     .required("Please provide a password")
@@ -42,39 +39,37 @@ class Login extends Component {
 
   handleLogin(values, actions) {
     // make the submit button disabled
-    this.submitButton.setAttribute("disabled", "disabled");
+    this.submitButton.setAttribute("disabled", true);
 
     // Login logic
-    console.log("Login...");
     // TODO: put url in env?
     fetch("http://localhost:5000/api/login", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        user: {
-          email: values.email,
-          password: values.password,
-        },
+        Email: values.email,
+        Password: values.password,
       }),
     })
       .then(response => {
         return response.json();
       })
       .then(data => {
-        console.log("Login successful!");
-        console.log(data);
-
         // For authentication stuff (if ok then redirect) for now just redirect
         // if (data.ok === true) {
         // }
         // this.props.history.push("/home");
+        this.props.dispatch({type: 'USER_AUTH', user: data});
         this.setState({ id: data._id, email: data.Email, successful: true, user: data });
       })
       .catch(err => {
-        console.log("Login not succesful");
-        console.log(err);
+        // enable submit button
+        this.submitButton.removeAttribute("disabled");
+        // set error in email address
+        actions.setFieldError("email","Email or Password is wrong");
       });
   }
 
@@ -84,12 +79,6 @@ class Login extends Component {
         <Redirect
           to={{
             pathname: "/home",
-            state: {
-              id: this.state.id,
-              email: this.state.email,
-              noBackend: false,
-              user: this.state.user
-            },
           }}
         />
       );
@@ -166,4 +155,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(mapStateToProps)(Login);

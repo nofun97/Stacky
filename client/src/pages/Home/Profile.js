@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 // https://github.com/Sitebase/react-avatar
 import Avatar from "react-avatar";
 import Button from "@material-ui/core/Button";
@@ -6,59 +7,40 @@ import { Redirect } from "react-router-dom";
 import InterestDisplayList from "../../components/InterestDisplayList";
 import styles from "../../styles/pages/Home/Profile.module.css";
 
+const mapStateToProps = state => {
+  return {
+    state: state,
+  };
+};
+
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.handleEdit = this.handleEdit.bind(this);
-    let description;
     // setting state
+    let DOB = this.props.state.user.DOB;
+    let date = `${Number(DOB.slice(8, 10))}/${Number(DOB.slice(5,7))}/${DOB.slice(0,4)}`
     this.state = {
       editMode: false,
-      name: "",
-      email: "",
-      dateOfBirth: "",
-      interest: [],
-      skill: [],
-      firstName: "",
-      lastName: "",
-      description: "",
+      name: `${this.props.state.user.FirstName} ${this.props.state.user.LastName}`,
+      email: this.props.state.user.Email,
+      dateOfBirth: date,
+      interest: this.props.state.user.Interests,
+      skill: this.props.state.user.Skills,
+      firstName: this.props.state.user.FirstName,
+      lastName: this.props.state.user.LastName,
+      description: this.props.state.user.Description,
     };
-
-    // if props is undefined, put placeholders
-    if (this.props.location.state === undefined) {
-      description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-        facere dicta sapiente numquam voluptate iure deleniti veritatis odit
-        veniam non nobis provident exercitationem autem, quam nesciunt
-        quisquam odio asperiores dignissimos.`;
-      this.state = {
-        editMode: false,
-        name: "placeholder for name",
-        email: "placeholder for email",
-        dateOfBirth: "placeholder for DOB",
-        interest: [],
-        skill: [],
-        description: description,
-      };
-    } else {
-      // if description is undefined put placeholders
-      if (
-        this.props.location.state.description === undefined ||
-        this.props.location.state.description === ""
-      ) {
-        description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-        facere dicta sapiente numquam voluptate iure deleniti veritatis odit
-        veniam non nobis provident exercitationem autem, quam nesciunt
-        quisquam odio asperiores dignissimos.`;
-      } else {
-        description = this.props.location.state.description;
-      }
-    }
   }
 
   componentDidMount = async () => {
     const profileData = await fetch(
-      `http://localhost:5000/api/user/${this.props.location.state.id}`
+      `http://localhost:5000/api/user/${this.props.state.user._id}`,
+      {
+        credentials: "include",
+      }
     );
+
     const profile = await profileData.json();
     var dateData = new Date(profile.DOB);
     var date = `${dateData.getDate()}/${dateData.getMonth() +
@@ -67,50 +49,21 @@ class Profile extends Component {
       firstName: profile.FirstName,
       lastName: profile.LastName,
       name: `${profile.FirstName} ${profile.LastName}`,
-      email: this.props.location.state.email,
+      email: profile.Email,
       dateOfBirth: date,
-      //TODO: add description field
+      skill: profile.Skills.map(data => {
+        return { Level: data.Level, Name: data.Name, Skill: data.Skill };
+      }),
+      interest: profile.Interests.map(data => {
+        return { Level: data.Level, Name: data.Name, Skill: data.Skill };
+      }),
+      description: profile.Description,
     });
-    var skillIds = profile.Skills.map(data => {
-      return data.Skill;
-    }).join(",");
-    var interestsIds = profile.Interests.map(data => {
-      return data.Skill;
-    }).join(",");
-    const skillData = await fetch(
-      `http://localhost:5000/api/skill?id=${skillIds}`
-    );
-    const skills = await skillData.json();
-    const interestsData = await fetch(
-      `http://localhost:5000/api/skill?id=${interestsIds}`
-    );
-    const interests = await interestsData.json();
-
-    var skillProfile = profile.Skills.map(data => {
-      for (var i = 0; i < skills.length; i++) {
-        if (data.Skill === skills[i]._id) {
-          return { level: data.Level, value: skills[i].Name, id: data.Skill };
-        }
-      }
-      return {};
-    }).filter(data => {
-      return data !== {};
+    this.props.dispatch({ type: "USER_ADD_SKILL", skills: profile.Skills });
+    this.props.dispatch({
+      type: "USER_ADD_INTEREST",
+      interests: profile.Interests,
     });
-    var interestsProfile = profile.Interests.map(data => {
-      for (var i = 0; i < interests.length; i++) {
-        if (data.Skill === interests[i]._id) {
-          return {
-            level: data.Level,
-            value: interests[i].Name,
-            id: data.Skill,
-          };
-        }
-      }
-      return {};
-    }).filter(data => {
-      return data !== {};
-    });
-    this.setState({ interest: interestsProfile, skill: skillProfile });
   };
 
   // handle if edit is clicked
@@ -129,7 +82,6 @@ class Profile extends Component {
             pathname: "/home/profile_edit",
             state: {
               ...this.state,
-              id: this.props.location.state.id,
               firstName: this.state.firstName,
               lastName: this.state.lastName,
             },
@@ -172,4 +124,4 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+export default connect(mapStateToProps)(Profile);
