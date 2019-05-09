@@ -29,7 +29,6 @@ class Home extends Component {
 
     this.state = {
       page: "My Home",
-      username: "Tester Man",
       email: this.props.state.user.Email,
       id: this.props.state.user._id,
       FirstName: this.props.state.user.FirstName,
