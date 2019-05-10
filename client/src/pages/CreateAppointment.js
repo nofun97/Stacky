@@ -101,6 +101,18 @@ class CreateAppointment extends Component {
           />
         </div>
       );
+    }
+    else if (window.innerWidth <= 895) {
+      avatar = (
+        <div>
+          <Avatar
+            size="75px"
+            className={styles.avatar}
+            name={name}
+            round={true}
+          />
+        </div>
+      );
     } else {
       avatar = <Avatar className={styles.avatar} name={name} round={true} />;
     }
