@@ -137,7 +137,7 @@ class Profile extends Component {
           variant="primary"
           onClick={this.handleLogOut}
         >
-          Cancel
+          Log out
         </BButton>
       </section>
     );

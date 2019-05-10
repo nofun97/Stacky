@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import styles from "../styles/pages/VerificationPass.module.css";
+
+const mapStateToProps = state => {
+  return {
+    state: state,
+  };
+};
 
 class VerificationPass extends Component {
   constructor(props){
@@ -20,6 +27,10 @@ class VerificationPass extends Component {
   }
 
   render() {
+    if (this.props.state.user === null) {
+      return <Redirect to="/page_not_found" />;
+    }
+
     if(this.state.clicked){
       return <Redirect
       to={{
@@ -52,4 +63,4 @@ class VerificationPass extends Component {
   }
 }
 
-export default VerificationPass;
+export default connect(mapStateToProps)(VerificationPass);

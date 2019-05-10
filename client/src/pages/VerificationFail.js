@@ -1,9 +1,20 @@
 import React, { Component } from "react";
-
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import styles from "../styles/pages/VerificationFail.module.css";
+
+const mapStateToProps = state => {
+  return {
+    state: state,
+  };
+};
 
 class VerificationFail extends Component {
   render() {
+    if (this.props.state.user === null) {
+      return <Redirect to="/page_not_found" />;
+    }
+
     return (
       <div className={styles.VerificationFail}>
         <section className={styles.Main}>
@@ -29,4 +40,4 @@ class VerificationFail extends Component {
   }
 }
 
-export default VerificationFail;
+export default connect(mapStateToProps)(VerificationFail);

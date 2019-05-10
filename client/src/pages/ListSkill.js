@@ -118,11 +118,14 @@ class ListSkill extends Component {
       let option = this.state.skillOption.filter(
         opt => opt.value !== this.state.selectedSkill.id
       );
-      let userSkill = [{
-        Name: this.state.selectedSkill.value,
-        Level: this.state.selectedSkill.level,
-        Skill: this.state.selectedSkill.id,
-      }, ...this.state.userSkill];
+      let userSkill = [
+        {
+          Name: this.state.selectedSkill.value,
+          Level: this.state.selectedSkill.level,
+          Skill: this.state.selectedSkill.id,
+        },
+        ...this.state.userSkill,
+      ];
       this.setState({
         skillOption: option,
         userSkill: userSkill,
@@ -192,10 +195,7 @@ class ListSkill extends Component {
       let userInterest = this.state.userInterest.filter(
         opt => opt.Skill !== id
       );
-      let option = [
-        { value: id, label: value },
-        ...this.state.interestOption,
-      ];
+      let option = [{ value: id, label: value }, ...this.state.interestOption];
       this.setState({
         userInterest: userInterest,
         interestOption: option,
@@ -242,6 +242,7 @@ class ListSkill extends Component {
       .then(data => {
         this.props.dispatch({ type: "USER_ADD_SKILL", skills });
         this.props.dispatch({ type: "USER_ADD_INTEREST", interests });
+        this.props.dispatch({ type: "LOG_IN" });
         this.setState({
           submitted: true,
         });
@@ -257,6 +258,10 @@ class ListSkill extends Component {
           }}
         />
       );
+    }
+
+    if (this.props.state.user === null) {
+      return <Redirect to="/page_not_found" />;
     }
 
     return (

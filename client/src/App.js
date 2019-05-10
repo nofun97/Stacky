@@ -25,7 +25,7 @@ const mapStateToProps = state => {
 
 class App extends Component {
   render() {
-    if (this.props.state.user === null) {
+    if (this.props.state.loggedIn === false) {
       return (
         <div className="App">
           <Switch>
