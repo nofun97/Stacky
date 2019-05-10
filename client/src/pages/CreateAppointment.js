@@ -8,8 +8,26 @@ import styles from "../styles/pages/CreateAppointment.module.css";
 
 // Input validation schema
 const schema = yup.object({
-  date: yup.string().required("Please provide a date"),
-  time: yup.string().required("Please provide a time"),
+  date: yup
+    .string()
+    .required("Please provide a date")
+    .test("Valid DateTime", "Invalid DateTime", function(value) {
+      let dateTime = `${value} ${this.resolve(yup.ref("time"))}`;
+      if (Date.now() - Date.parse(dateTime) > 0) {
+        return false;
+      }
+      return true;
+    }),
+  time: yup
+    .string()
+    .required("Please provide a time")
+    .test("Valid DateTime", "Invalid DateTime", function(value) {
+      let dateTime = `${this.resolve(yup.ref("date"))} ${value}`;
+      if (Date.now() - Date.parse(dateTime) > 0) {
+        return false;
+      }
+      return true;
+    }),
   location: yup
     .string()
     .required("Please provide the location of the appointment"),
