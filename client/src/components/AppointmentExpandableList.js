@@ -15,6 +15,7 @@ class AppointmentExpandableList extends Component {
         time={appointment.time}
         address={appointment.address}
         description={appointment.description}
+        id={appointment._id}
         key={appointment._id}
       />
     ));

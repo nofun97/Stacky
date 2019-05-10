@@ -27,20 +27,12 @@ class AppointmentExpandable extends Component {
 
   // for invite types handler
   handleAccept = async () => {
-    var acceptData = await fetch(
-      `http://localhost:5000/api/appointment/approve/${this.props.id}`,
-      {
-        credentials: "include",
-        method: "POST",
-      }
-    );
-    var data = await acceptData.json();
-    console.log(data);
+    await this.props.handleAccept(this.props.id);
   };
 
   // for invite types handler
-  handleReject() {
-    this.props.handleReject();
+  handleReject = async () => {
+    await this.props.handleReject(this.props.id);
   }
 
   // for responsiveness of the icon

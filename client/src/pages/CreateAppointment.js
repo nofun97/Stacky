@@ -3,13 +3,32 @@ import Avatar from "react-avatar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Formik } from "formik";
+import { Redirect } from "react-router-dom";
 import * as yup from "yup";
 import styles from "../styles/pages/CreateAppointment.module.css";
 
 // Input validation schema
 const schema = yup.object({
-  date: yup.string().required("Please provide a date"),
-  time: yup.string().required("Please provide a time"),
+  date: yup
+    .string()
+    .required("Please provide a date")
+    .test("Valid DateTime", "Invalid DateTime", function(value) {
+      let dateTime = `${value} ${this.resolve(yup.ref("time"))}`;
+      if (Date.now() - Date.parse(dateTime) > 0) {
+        return false;
+      }
+      return true;
+    }),
+  time: yup
+    .string()
+    .required("Please provide a time")
+    .test("Valid DateTime", "Invalid DateTime", function(value) {
+      let dateTime = `${this.resolve(yup.ref("date"))} ${value}`;
+      if (Date.now() - Date.parse(dateTime) > 0) {
+        return false;
+      }
+      return true;
+    }),
   location: yup
     .string()
     .required("Please provide the location of the appointment"),
@@ -21,19 +40,20 @@ const schema = yup.object({
 class CreateAppointment extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.location.state);
-    this.state = {
-      creatorFirstName: this.props.location.state.CreatorFirstName,
-      creatorLastName: this.props.location.state.CreatorLastName,
-      creatorID: this.props.location.state.CreatorID,
-      inviteeFirstName: this.props.location.state.InviteeFirstName,
-      inviteeLastName: this.props.location.state.InviteeLastName,
-      inviteeID: this.props.location.state.InviteeID,
-      date: "",
-      time: "",
-      location: "",
-      description: "",
-    };
+    if (this.props.location.state !== undefined) {
+      this.state = {
+        creatorFirstName: this.props.location.state.CreatorFirstName,
+        creatorLastName: this.props.location.state.CreatorLastName,
+        creatorID: this.props.location.state.CreatorID,
+        inviteeFirstName: this.props.location.state.InviteeFirstName,
+        inviteeLastName: this.props.location.state.InviteeLastName,
+        inviteeID: this.props.location.state.InviteeID,
+        date: "",
+        time: "",
+        location: "",
+        description: "",
+      };
+    }
     this.render = this.render.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -82,13 +102,12 @@ class CreateAppointment extends Component {
   };
 
   render() {
-    let name = `${this.state.inviteeFirstName} ${this.state.inviteeLastName}`;
-
     /* for later when it's connected to backend need to uncomment to block people from accessing the route */
-    // if(this.props.location.state === undefined){
-    //   return <Redirect to="/page_not_found" />
-    // }
+    if(this.props.location.state === undefined){
+      return <Redirect to="/page_not_found" />
+    }
 
+    let name = `${this.state.inviteeFirstName} ${this.state.inviteeLastName}`;
     let avatar;
     if (window.innerWidth <= 426) {
       avatar = (

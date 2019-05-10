@@ -7,11 +7,11 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    state: state
-  }
-}
+    state: state,
+  };
+};
 
 // Input validation schema
 const schema = yup.object({
@@ -62,27 +62,18 @@ class Login extends Component {
         // if (data.ok === true) {
         // }
         // this.props.history.push("/home");
-        this.props.dispatch({type: 'USER_AUTH', user: data});
-        this.setState({ id: data._id, email: data.Email, successful: true, user: data });
+        this.props.dispatch({ type: "USER_AUTH", user: data });
+        this.props.dispatch({ type: "LOG_IN" });
       })
       .catch(err => {
         // enable submit button
         this.submitButton.removeAttribute("disabled");
         // set error in email address
-        actions.setFieldError("email","Email or Password is wrong");
+        actions.setFieldError("email", "Email or Password is wrong");
       });
   }
 
   render() {
-    if (this.state.successful === true) {
-      return (
-        <Redirect
-          to={{
-            pathname: "/home",
-          }}
-        />
-      );
-    }
     return (
       <div className={styles.Login}>
         <section className={styles.Main}>

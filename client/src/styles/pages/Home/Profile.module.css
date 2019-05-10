@@ -42,3 +42,48 @@
 .button {
   padding: 0 !important;
 }
+
+.logout-button {
+  padding: 0.4em 2.4em;
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #f97153;
+  background-color: #f97153;
+  color: black;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.logout-button:focus {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #f97153;
+  background-color: #f97153;
+  color: black;
+  grid-area: confirm;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.logout-button:hover {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #f97153;
+  background-color: #f97153;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.logout-button:active {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #f97153;
+  background-color: #f97153 !important;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}

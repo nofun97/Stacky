@@ -11,20 +11,23 @@ class OthersProfile extends Component {
   constructor(props) {
     super(props);
     this.goBack = this.goBack.bind(this);
-    console.log("Others Profile");
-    console.log(this.props.location.state);
-    this.state = {
-      name: "",
-      firstName: "",
-      lastName: "",
-      description: "Hello I'm new to Skill tree",
-      skill: [],
-      interest: [],
-      id: this.props.location.state.id,
-    };
+    if (this.props.location.state !== undefined) {
+      this.state = {
+        name: "",
+        firstName: "",
+        lastName: "",
+        description: "Hello I'm new to Skill tree",
+        skill: [],
+        interest: [],
+        id: this.props.location.state.id,
+      };
+    }
   }
 
   componentDidMount = async () => {
+    if (this.props.location.state === undefined) {
+      return;
+    }
     const profileData = await fetch(
       `http://localhost:5000/api/user/${this.props.location.state.id}`,
       {
@@ -51,7 +54,6 @@ class OthersProfile extends Component {
   }
 
   render() {
-    console.log(this.state);
     /* for later when it's connected to backend need to uncomment to block people from accessing the route */
     if (this.props.location.state === undefined) {
       return <Redirect to="/page_not_found" />;

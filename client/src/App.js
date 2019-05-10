@@ -25,7 +25,7 @@ const mapStateToProps = state => {
 
 class App extends Component {
   render() {
-    if (this.props.state.user === null) {
+    if (this.props.state.loggedIn === false) {
       return (
         <div className="App">
           <Switch>
@@ -45,23 +45,15 @@ class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Route exact path="/" component={Landing} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/invalid_info" component={InvalidInfo} />
-          <Route path="/list_skill" component={ListSkill} />
           <Route path="/home" component={Home} />
           <Route path="/guideline" component={Guideline} />
-          <Route path="/verification/pass" component={VerificationPass} />
-          <Route path="/verification/fail" component={VerificationFail} />
           <Route path="/page_not_found" component={PageNotFound} />
           <Route
             path="/user/create_appointment"
             component={CreateAppointment}
           />
-          {/* Route for other people profile */}
           <Route exact path="/user" component={OthersProfile} />
-          <Redirect to="/page_not_found" />
+          <Redirect to="/home" />
         </Switch>
       </div>
     );
