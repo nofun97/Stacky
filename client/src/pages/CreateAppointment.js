@@ -72,6 +72,7 @@ class CreateAppointment extends Component {
   }
 
   handleSubmit = (values, action) => {
+    this.submitButton.setAttribute("disabled", true);
     var date = new Date(`${values.date}T${values.time}:00`);
     var body = JSON.stringify({
       Time: date,
@@ -224,7 +225,9 @@ class CreateAppointment extends Component {
                 </Button>
 
                 <Button
-                  ref="submit-btn"
+                  ref={submitButton => {
+                    this.submitButton = submitButton;
+                  }}
                   className={styles["confirm-button"]}
                   variant="primary"
                   type="submit"
