@@ -12,6 +12,7 @@ class AllAppointment extends Component {
       changes: false,
     };
     this.approveRequest = this.approveRequest.bind(this);
+    this.deleteRequest = this.deleteRequest.bind(this);
     this.handleFetchAppointment = this.handleFetchAppointment.bind(this);
   }
 
@@ -23,6 +24,14 @@ class AllAppointment extends Component {
     this.setState({ changes: true });
   };
 
+  deleteRequest = async id => {
+    await fetch(`http://localhost:5000/api/appointment/${id}`, {
+      credentials: "include",
+      method: "DELETE",
+    });
+    this.setState({changes: true});
+  }
+
   render() {
     return (
       <section className={styles.container}>
@@ -32,7 +41,7 @@ class AllAppointment extends Component {
             values={this.state.invites}
             type="invites"
             handleAccept={this.approveRequest}
-            handleReject={() => {}}
+            handleReject={this.deleteRequest}
           />
         </div>
         <div className={styles.invites}>

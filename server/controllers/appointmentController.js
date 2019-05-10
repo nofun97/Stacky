@@ -47,7 +47,7 @@ var addNewAppointments = function(req, res) {
 
 // Delete an appointment
 var deleteAppointments = function(req, res) {
-  var id = req.params.id;
+  var id = mongoose.Types.ObjectId(req.params.id);
   Appointments.findByIdAndDelete(id, function(err) {
     if (!err) {
       res.send({ DeletionSuccessful: true });

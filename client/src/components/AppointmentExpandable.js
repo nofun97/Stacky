@@ -31,8 +31,8 @@ class AppointmentExpandable extends Component {
   };
 
   // for invite types handler
-  handleReject() {
-    this.props.handleReject();
+  handleReject = async () => {
+    await this.props.handleReject(this.props.id);
   }
 
   render() {
