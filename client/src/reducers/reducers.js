@@ -1,4 +1,4 @@
-import { USER_AUTH, USER_ADD_INTEREST, USER_ADD_SKILL } from "./actions";
+import { USER_AUTH, USER_ADD_INTEREST, USER_ADD_SKILL, LOG_OUT } from "./actions";
 
 const initialState = {
   user: null,
@@ -26,6 +26,10 @@ function globals(state = initialState, action) {
           ...state.user,
           Interests: action.interests
         }
+      });
+    case LOG_OUT:
+      return Object.assign({}, state, {
+        user: null
       });
     default:
       return state;

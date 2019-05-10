@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 // https://github.com/Sitebase/react-avatar
 import Avatar from "react-avatar";
 import Button from "@material-ui/core/Button";
+import BButton from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
 import InterestDisplayList from "../../components/InterestDisplayList";
 import styles from "../../styles/pages/Home/Profile.module.css";
@@ -17,12 +18,17 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
     // setting state
     let DOB = this.props.state.user.DOB;
-    let date = `${Number(DOB.slice(8, 10))}/${Number(DOB.slice(5,7))}/${DOB.slice(0,4)}`
+    let date = `${Number(DOB.slice(8, 10))}/${Number(
+      DOB.slice(5, 7)
+    )}/${DOB.slice(0, 4)}`;
     this.state = {
       editMode: false,
-      name: `${this.props.state.user.FirstName} ${this.props.state.user.LastName}`,
+      name: `${this.props.state.user.FirstName} ${
+        this.props.state.user.LastName
+      }`,
       email: this.props.state.user.Email,
       dateOfBirth: date,
       interest: this.props.state.user.Interests,
@@ -73,6 +79,13 @@ class Profile extends Component {
     });
   }
 
+  handleLogOut() {
+    // Clear redux
+    this.props.dispatch({ type: "LOG_OUT" });
+    // Go to landing
+    this.props.history.push("/");
+  }
+
   render() {
     if (this.state.editMode) {
       return (
@@ -119,6 +132,13 @@ class Profile extends Component {
         />
         <h3 className={styles.subheader}>Description</h3>
         <p className={styles.description}>{this.state.description}</p>
+        <BButton
+          className={styles["logout-button"]}
+          variant="primary"
+          onClick={this.handleLogOut}
+        >
+          Cancel
+        </BButton>
       </section>
     );
   }
