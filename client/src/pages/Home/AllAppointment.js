@@ -9,8 +9,19 @@ class AllAppointment extends Component {
       invites: [],
       appointments: [],
       pendingInvites: [],
+      changes: false,
     };
+    this.approveRequest = this.approveRequest.bind(this);
+    this.handleFetchAppointment = this.handleFetchAppointment.bind(this);
   }
+
+  approveRequest = async id => {
+    await fetch(`http://localhost:5000/api/appointment/approve/${id}`, {
+      credentials: "include",
+      method: "POST",
+    });
+    this.setState({ changes: true });
+  };
 
   render() {
     return (
@@ -20,7 +31,7 @@ class AllAppointment extends Component {
           <AppointmentExpandableList
             values={this.state.invites}
             type="invites"
-            handleAccept={() => {}}
+            handleAccept={this.approveRequest}
             handleReject={() => {}}
           />
         </div>
@@ -35,10 +46,19 @@ class AllAppointment extends Component {
       </section>
     );
   }
-  approveRequest = async () => {
-    var approveData = await fetch({});
-  };
+
   componentDidMount = async () => {
+    this.handleFetchAppointment();
+  };
+
+  componentDidUpdate = async () => {
+    if (this.state.changes === true) {
+      this.handleFetchAppointment();
+      this.setState({ changes: false });
+    }
+  };
+
+  handleFetchAppointment = async () => {
     var appointmentsData = await fetch(
       `http://localhost:5000/api/appointment?user=${this.props.id}`,
       {
@@ -47,6 +67,9 @@ class AllAppointment extends Component {
     );
 
     var appointments = await appointmentsData.json();
+    let meetingInvites = [];
+    let pendingInvites = [];
+    let upcomingMeeting = [];
 
     appointments.forEach(data => {
       var time = new Date(data.Time);
@@ -59,83 +82,65 @@ class AllAppointment extends Component {
         minutes = `0${minutes}`;
       }
 
-      console.log(time);
       if (data.Invitee === this.props.id) {
         if (data.IsApproved) {
-          this.setState({
-            ...this.state,
-            appointments: [
-              ...this.state.appointments,
-              {
-                firstName: data.InviteeFirstName,
-                lastName: data.InviteeLastName,
-                description: data.Description,
-                time: `${hours}:${minutes}`,
-                date: `${time.getDate()}/${time.getMonth() +
-                  1}/${time.getFullYear()}`,
-                address: data.Address,
-                _id: data._id,
-              },
-            ],
+          upcomingMeeting.push({
+            firstName: data.CreatorFirstName,
+            lastName: data.CreatorLastName,
+            description: data.Description,
+            time: `${hours}:${minutes}`,
+            date: `${time.getDate()}/${time.getMonth() +
+              1}/${time.getFullYear()}`,
+            address: data.Address,
+            _id: data._id,
           });
           return;
         }
-        this.setState({
-          ...this.state,
-          invites: [
-            ...this.state.invites,
-            {
-              firstName: data.CreatorFirstName,
-              lastName: data.CreatorLastName,
-              description: data.Description,
-              time: `${hours}:${minutes}`,
-              date: `${time.getDate()}/${time.getMonth() +
-                1}/${time.getFullYear()}`,
-              address: data.Address,
-              _id: data._id,
-            },
-          ],
+        meetingInvites.push({
+          firstName: data.CreatorFirstName,
+          lastName: data.CreatorLastName,
+          description: data.Description,
+          time: `${hours}:${minutes}`,
+          date: `${time.getDate()}/${time.getMonth() +
+            1}/${time.getFullYear()}`,
+          address: data.Address,
+          _id: data._id,
         });
       } else if (data.Creator === this.props.id) {
         if (!data.IsApproved) {
-          this.setState({
-            ...this.state,
-            pendingInvites: [
-              ...this.state.pendingInvites,
-              {
-                firstName: data.CreatorFirstName,
-                lastName: data.CreatorLastName,
-                description: data.Description,
-                time: `${hours}:${minutes}`,
-                date: `${time.getDate()}/${time.getMonth() +
-                  1}/${time.getFullYear()}`,
-                address: data.Address,
-                _id: data._id,
-              },
-            ],
+          console.log(pendingInvites);
+          pendingInvites.push({
+            firstName: data.InviteeFirstName,
+            lastName: data.InviteeLastName,
+            description: data.Description,
+            time: `${hours}:${minutes}`,
+            date: `${time.getDate()}/${time.getMonth() +
+              1}/${time.getFullYear()}`,
+            address: data.Address,
+            _id: data._id,
           });
+          console.log(pendingInvites);
           return;
         }
-        this.setState({
-          ...this.state,
-          appointments: [
-            ...this.state.appointments,
-            {
-              firstName: data.InviteeFirstName,
-              lastName: data.InviteeLastName,
-              description: data.Description,
-              time: `${hours}:${minutes}`,
-              date: `${time.getDate()}/${time.getMonth() +
-                1}/${time.getFullYear()}`,
-              address: data.Address,
-              _id: data._id,
-            },
-          ],
+        upcomingMeeting.push({
+          firstName: data.InviteeFirstName,
+          lastName: data.InviteeLastName,
+          description: data.Description,
+          time: `${hours}:${minutes}`,
+          date: `${time.getDate()}/${time.getMonth() +
+            1}/${time.getFullYear()}`,
+          address: data.Address,
+          _id: data._id,
         });
       }
     });
+    console.log(upcomingMeeting, pendingInvites, meetingInvites);
 
-    console.log(this.state);
+    this.setState({
+      appointments: upcomingMeeting,
+      pendingInvites: pendingInvites,
+      invites: meetingInvites,
+    });
   };
 }
 
