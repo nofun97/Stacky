@@ -43,7 +43,7 @@ class Login extends Component {
 
     // Login logic
     // TODO: put url in env?
-    fetch("http://localhost:5000/api/login", {
+    fetch("/api/login", {
       method: "POST",
       credentials: "include",
       headers: {

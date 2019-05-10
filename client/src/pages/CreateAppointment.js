@@ -72,7 +72,6 @@ class CreateAppointment extends Component {
   }
 
   handleSubmit = (values, action) => {
-    console.log(values);
     var date = new Date(`${values.date}T${values.time}:00`);
     var body = JSON.stringify({
       Time: date,
@@ -85,8 +84,7 @@ class CreateAppointment extends Component {
       CreatorFirstName: this.state.creatorFirstName,
       CreatorLastName: this.state.creatorLastName,
     });
-    console.log(body);
-    fetch(`http://localhost:5000/api/appointment`, {
+    fetch(`/api/appointment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +94,6 @@ class CreateAppointment extends Component {
     })
       .then(resp => resp.json())
       .then(resp => {
-        console.log(resp);
         this.props.history.goBack();
       });
   };

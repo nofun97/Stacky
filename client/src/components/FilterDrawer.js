@@ -20,7 +20,7 @@ class FilterDrawer extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:5000/api/skill", {
+    fetch("/api/skill", {
       credentials: "include",
     })
       .then(resp => resp.json())

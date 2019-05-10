@@ -51,7 +51,7 @@ class Search extends Component {
   };
 
   handleFetchUsers = async () => {
-    var query = `http://localhost:5000/api/users?from=${
+    var query = `/api/users?from=${
       this.state.currentIndex
     }&size=${this.state.dataPerPage}`;
     if (this.state.filterSkill.length > 0) {
@@ -96,7 +96,7 @@ class Search extends Component {
     }
 
     const skillsData = await fetch(
-      `http://localhost:5000/api/skill?id=${skillsList.join(",")}`,
+      `/api/skill?id=${skillsList.join(",")}`,
       {
         credentials: "include",
       }
@@ -117,7 +117,6 @@ class Search extends Component {
           }
         }
       }
-      // console.log(data);
       return {
         firstName: data.firstName,
         lastName: data.lastName,
@@ -127,7 +126,6 @@ class Search extends Component {
         _id: data._id,
       };
     }).filter(user => user._id !== this.props.state.user._id);
-    // console.log(users);
     this.setState({
       user: profiles,
       totalItem: (totalData - 1) / this.state.dataPerPage,
@@ -149,8 +147,6 @@ class Search extends Component {
   }
 
   handleClick = id => {
-    // this.props.history.push("/user", {id});
-    console.log(this.props);
     this.props.history.push({
       pathname: "/user",
       state: {

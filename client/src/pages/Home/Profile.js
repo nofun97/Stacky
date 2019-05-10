@@ -41,7 +41,7 @@ class Profile extends Component {
 
   componentDidMount = async () => {
     const profileData = await fetch(
-      `http://localhost:5000/api/user/${this.props.state.user._id}`,
+      `/api/user/${this.props.state.user._id}`,
       {
         credentials: "include",
       }

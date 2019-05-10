@@ -77,7 +77,7 @@ class Signup extends Component {
     }
 
     //TODO: put url in env?
-    fetch("http://localhost:5000/api/register", {
+    fetch("/api/register", {
       method: "POST",
       credentials: "include",
       headers: {

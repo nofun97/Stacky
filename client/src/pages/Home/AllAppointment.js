@@ -17,7 +17,7 @@ class AllAppointment extends Component {
   }
 
   approveRequest = async id => {
-    await fetch(`http://localhost:5000/api/appointment/approve/${id}`, {
+    await fetch(`/api/appointment/approve/${id}`, {
       credentials: "include",
       method: "POST",
     });
@@ -25,7 +25,7 @@ class AllAppointment extends Component {
   };
 
   deleteRequest = async id => {
-    await fetch(`http://localhost:5000/api/appointment/${id}`, {
+    await fetch(`/api/appointment/${id}`, {
       credentials: "include",
       method: "DELETE",
     });
@@ -69,7 +69,7 @@ class AllAppointment extends Component {
 
   handleFetchAppointment = async () => {
     var appointmentsData = await fetch(
-      `http://localhost:5000/api/appointment?user=${this.props.id}`,
+      `/api/appointment?user=${this.props.id}`,
       {
         credentials: "include",
       }
