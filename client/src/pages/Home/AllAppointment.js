@@ -117,7 +117,6 @@ class AllAppointment extends Component {
         });
       } else if (data.Creator === this.props.id) {
         if (!data.IsApproved) {
-          console.log(pendingInvites);
           pendingInvites.push({
             firstName: data.InviteeFirstName,
             lastName: data.InviteeLastName,
@@ -128,7 +127,6 @@ class AllAppointment extends Component {
             address: data.Address,
             _id: data._id,
           });
-          console.log(pendingInvites);
           return;
         }
         upcomingMeeting.push({
@@ -143,7 +141,6 @@ class AllAppointment extends Component {
         });
       }
     });
-    console.log(upcomingMeeting, pendingInvites, meetingInvites);
 
     this.setState({
       appointments: upcomingMeeting,

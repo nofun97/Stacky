@@ -64,12 +64,6 @@ class Login extends Component {
         // this.props.history.push("/home");
         this.props.dispatch({ type: "USER_AUTH", user: data });
         this.props.dispatch({ type: "LOG_IN" });
-        this.setState({
-          id: data._id,
-          email: data.Email,
-          successful: true,
-          user: data,
-        });
       })
       .catch(err => {
         // enable submit button
@@ -80,15 +74,6 @@ class Login extends Component {
   }
 
   render() {
-    if (this.state.successful === true) {
-      return (
-        <Redirect
-          to={{
-            pathname: "/home",
-          }}
-        />
-      );
-    }
     return (
       <div className={styles.Login}>
         <section className={styles.Main}>
