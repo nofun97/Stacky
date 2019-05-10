@@ -12,6 +12,7 @@ class AppointmentExpandable extends Component {
     super(props);
     this.state = {
       open: false,
+      clicked: false,
     };
     this.handleDetail = this.handleDetail.bind(this);
     this.handleAccept = this.handleAccept.bind(this);
@@ -27,49 +28,89 @@ class AppointmentExpandable extends Component {
 
   // for invite types handler
   handleAccept = async () => {
+    this.setState({clicked: true});
     await this.props.handleAccept(this.props.id);
   };
 
   // for invite types handler
   handleReject = async () => {
+    this.setState({clicked: true});
     await this.props.handleReject(this.props.id);
-  }
+  };
 
   // for responsiveness of the icon
-  componentDidMount(){
-    window.addEventListener("resize", () => {this.setState({})});
+  componentDidMount() {
+    window.addEventListener("resize", () => {
+      this.setState({});
+    });
   }
-    
+
   render() {
     let indicator;
     if (this.props.type === "invites") {
-      if(window.innerWidth > 426){
+      if (window.innerWidth > 426) {
         indicator = (
           /*need help w hover here*/
           <div className={styles.indicator}>
-            <IconButton style={{width: '20px', height: '20px', padding: '20px', border: "2px #FF9C40 solid", marginRight:"10px"}} onClick={this.handleAccept}>
-              <CheckIcon style ={{position:"absolute", color:"#FF9C40"}}/>
+            <IconButton
+              disabled={this.state.clicked}
+              style={{
+                width: "20px",
+                height: "20px",
+                padding: "20px",
+                border: "2px #FF9C40 solid",
+                marginRight: "10px",
+              }}
+              onClick={this.handleAccept}
+            >
+              <CheckIcon style={{ position: "absolute", color: "#FF9C40" }} />
             </IconButton>
-            <IconButton style={{width: '20px', height: '20px', padding: '20px', border: "2px #FF9C40 solid"}} onClick={this.handleReject}>
-              <CloseIcon style ={{position:"absolute", color:"#FF9C40"}} />
+            <IconButton
+              disabled={this.state.clicked}
+              style={{
+                width: "20px",
+                height: "20px",
+                padding: "20px",
+                border: "2px #FF9C40 solid",
+              }}
+              onClick={this.handleReject}
+            >
+              <CloseIcon style={{ position: "absolute", color: "#FF9C40" }} />
+            </IconButton>
+          </div>
+        );
+      } else {
+        indicator = (
+          /*need help w hover here*/
+          <div className={styles.indicator}>
+            <IconButton
+              disabled={this.state.clicked}
+              style={{
+                width: "10px",
+                height: "10px",
+                padding: "14px",
+                border: "2px #FF9C40 solid",
+                marginRight: "8px",
+              }}
+              onClick={this.handleAccept}
+            >
+              <CheckIcon style={{ position: "absolute", color: "#FF9C40" }} />
+            </IconButton>
+            <IconButton
+              disabled={this.state.clicked}
+              style={{
+                width: "10px",
+                height: "10px",
+                padding: "14px",
+                border: "2px #FF9C40 solid",
+              }}
+              onClick={this.handleReject}
+            >
+              <CloseIcon style={{ position: "absolute", color: "#FF9C40" }} />
             </IconButton>
           </div>
         );
       }
-      else{
-        indicator = (
-          /*need help w hover here*/
-          <div className={styles.indicator}>
-            <IconButton style={{width: '10px', height: '10px', padding: '14px', border: "2px #FF9C40 solid", marginRight:"8px"}} onClick={this.handleAccept}>
-              <CheckIcon style ={{position:"absolute", color:"#FF9C40"}}/>
-            </IconButton>
-            <IconButton style={{width: '10px', height: '10px', padding: '14px', border: "2px #FF9C40 solid"}} onClick={this.handleReject}>
-              <CloseIcon style ={{position:"absolute", color:"#FF9C40"}} />
-            </IconButton>
-          </div>
-        );
-      }
-
     } else {
       indicator = [];
     }
@@ -93,7 +134,12 @@ class AppointmentExpandable extends Component {
                 <LocationIcon />
                 {this.props.address}
               </div>
-              <Button className={styles.detailbutton} onClick={this.handleDetail}>Details</Button>
+              <Button
+                className={styles.detailbutton}
+                onClick={this.handleDetail}
+              >
+                Details
+              </Button>
             </div>
           </div>
         </div>
