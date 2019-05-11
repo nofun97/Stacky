@@ -7,12 +7,11 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    state: state
-  }
-}
-
+    state: state,
+  };
+};
 
 // Input validation schema
 const schema = yup.object({
@@ -69,7 +68,8 @@ class Signup extends Component {
     // Checking the age if it's lower than 18 redirect
     if (
       Math.floor(
-        (Date.now() - Date.parse(values.dateOfBirth)) / (1000 * 60 * 60 * 24 * 365)
+        (Date.now() - Date.parse(values.dateOfBirth)) /
+          (1000 * 60 * 60 * 24 * 365)
       ) < 18
     ) {
       this.props.history.push("/verification/fail");
@@ -97,17 +97,22 @@ class Signup extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        this.props.dispatch({type: 'USER_AUTH', user: data});
+        this.props.dispatch({ type: "USER_AUTH", user: data });
         return data;
       })
       .then(data => {
-        this.setState({ ID: data._id, email: data.Email, successful: true, user: data });
+        this.setState({
+          ID: data._id,
+          email: data.Email,
+          successful: true,
+          user: data,
+        });
       })
       .catch(err => {
         // enable submit button
         this.submitButton.removeAttribute("disabled");
         // set error in email address
-        actions.setFieldError("email","Please choose another email");
+        actions.setFieldError("email", "Please choose another email");
         this.setState({
           InvalidInfo: true,
         });
@@ -165,37 +170,40 @@ class Signup extends Component {
                     {errors.email}
                   </Form.Control.Feedback>
                 </Form.Group>
-
-                <Form.Group className={styles.name} controlId="formBasicName">
-                  <div>
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control
-                      name="firstName"
-                      type="text"
-                      placeholder="Enter First Name"
-                      onChange={handleChange}
-                      value={values.firstName}
-                      isInvalid={!!errors.firstName}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.firstName}
-                    </Form.Control.Feedback>
-                  </div>
-                  <div>
-                    <Form.Label>Surname</Form.Label>
-                    <Form.Control
-                      name="lastName"
-                      type="text"
-                      placeholder="Enter Surname"
-                      onChange={handleChange}
-                      value={values.lastName}
-                      isInvalid={!!errors.lastName}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.lastName}
-                    </Form.Control.Feedback>
-                  </div>
-                </Form.Group>
+                <div className={styles.name}>
+                  <Form.Group controlId="formBasicFirstName">
+                    <div>
+                      <Form.Label>First Name</Form.Label>
+                      <Form.Control
+                        name="firstName"
+                        type="text"
+                        placeholder="Enter First Name"
+                        onChange={handleChange}
+                        value={values.firstName}
+                        isInvalid={!!errors.firstName}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.firstName}
+                      </Form.Control.Feedback>
+                    </div>
+                  </Form.Group>
+                  <Form.Group controlId="formBasicLastName">
+                    <div>
+                      <Form.Label>Surname</Form.Label>
+                      <Form.Control
+                        name="lastName"
+                        type="text"
+                        placeholder="Enter Surname"
+                        onChange={handleChange}
+                        value={values.lastName}
+                        isInvalid={!!errors.lastName}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.lastName}
+                      </Form.Control.Feedback>
+                    </div>
+                  </Form.Group>
+                </div>
 
                 <Form.Group className={styles.dob} controlId="formBasicDOB">
                   <Form.Label>Date of Birth</Form.Label>
