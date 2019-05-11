@@ -8,9 +8,10 @@ class InterestDisplayList extends Component {
       <InterestDisplay
         type={this.props.type}
         className={this.props.className}
-        level={display.level}
-        value={display.value}
-        key={display.id}
+        level={display.Level}
+        value={display.Name}
+        id={display.Skill}
+        key={display.Skill}
       />
     ));
 

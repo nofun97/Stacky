@@ -2,8 +2,15 @@ import React, { Component } from "react";
 import Select from "react-select";
 import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import InterestEditorList from "../components/InterestEditorList";
 import styles from "../styles/pages/ListSkill.module.css";
+
+const mapStateToProps = state => {
+  return {
+    state: state,
+  };
+};
 
 class ListSkill extends Component {
   constructor(props) {
@@ -18,20 +25,33 @@ class ListSkill extends Component {
     this.state = {
       selectedInterest: null,
       selectedSkill: null,
-      interestOption: [
-        { value: "algorithm", label: "algorithm" },
-        { value: "baking", label: "baking" },
-        { value: "caligraphy", label: "caligraphy" },
-      ],
-      skillOption: [
-        { value: "algorithm", label: "algorithm" },
-        { value: "baking", label: "baking" },
-        { value: "caligraphy", label: "caligraphy" },
-      ],
+      interestOption: [],
+      skillOption: [],
       userInterest: [],
       userSkill: [],
       submitted: false,
     };
+  }
+
+  componentDidMount() {
+    fetch("/api/skill", {
+      credentials: "include",
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        for (var i = 0; i < data.length; i++) {
+          this.setState({
+            interestOption: [
+              ...this.state.interestOption,
+              { value: data[i]._id, label: data[i].Name },
+            ],
+            skillOption: [
+              ...this.state.skillOption,
+              { value: data[i]._id, label: data[i].Name },
+            ],
+          });
+        }
+      });
   }
 
   // handler for the thing selected for interest
@@ -39,10 +59,10 @@ class ListSkill extends Component {
     if (value !== null) {
       this.setState({
         selectedInterest: {
-          value: value.value,
+          value: value.label,
           level: "Beginner",
           id: value.value,
-          label: value.value,
+          label: value.label,
         },
       });
     } else {
@@ -57,10 +77,10 @@ class ListSkill extends Component {
     if (value !== null) {
       this.setState({
         selectedSkill: {
-          value: value.value,
+          value: value.label,
           level: "Intermediate",
           id: value.value,
-          label: value.value,
+          label: value.label,
         },
       });
     } else {
@@ -74,10 +94,14 @@ class ListSkill extends Component {
   handleAddInterest() {
     if (this.state.selectedInterest !== null) {
       let option = this.state.interestOption.filter(
-        opt => opt.value !== this.state.selectedInterest.value
+        opt => opt.value !== this.state.selectedInterest.id
       );
       let userInterest = [
-        this.state.selectedInterest,
+        {
+          Name: this.state.selectedInterest.value,
+          Level: this.state.selectedInterest.level,
+          Skill: this.state.selectedInterest.id,
+        },
         ...this.state.userInterest,
       ];
       this.setState({
@@ -92,9 +116,16 @@ class ListSkill extends Component {
   handleAddSkill() {
     if (this.state.selectedSkill !== null) {
       let option = this.state.skillOption.filter(
-        opt => opt.value !== this.state.selectedSkill.value
+        opt => opt.value !== this.state.selectedSkill.id
       );
-      let userSkill = [this.state.selectedSkill, ...this.state.userSkill];
+      let userSkill = [
+        {
+          Name: this.state.selectedSkill.value,
+          Level: this.state.selectedSkill.level,
+          Skill: this.state.selectedSkill.id,
+        },
+        ...this.state.userSkill,
+      ];
       this.setState({
         skillOption: option,
         userSkill: userSkill,
@@ -104,7 +135,7 @@ class ListSkill extends Component {
   }
 
   // handler for changes in slider of the interest
-  handleSliderChange(sliderValue, type, keyValue) {
+  handleSliderChange(sliderValue, type, id) {
     var level = 0;
 
     if (type === "Interest") {
@@ -126,8 +157,8 @@ class ListSkill extends Component {
       }
       let interestArray = this.state.userInterest;
       for (let interest of interestArray) {
-        if (interest.value === keyValue) {
-          interest.level = level;
+        if (interest.Skill === id) {
+          interest.Level = level;
         }
       }
       this.setState({ userInterest: interestArray });
@@ -150,8 +181,8 @@ class ListSkill extends Component {
       }
       let skillArray = this.state.userSkill;
       for (let skill of skillArray) {
-        if (skill.value === keyValue) {
-          skill.level = level;
+        if (skill.Skill === id) {
+          skill.Level = level;
         }
       }
       this.setState({ userSkill: skillArray });
@@ -159,30 +190,63 @@ class ListSkill extends Component {
   }
 
   // handler when the interest is removed (need to add the option back to the select)
-  handleRemove(value, type) {
-    console.log(value, type);
-    if(type === "Interest") {
-      let userInterest = this.state.userInterest.filter(opt => opt.value !== value);
-      let option = [{value: value, label: value}, ...this.state.interestOption];
+  handleRemove(value, type, id) {
+    if (type === "Interest") {
+      let userInterest = this.state.userInterest.filter(
+        opt => opt.Skill !== id
+      );
+      let option = [{ value: id, label: value }, ...this.state.interestOption];
       this.setState({
         userInterest: userInterest,
         interestOption: option,
-      })
-    } else if(type === "Skill") {
-      let userSkill = this.state.userSkill.filter(opt => opt.value !== value);
-      let option = [{value: value, label: value}, ...this.state.skillOption];
+      });
+    } else if (type === "Skill") {
+      let userSkill = this.state.userSkill.filter(opt => opt.Skill !== id);
+      let option = [{ value: id, label: value }, ...this.state.skillOption];
       this.setState({
         userSkill: userSkill,
         skillOption: option,
-      })
+      });
     }
   }
 
   // handler when submit button is clicked
   handleSubmit() {
-    this.setState({
-      submitted: true,
+    let interests = this.state.userInterest.map(data => {
+      return {
+        Skill: data.Skill,
+        Level: data.Level,
+        Name: data.Name,
+      };
     });
+    let skills = this.state.userSkill.map(data => {
+      return {
+        Skill: data.Skill,
+        Level: data.Level,
+        Name: data.Name,
+      };
+    });
+    //TODO: test update profile
+    fetch(`/api/user/${this.props.state.user._id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Skills: skills,
+        Interests: interests,
+      }),
+      credentials: "include",
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.props.dispatch({ type: "USER_ADD_SKILL", skills });
+        this.props.dispatch({ type: "USER_ADD_INTEREST", interests });
+        this.props.dispatch({ type: "LOG_IN" });
+        this.setState({
+          submitted: true,
+        });
+      });
   }
 
   render() {
@@ -191,15 +255,13 @@ class ListSkill extends Component {
         <Redirect
           to={{
             pathname: "/home",
-            state: {
-              userInterest: this.state.userInterest,
-              userSkill: this.state.userSkill,
-              noBackend: true,
-              ...this.props.location.state,
-            },
           }}
         />
       );
+    }
+
+    if (this.props.state.user === null) {
+      return <Redirect to="/page_not_found" />;
     }
 
     return (
@@ -242,7 +304,7 @@ class ListSkill extends Component {
             />
           </section>
           <section className={styles.listing}>
-            <h2 className={styles.section}>What would you like to learn?</h2>
+            <h2 className={styles.section}>What would you like to teach?</h2>
             <Select
               className={styles.select}
               classNamePrefix="select"
@@ -281,4 +343,4 @@ class ListSkill extends Component {
   }
 }
 
-export default ListSkill;
+export default connect(mapStateToProps)(ListSkill);

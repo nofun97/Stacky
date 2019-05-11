@@ -4,6 +4,7 @@ import { Route, Switch, Redirect, Link } from "react-router-dom";
 import { NavTab } from "react-router-tabs";
 // https://github.com/Sitebase/react-avatar
 import Avatar from "react-avatar";
+import { connect } from "react-redux";
 
 import "../styles/components/HomeTab.css";
 import styles from "../styles/pages/Home.module.css";
@@ -13,42 +14,96 @@ import Profile from "./Home/Profile";
 import ProfileEdit from "./Home/ProfileEdit";
 import Chat from "./Home/Chat";
 import Search from "./Home/Search";
+import AllAppointment from "./Home/AllAppointment";
+
+
+const mapStateToProps = (state) => {
+  return {
+    state: state
+  }
+}
 
 class Home extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       page: "My Home",
-      username: "Tester Man",
-      email: this.props.location.state.email,
-      id: this.props.location.state.id,
-      FirstName: "",
-      LastName: "",
+      email: this.props.state.user.Email,
+      id: this.props.state.user._id,
+      FirstName: this.props.state.user.FirstName,
+      LastName: this.props.state.user.LastName,
       DOB: "",
       interest: [],
-      skill: [],
+      skill: []
     };
-    console.log(this.state);
   }
 
+  // for responsiveness of the avatar
+  componentDidMount(){
+    window.addEventListener("resize", () => {this.setState({})});
+  }
 
   render() {
+    // to change header title depending on path
+    let pageName;
+    switch (this.props.location.pathname) {
+      case "/home":
+        pageName = "My Home";
+        break;
+
+      case "/home/profile":
+        pageName = "My Profile";
+        break;
+
+      case "/home/search":
+        pageName = "Find People";
+        break;
+
+      // To be implemented later
+      case "/home/chat":
+        pageName = "My Home";
+        break;
+
+      default:
+        pageName = "My Home";
+        break;
+    }
+
+    let avatar;
+    let name = `${this.props.state.user.FirstName} ${this.props.state.user.LastName}`;
+    if (window.innerWidth <= 426) {
+      avatar = (
+        <div>
+          <Avatar
+            size="50px"
+            className={styles.avatar}
+            name={name}
+            round={true}
+          />
+        </div>
+      );
+    } else {
+      avatar = (
+        <Avatar
+          size="100px"
+          className={styles.avatar}
+          name={name}
+          round={true}
+        />
+      );
+    }
+
     return (
       <div>
         <header className={styles.header}>
           {/* Change the avatar src with user picture */}
-          <Avatar
-            name={this.state.username}
-            round={true}
-            size="100px"
-            className={styles.avatar}
-            src="http://gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3"
-          />
+          {avatar}
           <div className={styles.title}>
-            <h1 className={styles["page-title"]}>{this.state.page}</h1>
+            <h1 className={styles["page-title"]}>{pageName}</h1>
             {/* Implement link to guideline page */}
             <Link to="/guideline">
-              <p className={styles.guidelines}>Guidelines</p>
+              <div className={styles.guidelines}>Guidelines</div>
             </Link>
           </div>
           <div className={styles.tab}>
@@ -56,26 +111,20 @@ class Home extends Component {
             <NavTab
               to={{
                 pathname: "/home/profile",
-                state: {
-                  ...this.props.location.state
-                  
-                },
               }}
             >
               Profile
             </NavTab>
             <NavTab
               exact
-              to={{ pathname: "/home", state: this.props.location.state }}
+              to={{ pathname: "/home"}}
             >
               My Home
             </NavTab>
             <NavTab disabled to="/home/chat">
               Chat
             </NavTab>
-            <NavTab disabled to="/home/search">
-              Search
-            </NavTab>
+            <NavTab to="/home/search">Search</NavTab>
           </div>
         </header>
         <hr className={styles.line} />
@@ -98,7 +147,21 @@ class Home extends Component {
           />
           <Route path="/home/profile_edit" component={ProfileEdit} />
           <Route path="/home/chat" component={Chat} />
-          <Route path="/home/search" component={Search} />
+          <Route path="/home/search" render={props =>(
+            <Search
+              {...props}
+              id={this.state.id}
+              firstName={this.state.FirstName}
+              lastName={this.state.LastName} 
+            />
+          )} />
+          <Route path="/home/appointments"
+            render={props => (
+              <AllAppointment
+                {...props}
+                id={this.state.id} />
+            )}
+          />
           <Redirect exact to="/home" />
         </Switch>
       </div>
@@ -106,4 +169,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default connect(mapStateToProps)(Home);

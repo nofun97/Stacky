@@ -1,6 +1,12 @@
 import React, { Component } from "react";
-
+import { connect } from "react-redux";
 import styles from "../styles/pages/VerificationFail.module.css";
+
+const mapStateToProps = state => {
+  return {
+    state: state,
+  };
+};
 
 class VerificationFail extends Component {
   render() {
@@ -29,4 +35,4 @@ class VerificationFail extends Component {
   }
 }
 
-export default VerificationFail;
+export default connect(mapStateToProps)(VerificationFail);

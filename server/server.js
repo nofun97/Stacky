@@ -1,22 +1,34 @@
 require("dotenv").config();
 var cors = require("cors");
 var express = require("express");
-var session = require('express-session');
+var session = require("express-session");
 var app = express();
 var bodyParser = require("body-parser");
 var path = require("path");
+var passport = require("passport");
 
-app.use(cors());
-app.use(require('morgan')('dev'))
-app.use(bodyParser.json());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+
+app.use(require("morgan")("dev"));
+app.use(express.static("public"));
+app.use(
+  session({
+    secret: "stacky-chan", //pick a random string to make the hash that is generated secure
+    resave: false, //required
+    saveUninitialized: false, //required
+  })
+);
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({ secret: 'stacky', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
 
 const PORT = process.env.PORT || 5000;
 
 // Database setup (uncomment when database cluster has been made and .env DB value has been assigned)
 require("./models/db.js");
 require("./config/passport.js");
+require("./config/pagination.js");
 var routes = require("./routes/routes");
 
 app.use("/api", routes);
@@ -31,4 +43,8 @@ app.get("*", (req, res) => {
 
 app.listen(PORT, function() {
   console.log(`Express listening on port ${PORT}`);
+});
+
+app.use(function(err, req, res, next) {
+  res.redirect("/");
 });

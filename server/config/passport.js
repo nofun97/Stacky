@@ -1,19 +1,18 @@
-const mongoose = require('mongoose');
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
+const mongoose = require("mongoose");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require("../models/Users");
 
-const Credentials = mongoose.model('Credentials');
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "Email",
+      passwordField: "Password",
+    },
+    User.authenticate()
+  )
+);
 
-passport.use(new LocalStrategy({
-  usernameField: 'user[email]',
-  passwordField: 'user[password]',
-}, (email, password, done) => {
-  Credentials.findOne({ email })
-    .then((user) => {
-      if(!user || !user.validatePassword(password)) {
-        return done(null, false, { errors: { 'email or password': 'is invalid' } });
-      }
-
-      return done(null, user);
-    }).catch(done);
-}));
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());

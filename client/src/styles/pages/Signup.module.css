@@ -65,7 +65,7 @@ but it looks strange if it's below that size haha*/
   grid-area: doc;
 }
 
-.btn-secondary {
+.confirm-button {
   font-family: "proxima_nova_semibold";
   font-size: 1.48em;
   grid-area: confirm;
@@ -76,7 +76,7 @@ but it looks strange if it's below that size haha*/
   box-shadow: none;
 }
 
-.btn-secondary:focus {
+.confirm-button:focus {
   font-family: "proxima_nova_semibold";
   font-size: 1.48em;
   grid-area: confirm;
@@ -87,27 +87,28 @@ but it looks strange if it's below that size haha*/
   box-shadow: none !important;
 }
 
-.btn-secondary:hover {
+.confirm-button:hover {
   font-family: "proxima_nova_semibold";
   font-size: 1.48em;
-  grid-area: confirm;
   border: solid 1px #ff9d25;
   background-color: #ff9d25 !important;
   color: #ffffff;
-  outline: none;
-  box-shadow: none;
 }
 
-.btn-secondary:active {
+.confirm-button:active {
   font-family: "proxima_nova_semibold";
   font-size: 1.48em;
-  grid-area: confirm;
   border: solid 1px #ff9d25;
   background-color: #ff9d25 !important;
   color: #ffffff;
-  outline: none;
-  box-shadow: none;
 }
+
+.confirm-button:disabled{
+  border: solid 1px #f1aa55;
+  background-color: #f1aa55 !important;
+  color: black;
+}
+
 .form {
   display: grid;
   margin-bottom: 10px;

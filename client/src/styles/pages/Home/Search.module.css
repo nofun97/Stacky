@@ -1,0 +1,97 @@
+.card-container {
+  display: grid;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.container {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.options {
+  display: grid;
+  justify-items: flex-end;
+}
+
+.bottom {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* avenir font is not here, cant use it (for now use this one first)*/
+.pagination {
+  font-family: "proxima_nova_semibold";
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.back-btn {
+  margin-right: 5px;
+}
+
+.next-btn {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffb45b;
+  background-color: #ffb45b;
+  color: black;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none; 
+}
+
+.next-btn:focus {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffb45b;
+  background-color: #ffb45b;
+  color: black;
+  grid-area: confirm;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.next-btn:hover {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffb45b;
+  background-color: #ffb45b;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.next-btn:active {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffb45b;
+  background-color: #ffb45b !important;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+@media only screen and (max-width: 895px) { 
+  .card-container {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 426px) { 
+  .card-container {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+}

@@ -80,7 +80,7 @@
 }
 
 .add-button:active {
-  font-family: "proximova_semibold";
+  font-family: "proxima_nova_semibold";
   border: solid 1px #ff9d25;
   background-color: #ff9d25 !important;
   color: white;;
@@ -96,7 +96,10 @@
 }
 
 .submit-button {
+  position: relative;
   font-family: 'proxima_nova_semibold';
+  left: 10em;
+  padding: 0.3em 6em;
   font-size: 1.480em; 
   border: solid 1px #ffad49;
   background-color: #ffad49;
@@ -123,16 +126,37 @@
 }
 
 .submit-button:active {
-  font-family: "proximova_semibold";
+  font-family: "proxima_nova_semibold";
   border: solid 1px #ff9d25;
   background-color: #ff9d25 !important;
-  color: white;;
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+.submit-button:disabled {
+  font-family: "proxima_nova_semibold";
+  border: solid 1px #f1aa55;
+  background-color: #f1aa55 !important;
+  color: black;
   outline: none;
   box-shadow: none;
 }
 
 @media only screen and (max-width: 426px){
-  submit-button:hover {
+  .submit-button {
+    position: relative;
+    font-family: 'proxima_nova_semibold';
+    left: 0em;
+    padding: 0.3em 0.7em;
+    font-size: 1.480em; 
+    border: solid 1px #ffad49;
+    background-color: #ffad49;
+    color: black;
+    margin-bottom: 30px;
+  }
+
+  .submit-button:hover {
     font-family: "proxima_nova_semibold";
     border: solid 1px #ff9d25;
     background-color: #ff9d25;

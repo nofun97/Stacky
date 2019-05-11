@@ -2,77 +2,77 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import styles from "../styles/pages/Login.module.css";
-import { Redirect } from "react-router-dom";
+import { Formik } from "formik";
+import * as yup from "yup";
+import { connect } from "react-redux";
+
+const mapStateToProps = state => {
+  return {
+    state: state,
+  };
+};
+
+// Input validation schema
+const schema = yup.object({
+  email: yup
+    .string()
+    .required("Please provide an email")
+    .email("Please provide valid email"),
+  password: yup
+    .string()
+    .required("Please provide a password")
+    .matches(/^(?!(<script>)).*/, "Password can't contain <script>"),
+});
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
-      password: "",
       id: "",
       successful: false,
+      user: {},
     };
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleLogin(event) {
-    const form = event.currentTarget;
-    // Login logic
-    if (form.checkValidity() === true) {
-      console.log("Login...");
-      //TODO: put url in env?
-      fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user: {
-            email: this.state.email,
-            password: this.state.password,
-          },
-        }),
-      })
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          console.log("Login successful!");
-          // console.log(data);
+  handleLogin(values, actions) {
+    // make the submit button disabled
+    this.submitButton.setAttribute("disabled", true);
 
-          // For authentication stuff (if ok then redirect) for now just redirect
-          // if (data.ok === true) {
-          // }
-          // this.props.history.push("/home");
-          this.setState({ id: data.user._id, successful: true });
-        })
-        .catch(err => {
-          console.log("Login not succesful");
-          console.log(err);
-        });
-    }
-    // this.setState({successful: true});
-    event.preventDefault();
-    event.stopPropagation();
+    // Login logic
+    // TODO: put url in env?
+    fetch("/api/login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Email: values.email,
+        Password: values.password,
+      }),
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        // For authentication stuff (if ok then redirect) for now just redirect
+        // if (data.ok === true) {
+        // }
+        // this.props.history.push("/home");
+        this.props.dispatch({ type: "USER_AUTH", user: data });
+        this.props.dispatch({ type: "LOG_IN" });
+      })
+      .catch(err => {
+        // enable submit button
+        this.submitButton.removeAttribute("disabled");
+        // set error in email address
+        actions.setFieldError("email", "Email or Password is wrong");
+      });
   }
 
   render() {
-    if (this.state.successful === true) {
-      console.log(this.state);
-      return (
-        <Redirect
-          to={{
-            pathname: "/home",
-            state: {
-              id: this.state.id,
-              email: this.state.email,
-              noBackend: false
-            },
-          }}
-        />
-      );
-    }
     return (
       <div className={styles.Login}>
         <section className={styles.Main}>
@@ -80,43 +80,62 @@ class Login extends Component {
             <h1 className={styles.header}>Welcome back!</h1>
             <h2 className={styles.subheader}>Log in</h2>
           </div>
-          {/* change with implementing formik later */}
-          <Form noValidate className={styles.form} onSubmit={this.handleLogin}>
-            <Form.Group className={styles.email} controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                required
-                type="email"
-                placeholder="Enter email"
-                onChange={e => this.setState({ email: e.target.value })}
-                value={this.state.email || ""}
-              />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group
-              className={styles.password}
-              controlId="formBasicPassword"
-            >
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                required
-                type="password"
-                placeholder="Password"
-                onChange={e => this.setState({ password: e.target.value })}
-                value={this.state.password || ""}
-              />
-            </Form.Group>
-            <Button
-              className={styles["btn-secondary"]}
-              variant="primary"
-              type="submit"
-            >
-              Submit
-            </Button>
-          </Form>
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            validationSchema={schema}
+            validateOnBlur={false}
+            validateOnChange={false}
+            onSubmit={this.handleLogin}
+          >
+            {({ handleSubmit, handleChange, values, errors }) => (
+              <Form noValidate className={styles.form} onSubmit={handleSubmit}>
+                <Form.Group className={styles.email} controlId="formBasicEmail">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    name="email"
+                    type="email"
+                    placeholder="Enter email"
+                    onChange={handleChange}
+                    value={values.email}
+                    isInvalid={!!errors.email}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.email}
+                  </Form.Control.Feedback>
+                  <Form.Text className="text-muted">
+                    We'll never share your email with anyone else.
+                  </Form.Text>
+                </Form.Group>
+                <Form.Group
+                  className={styles.password}
+                  controlId="formBasicPassword"
+                >
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    onChange={handleChange}
+                    value={values.password}
+                    isInvalid={!!errors.password}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.password}
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Button
+                  ref={submitButton => {
+                    this.submitButton = submitButton;
+                  }}
+                  className={styles["login-button"]}
+                  variant="primary"
+                  type="submit"
+                >
+                  Submit
+                </Button>
+              </Form>
+            )}
+          </Formik>
         </section>
         <aside className={styles.Illust}>
           <aside className={styles.image} />
@@ -126,4 +145,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(mapStateToProps)(Login);

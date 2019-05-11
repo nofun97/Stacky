@@ -1,130 +1,89 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 // https://github.com/Sitebase/react-avatar
 import Avatar from "react-avatar";
 import Button from "@material-ui/core/Button";
+import BButton from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
 import InterestDisplayList from "../../components/InterestDisplayList";
 import styles from "../../styles/pages/Home/Profile.module.css";
+
+const mapStateToProps = state => {
+  return {
+    state: state,
+  };
+};
 
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.handleEdit = this.handleEdit.bind(this);
-    this.handleFetch = this.handleFetch.bind(this);
-    let description;
+    this.handleLogOut = this.handleLogOut.bind(this);
     // setting state
+    let DOB = this.props.state.user.DOB;
+    let date = `${Number(DOB.slice(8, 10))}/${Number(
+      DOB.slice(5, 7)
+    )}/${DOB.slice(0, 4)}`;
     this.state = {
       editMode: false,
-      name: "",
-      email: "",
-      dateOfBirth: "",
-      interest: [],
-      skill: [],
-      description: "",
+      name: `${this.props.state.user.FirstName} ${
+        this.props.state.user.LastName
+      }`,
+      email: this.props.state.user.Email,
+      dateOfBirth: date,
+      interest: this.props.state.user.Interests,
+      skill: this.props.state.user.Skills,
+      firstName: this.props.state.user.FirstName,
+      lastName: this.props.state.user.LastName,
+      description: this.props.state.user.Description,
     };
-
-    // if props is undefined, put placeholders
-    if (this.props.location.state === undefined) {
-      description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-        facere dicta sapiente numquam voluptate iure deleniti veritatis odit
-        veniam non nobis provident exercitationem autem, quam nesciunt
-        quisquam odio asperiores dignissimos.`;
-      this.state = {
-        editMode: false,
-        name: "placeholder for name",
-        email: "placeholder for email",
-        dateOfBirth: "placeholder for DOB",
-        interest: [],
-        skill: [],
-        description: description,
-      };
-    } else {
-      // if description is undefined put placeholders
-      if (
-        this.props.location.state.description === undefined ||
-        this.props.location.state.description === ""
-      ) {
-        description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-        facere dicta sapiente numquam voluptate iure deleniti veritatis odit
-        veniam non nobis provident exercitationem autem, quam nesciunt
-        quisquam odio asperiores dignissimos.`;
-      } else {
-        description = this.props.location.state.description;
-      }
-
-      if (this.props.location.state.noBackend) {
-        this.state = {
-          editMode: false,
-          name: `${this.props.location.state.FirstName} ${
-            this.props.location.state.LastName
-          }`,
-          email: this.props.location.state.email,
-          dateOfBirth: this.props.location.state.DOB,
-          interest: this.props.location.state.userInterest,
-          skill: this.props.location.state.userSkill,
-          description: description,
-        };
-        console.log(this.state);
-      } else {
-        this.handleFetch(description);
-      }
-    }
   }
 
-  handleFetch(description) {
-    if (this.props.location.state.noBackend) return;
-    // fetching user data from express server
-    fetch("/api/credential", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        Credentials: this.props.id,
+  componentDidMount = async () => {
+    const profileData = await fetch(
+      `/api/user/${this.props.state.user._id}`,
+      {
+        credentials: "include",
+      }
+    );
+
+    const profile = await profileData.json();
+    var dateData = new Date(profile.DOB);
+    var date = `${dateData.getDate()}/${dateData.getMonth() +
+      1}/${dateData.getFullYear()}`;
+    this.setState({
+      firstName: profile.FirstName,
+      lastName: profile.LastName,
+      name: `${profile.FirstName} ${profile.LastName}`,
+      email: profile.Email,
+      dateOfBirth: date,
+      skill: profile.Skills.map(data => {
+        return { Level: data.Level, Name: data.Name, Skill: data.Skill };
       }),
-    })
-      .then(resp => {
-        console.log(resp);
-        return resp.json();
-      })
-      .then(data => {
-        var d = new Date(data.DOB);
-        this.setState({
-          // editMode: true,
-          name: data.FirstName + " " + data.LastName,
-          dateOfBirth:
-            d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(),
-          interest: [
-            {
-              level: "Beginner",
-              value: "Algorithms",
-            },
-            {
-              level: "Advanced",
-              value: "Cooking",
-            },
-          ],
-          skill: [
-            {
-              level: "Advanced",
-              value: "Dancing",
-            },
-            {
-              level: "Intermediate",
-              value: "Data Structure",
-            },
-          ],
-          description: description,
-          email: this.props.location.state.email,
-        });
-      });
-  }
+      interest: profile.Interests.map(data => {
+        return { Level: data.Level, Name: data.Name, Skill: data.Skill };
+      }),
+      description: profile.Description,
+    });
+    this.props.dispatch({ type: "USER_ADD_SKILL", skills: profile.Skills });
+    this.props.dispatch({
+      type: "USER_ADD_INTEREST",
+      interests: profile.Interests,
+    });
+  };
 
   // handle if edit is clicked
   handleEdit() {
     this.setState({
       editMode: true,
     });
+  }
+
+  handleLogOut() {
+    // Clear redux
+    this.props.dispatch({ type: "LOG_OUT" });
+    // Go to landing
+    this.props.history.push("/");
   }
 
   render() {
@@ -134,7 +93,11 @@ class Profile extends Component {
           exact
           to={{
             pathname: "/home/profile_edit",
-            state: this.state,
+            state: {
+              ...this.state,
+              firstName: this.state.firstName,
+              lastName: this.state.lastName,
+            },
           }}
         />
       );
@@ -169,9 +132,16 @@ class Profile extends Component {
         />
         <h3 className={styles.subheader}>Description</h3>
         <p className={styles.description}>{this.state.description}</p>
+        <BButton
+          className={styles["logout-button"]}
+          variant="primary"
+          onClick={this.handleLogOut}
+        >
+          Log out
+        </BButton>
       </section>
     );
   }
 }
 
-export default Profile;
+export default connect(mapStateToProps)(Profile);

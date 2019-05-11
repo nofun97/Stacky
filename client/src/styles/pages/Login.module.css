@@ -39,7 +39,7 @@
   grid-area: password;
 }
 
-.btn-secondary {
+.login-button {
   font-family: "proxima_nova_semibold";
   font-size: 1.480em; 
   grid-area: confirm;
@@ -50,7 +50,7 @@
   box-shadow: none;
 }
 
-.btn-secondary:focus {
+.login-button:focus {
   font-family: "proxima_nova_semibold";
   font-size: 1.480em; 
   grid-area: confirm;
@@ -61,7 +61,7 @@
   box-shadow: none !important;
 }
 
-.btn-secondary:hover {
+.login-button:hover {
   font-family: "proxima_nova_semibold";
   font-size: 1.480em; 
   grid-area: confirm;
@@ -72,13 +72,24 @@
   box-shadow: none;
 }
 
-.btn-secondary:active {
+.login-button:active {
   font-family: "proxima_nova_semibold";
   font-size: 1.480em; 
   grid-area: confirm;
   border: solid 1px #ff9d25;
   background-color: #ff9d25 !important;
   color: #ffffff;
+  outline : none;
+  box-shadow: none;
+}
+
+.login-button:disabled{
+  font-family: "proxima_nova_semibold";
+  font-size: 1.480em; 
+  grid-area: confirm;
+  border: solid 1px #f1aa55;
+  background-color: #f1aa55 !important;
+  color: #000000;
   outline : none;
   box-shadow: none;
 }

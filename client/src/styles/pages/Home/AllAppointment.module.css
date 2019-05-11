@@ -1,0 +1,11 @@
+.container {
+  margin-left: 8vw;
+  margin-top: 10px;
+  margin-right: 8vw;
+  margin-bottom: 10px;
+}
+
+.headers{
+  font-family: 'lato_bold'; 
+  font-size: 1.7em; 
+}
