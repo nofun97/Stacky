@@ -65,6 +65,13 @@ class Search extends Component {
     const usersPage = await userData.json();
     const users = usersPage.users;
     const totalData = usersPage.total;
+    if (totalData === 0){
+      this.setState({
+        user: [],
+      })
+      return;
+    }
+
     var skillsObj = {};
     var skillsList = [];
     /*
