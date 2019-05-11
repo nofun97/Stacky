@@ -77,7 +77,7 @@ class Signup extends Component {
     }
 
     //TODO: put url in env?
-    fetch("http://localhost:5000/api/register", {
+    fetch("/api/register", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -105,6 +105,13 @@ class Signup extends Component {
           this.setState({
             InvalidInfo: true,
           });
+          return data;
+        }
+        this.props.dispatch({ type: "USER_AUTH", user: data });
+        return data;
+      })
+      .then(data => {
+        if (data["error"] !== undefined) {
           return;
         }
         this.setState({
@@ -113,7 +120,6 @@ class Signup extends Component {
           successful: true,
           user: data,
         });
-        this.props.dispatch({ type: "USER_AUTH", user: data });
       })
       .catch(err => {
         // enable submit button
@@ -177,37 +183,40 @@ class Signup extends Component {
                     {errors.email}
                   </Form.Control.Feedback>
                 </Form.Group>
-
-                <Form.Group className={styles.name} controlId="formBasicName">
-                  <div>
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control
-                      name="firstName"
-                      type="text"
-                      placeholder="Enter First Name"
-                      onChange={handleChange}
-                      value={values.firstName}
-                      isInvalid={!!errors.firstName}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.firstName}
-                    </Form.Control.Feedback>
-                  </div>
-                  <div>
-                    <Form.Label>Surname</Form.Label>
-                    <Form.Control
-                      name="lastName"
-                      type="text"
-                      placeholder="Enter Surname"
-                      onChange={handleChange}
-                      value={values.lastName}
-                      isInvalid={!!errors.lastName}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.lastName}
-                    </Form.Control.Feedback>
-                  </div>
-                </Form.Group>
+                <div className={styles.name}>
+                  <Form.Group controlId="formBasicFirstName">
+                    <div>
+                      <Form.Label>First Name</Form.Label>
+                      <Form.Control
+                        name="firstName"
+                        type="text"
+                        placeholder="Enter First Name"
+                        onChange={handleChange}
+                        value={values.firstName}
+                        isInvalid={!!errors.firstName}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.firstName}
+                      </Form.Control.Feedback>
+                    </div>
+                  </Form.Group>
+                  <Form.Group controlId="formBasicLastName">
+                    <div>
+                      <Form.Label>Surname</Form.Label>
+                      <Form.Control
+                        name="lastName"
+                        type="text"
+                        placeholder="Enter Surname"
+                        onChange={handleChange}
+                        value={values.lastName}
+                        isInvalid={!!errors.lastName}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.lastName}
+                      </Form.Control.Feedback>
+                    </div>
+                  </Form.Group>
+                </div>
 
                 <Form.Group className={styles.dob} controlId="formBasicDOB">
                   <Form.Label>Date of Birth</Form.Label>

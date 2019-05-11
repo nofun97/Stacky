@@ -58,6 +58,29 @@
   margin-top: 0.5em;
 }
 
+@media only screen and (max-width: 895px) {
+  .header {
+    grid-template-rows: 0.7fr 0.56fr;
+    grid-template-areas:
+      "avatar title"
+      "navtab navtab";
+  }
+
+  .tab {
+    overflow-x: auto;
+  }
+
+  .page-title {
+    font-family: "league_spartanbold";
+    font-size: 1.72em;
+    margin: 0;
+  }
+
+  .guidelines{
+    font-size: 1em;
+  }
+}
+
 @media only screen and (max-width: 426px) {
   .header {
     grid-template-rows: 1.2fr 0.5fr;

@@ -75,7 +75,7 @@ class ProfileEdit extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:5000/api/skill", {
+    fetch("/api/skill", {
       credentials: "include",
     })
       .then(resp => resp.json())
@@ -291,7 +291,7 @@ class ProfileEdit extends Component {
       return { Skill: data.Skill, Level: data.Level, Name: data.Name };
     });
 
-    fetch(`http://localhost:5000/api/user/${this.props.state.user._id}`, {
+    fetch(`/api/user/${this.props.state.user._id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -317,7 +317,7 @@ class ProfileEdit extends Component {
           FirstName: values.firstName,
           LastName: values.lastName,
           DOB: values.dateOfBirth,
-          Description: this.state.description,
+          Description: values.description,
           //TODO: implement this on the sign up form
           Address: this.state.Address,
 

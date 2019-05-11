@@ -72,7 +72,7 @@ class CreateAppointment extends Component {
   }
 
   handleSubmit = (values, action) => {
-    console.log(values);
+    this.submitButton.setAttribute("disabled", true);
     var date = new Date(`${values.date}T${values.time}:00`);
     var body = JSON.stringify({
       Time: date,
@@ -85,8 +85,7 @@ class CreateAppointment extends Component {
       CreatorFirstName: this.state.creatorFirstName,
       CreatorLastName: this.state.creatorLastName,
     });
-    console.log(body);
-    fetch(`http://localhost:5000/api/appointment`, {
+    fetch(`/api/appointment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +95,6 @@ class CreateAppointment extends Component {
     })
       .then(resp => resp.json())
       .then(resp => {
-        console.log(resp);
         this.props.history.goBack();
       });
   };
@@ -114,6 +112,18 @@ class CreateAppointment extends Component {
         <div>
           <Avatar
             size="60px"
+            className={styles.avatar}
+            name={name}
+            round={true}
+          />
+        </div>
+      );
+    }
+    else if (window.innerWidth <= 895) {
+      avatar = (
+        <div>
+          <Avatar
+            size="75px"
             className={styles.avatar}
             name={name}
             round={true}
@@ -215,7 +225,9 @@ class CreateAppointment extends Component {
                 </Button>
 
                 <Button
-                  ref="submit-btn"
+                  ref={submitButton => {
+                    this.submitButton = submitButton;
+                  }}
                   className={styles["confirm-button"]}
                   variant="primary"
                   type="submit"

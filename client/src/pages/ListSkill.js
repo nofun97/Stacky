@@ -34,7 +34,7 @@ class ListSkill extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:5000/api/skill", {
+    fetch("/api/skill", {
       credentials: "include",
     })
       .then(resp => resp.json())
@@ -227,7 +227,7 @@ class ListSkill extends Component {
       };
     });
     //TODO: test update profile
-    fetch(`http://localhost:5000/api/user/${this.props.state.user._id}`, {
+    fetch(`/api/user/${this.props.state.user._id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

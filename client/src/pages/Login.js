@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import styles from "../styles/pages/Login.module.css";
-import { Redirect } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { connect } from "react-redux";
@@ -43,7 +42,7 @@ class Login extends Component {
 
     // Login logic
     // TODO: put url in env?
-    fetch("http://localhost:5000/api/login", {
+    fetch("/api/login", {
       method: "POST",
       credentials: "include",
       headers: {

@@ -55,7 +55,7 @@
 /* Need hover and stuff */
 .cancel-button {
   position: relative;
-  left: 3.8em;
+  left: 1em;
   padding: 0.4em 2.4em;
   font-family: "proxima_nova_semibold";
   font-size: 1.48em;
@@ -102,7 +102,7 @@
 
 .confirm-button{
   position: relative;
-  left: 6em;
+  left: 3.5em;
   padding: 0.4em 2.4em;
   font-family: "proxima_nova_semibold";
   font-size: 1.48em;
@@ -163,6 +163,20 @@
   grid-row: 1/2;
   border: solid 1px #979797;
   background-color: #ffaa6d;
+}
+
+@media only screen and (max-width: 895px) { 
+  .cancel-button {
+    position: relative;
+    left: 1.8em;
+    padding: 0.4em 0.85em;
+  }
+
+  .confirm-button{
+    position: relative;
+    left: 3.6em;
+    padding: 0.4em 0.85em;
+  }
 }
 
 @media only screen and (max-width: 426px) { 

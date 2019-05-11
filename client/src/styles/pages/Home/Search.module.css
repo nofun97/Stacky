@@ -78,6 +78,15 @@
   box-shadow: none;
 }
 
+@media only screen and (max-width: 895px) { 
+  .card-container {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
 @media only screen and (max-width: 426px) { 
   .card-container {
     display: grid;
@@ -85,5 +94,4 @@
     grid-row-gap: 10px;
     grid-template-columns: 1fr 1fr;
   }
-
 }

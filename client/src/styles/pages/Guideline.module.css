@@ -99,6 +99,36 @@
   background-position: 15vw 0;
 }
 
+@media only screen and (max-width: 895px) { 
+
+  .Main {
+    padding-left: 6.1vw;
+    padding-top: 7vh;
+    margin-right: 16%;
+  }
+
+  .header {
+    font-size: 2.5em;
+  }
+  .subheader {
+    font-size: 1.67em;
+  }
+  .Information {
+    font-size: 1.23em;
+    line-height: 1.5em; 
+    letter-spacing: 0.023em; 
+  }
+
+  .image {
+    background-image: url("../../assets/Graphics/tree sides .svg");
+    background-repeat: no-repeat;
+    height: 100%;
+    background-size: 75vh;
+    background-position: 1vw 1vw;
+    background-origin: border-box;
+  }
+}
+
 @media only screen and (max-width: 426px) { 
 
   .Main {

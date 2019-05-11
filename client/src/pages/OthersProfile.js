@@ -29,7 +29,7 @@ class OthersProfile extends Component {
       return;
     }
     const profileData = await fetch(
-      `http://localhost:5000/api/user/${this.props.location.state.id}`,
+      `/api/user/${this.props.location.state.id}`,
       {
         credentials: "include",
       }

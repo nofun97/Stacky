@@ -11,10 +11,6 @@ const mapStateToProps = state => {
 
 class VerificationFail extends Component {
   render() {
-    if (this.props.state.user === null) {
-      return <Redirect to="/page_not_found" />;
-    }
-
     return (
       <div className={styles.VerificationFail}>
         <section className={styles.Main}>
