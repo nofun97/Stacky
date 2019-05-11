@@ -66,6 +66,9 @@ class Search extends Component {
     const users = usersPage.users;
     const totalData = usersPage.total;
     if (totalData === 0){
+      this.setState({
+        user: [],
+      })
       return;
     }
 
