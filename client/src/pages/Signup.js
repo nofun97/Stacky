@@ -97,8 +97,11 @@ class Signup extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        this.setState({ ID: data._id, email: data.Email, successful: true, user: data });
         this.props.dispatch({type: 'USER_AUTH', user: data});
+        return data;
+      })
+      .then(data => {
+        this.setState({ ID: data._id, email: data.Email, successful: true, user: data });
       })
       .catch(err => {
         // enable submit button
