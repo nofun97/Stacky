@@ -129,15 +129,15 @@ var findNUsers = function(req, res) {
     console.log("index and size must be defined");
   }
   var query = {};
-  if (req.query.skills != null) {
-    console.log(skills);
+  if (req.query.skills !== undefined) {
     var skills = req.query.skills.split(",");
     query = { "Skills.Skill": { $all: skills } };
   }
 
   User.paginate(query, { offset: index, limit: size }, (err, result) => {
     if (!err) {
-      var newDocs = result.docs.map(data => {
+      var newDocs = []
+      newDocs = result.docs.map(data => {
         return {
           FirstName: data.FirstName,
           LastName: data.LastName,
