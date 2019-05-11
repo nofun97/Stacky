@@ -52,6 +52,7 @@ class Search extends Component {
   };
 
   handleFetchUsers = async () => {
+    console.log(this.state.currentIndex);
     var query = `/api/users?from=${this.state.currentIndex}&size=${
       this.state.dataPerPage
     }`;
@@ -143,7 +144,7 @@ class Search extends Component {
       });
 
     // fetch one more user if the logged in user is in search
-    if (includeSearcher) {
+    if (includeSearcher && (profiles.length + this.state.currentIndex) !== (totalData - 1)) {
       let newQuery = `/api/users?from=${this.state.currentIndex +
         this.state.dataPerPage}&size=1`;
       if (this.state.filterSkill.length > 0) {
