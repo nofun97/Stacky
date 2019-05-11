@@ -7,12 +7,11 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    state: state
-  }
-}
-
+    state: state,
+  };
+};
 
 // Input validation schema
 const schema = yup.object({
@@ -69,7 +68,8 @@ class Signup extends Component {
     // Checking the age if it's lower than 18 redirect
     if (
       Math.floor(
-        (Date.now() - Date.parse(values.dateOfBirth)) / (1000 * 60 * 60 * 24 * 365)
+        (Date.now() - Date.parse(values.dateOfBirth)) /
+          (1000 * 60 * 60 * 24 * 365)
       ) < 18
     ) {
       this.props.history.push("/verification/fail");
@@ -97,14 +97,25 @@ class Signup extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        this.setState({ ID: data._id, email: data.Email, successful: true, user: data });
-        this.props.dispatch({type: 'USER_AUTH', user: data});
+        if (data['error'] !== undefined){
+          this.setState({invalidInfo: true})
+          return;
+        }
+        console.log(data);
+        this.setState({
+          ID: data._id,
+          email: data.Email,
+          successful: true,
+          user: data,
+        });
+        this.props.dispatch({ type: "USER_AUTH", user: data });
       })
       .catch(err => {
         // enable submit button
         this.submitButton.removeAttribute("disabled");
         // set error in email address
-        actions.setFieldError("email","Please choose another email");
+        console.log(err);
+        actions.setFieldError("email", "Please choose another email");
         this.setState({
           InvalidInfo: true,
         });
