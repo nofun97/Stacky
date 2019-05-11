@@ -97,10 +97,23 @@ class Signup extends Component {
     })
       .then(response => response.json())
       .then(data => {
+        if (data["error"] !== undefined) {
+          // enable submit button
+          this.submitButton.removeAttribute("disabled");
+          // set error in email address
+          actions.setFieldError("email", "Please choose another email");
+          this.setState({
+            InvalidInfo: true,
+          });
+          return data;
+        }
         this.props.dispatch({ type: "USER_AUTH", user: data });
         return data;
       })
       .then(data => {
+        if (data["error"] !== undefined) {
+          return;
+        }
         this.setState({
           ID: data._id,
           email: data.Email,

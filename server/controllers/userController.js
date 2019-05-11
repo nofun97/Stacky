@@ -41,7 +41,7 @@ var registerUser = function(req, res, next) {
   console.log("Registering...");
   User.register(data, req.body.Password, function(err, user) {
     if (err) {
-      next(null, err);
+      res.send({ error: err });
     } else {
       next(null, { Email: data.Email, Password: req.body.Password });
     }
