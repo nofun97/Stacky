@@ -135,8 +135,8 @@ class Search extends Component {
     }).filter(user => user._id !== this.props.state.user._id);
     this.setState({
       user: profiles,
-      totalItem: (totalData - 1) / this.state.dataPerPage,
-      totalPageNumber: Math.ceil((totalData - 1) / this.state.dataPerPage),
+      totalItem: (totalData) / this.state.dataPerPage,
+      totalPageNumber: Math.ceil((totalData) / this.state.dataPerPage),
     });
   };
 
