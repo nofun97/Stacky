@@ -97,11 +97,16 @@ class Signup extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        if (data['error'] !== undefined){
-          this.setState({invalidInfo: true})
+        if (data["error"] !== undefined) {
+          // enable submit button
+          this.submitButton.removeAttribute("disabled");
+          // set error in email address
+          actions.setFieldError("email", "Please choose another email");
+          this.setState({
+            InvalidInfo: true,
+          });
           return;
         }
-        console.log(data);
         this.setState({
           ID: data._id,
           email: data.Email,
@@ -114,7 +119,6 @@ class Signup extends Component {
         // enable submit button
         this.submitButton.removeAttribute("disabled");
         // set error in email address
-        console.log(err);
         actions.setFieldError("email", "Please choose another email");
         this.setState({
           InvalidInfo: true,
