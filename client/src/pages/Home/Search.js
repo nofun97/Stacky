@@ -34,6 +34,7 @@ class Search extends Component {
       filterSkill: [],
       skills: [],
       changes: false,
+      hasSearcher: 0,
     };
   }
 
@@ -51,9 +52,9 @@ class Search extends Component {
   };
 
   handleFetchUsers = async () => {
-    var query = `/api/users?from=${
-      this.state.currentIndex
-    }&size=${this.state.dataPerPage}`;
+    var query = `/api/users?from=${this.state.currentIndex}&size=${
+      this.state.dataPerPage
+    }`;
     if (this.state.filterSkill.length > 0) {
       query += `&skills=${this.state.filterSkill
         .map(skill => skill.Skill)
@@ -65,10 +66,10 @@ class Search extends Component {
     const usersPage = await userData.json();
     const users = usersPage.users;
     const totalData = usersPage.total;
-    if (totalData === 0){
+    if (totalData === 0) {
       this.setState({
         user: [],
-      })
+      });
       return;
     }
 
@@ -102,42 +103,147 @@ class Search extends Component {
       skillsList.push(s);
     }
 
-    const skillsData = await fetch(
-      `/api/skill?id=${skillsList.join(",")}`,
-      {
-        credentials: "include",
-      }
-    );
+    const skillsData = await fetch(`/api/skill?id=${skillsList.join(",")}`, {
+      credentials: "include",
+    });
     const skills = await skillsData.json();
 
-    profiles = profiles.map(data => {
-      let userSkills = [];
-      for (var i = 0; i < data.skill.length; i++) {
-        for (var j = 0; j < skills.length; j++) {
-          if (data.skill[i].Skill === skills[j]._id) {
-            userSkills.push({
-              Name: skills[j].Name,
-              category: skills[j].Category,
-              Description: skills[j].Description,
-            });
-            break;
+    // Check for whether there's the seaarching user in the search
+    let includeSearcher = false;
+    profiles = profiles
+      .map(data => {
+        let userSkills = [];
+        for (var i = 0; i < data.skill.length; i++) {
+          for (var j = 0; j < skills.length; j++) {
+            if (data.skill[i].Skill === skills[j]._id) {
+              userSkills.push({
+                Name: skills[j].Name,
+                category: skills[j].Category,
+                Description: skills[j].Description,
+              });
+              break;
+            }
           }
         }
+        return {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          //TODO: change this
+          image: data.image,
+          skill: userSkills,
+          _id: data._id,
+        };
+      })
+      .filter(user => {
+        if (user._id !== this.props.state.user._id) {
+          return true;
+        }
+        includeSearcher = true;
+        return false;
+      });
+
+    // fetch one more user if the logged in user is in search
+    if (includeSearcher) {
+      let newQuery = `/api/users?from=${this.state.currentIndex +
+        this.state.dataPerPage}&size=1`;
+      if (this.state.filterSkill.length > 0) {
+        query += `&skills=${this.state.filterSkill
+          .map(skill => skill.Skill)
+          .join(",")}`;
       }
-      return {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        //TODO: change this
-        image: data.image,
-        skill: userSkills,
-        _id: data._id,
-      };
-    }).filter(user => user._id !== this.props.state.user._id);
-    this.setState({
-      user: profiles,
-      totalItem: (totalData) / this.state.dataPerPage,
-      totalPageNumber: Math.ceil((totalData) / this.state.dataPerPage),
-    });
+      let newUserData = await fetch(newQuery, {
+        credentials: "include",
+      });
+      const newUsersPage = await newUserData.json();
+      const newUsers = newUsersPage.users;
+      if (totalData === 0) {
+        this.setState({
+          user: [],
+        });
+        return;
+      }
+
+      let newSkillsObj = {};
+      let newSkillsList = [];
+      /*
+        user data list of
+        {
+          firstName: string,
+          lastName: string,
+          image: string,
+          skill: []{Name: string, category: string, Description: string},
+          _id: string
+        }
+      */
+      var newProfiles = newUsers.map(data => {
+        for (var i = 0; i < data.Skills.length; i++) {
+          newSkillsObj[data.Skills[i].Skill] = 1;
+        }
+        return {
+          firstName: data.FirstName,
+          lastName: data.LastName,
+          //TODO: change this
+          image: "holder.js/100px100",
+          skill: data.Skills,
+          _id: data._id,
+        };
+      });
+
+      for (let s in newSkillsObj) {
+        newSkillsList.push(s);
+      }
+
+      let newSkillsData = await fetch(
+        `/api/skill?id=${newSkillsList.join(",")}`,
+        {
+          credentials: "include",
+        }
+      );
+      let newSkills = await newSkillsData.json();
+
+      newProfiles = newProfiles
+        .map(data => {
+          let newUserSkills = [];
+          for (var i = 0; i < data.skill.length; i++) {
+            for (var j = 0; j < newSkills.length; j++) {
+              if (data.skill[i].Skill === newSkills[j]._id) {
+                newUserSkills.push({
+                  Name: newSkills[j].Name,
+                  category: newSkills[j].Category,
+                  Description: newSkills[j].Description,
+                });
+                break;
+              }
+            }
+          }
+          return {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            //TODO: change this
+            image: data.image,
+            skill: newUserSkills,
+            _id: data._id,
+          };
+        })
+        .filter(user => user._id !== this.props.state.user._id);
+
+      profiles.push(...newProfiles);
+    }
+
+    if (includeSearcher) {
+      this.setState({
+        hasSearcher: this.state.pageNumber,
+        user: profiles,
+        totalItem: (totalData - 1) / this.state.dataPerPage,
+        totalPageNumber: Math.ceil((totalData - 1) / this.state.dataPerPage),
+      });
+    } else {
+      this.setState({
+        user: profiles,
+        totalItem: (totalData - 1) / this.state.dataPerPage,
+        totalPageNumber: Math.ceil((totalData - 1) / this.state.dataPerPage),
+      });
+    }
   };
 
   toggleDrawer = open => () => {
@@ -167,23 +273,39 @@ class Search extends Component {
 
   handleNextPage = () => {
     if (this.state.pageNumber < this.state.totalPageNumber) {
-      this.setState({
-        currentIndex: this.state.currentIndex + this.state.dataPerPage,
-        pageNumber: this.state.pageNumber + 1,
-        changes: true,
-      });
-      this.handleFetchUsers();
+      // check next page logic
+      if (this.state.pageNumber === this.state.hasSearcher) {
+        this.setState({
+          currentIndex: this.state.currentIndex + this.state.dataPerPage + 1,
+          pageNumber: this.state.pageNumber + 1,
+          changes: true,
+        });
+      } else {
+        this.setState({
+          currentIndex: this.state.currentIndex + this.state.dataPerPage,
+          pageNumber: this.state.pageNumber + 1,
+          changes: true,
+        });
+      }
     }
   };
 
   handlePreviousPage = () => {
     if (this.state.currentIndex > 0) {
-      this.setState({
-        currentIndex: this.state.currentIndex - this.state.dataPerPage,
-        pageNumber: this.state.pageNumber - 1,
-        changes: true,
-      });
-      this.handleFetchUsers();
+      // check previous page logic
+      if (this.state.pageNumber - 1 === this.state.hasSearcher) {
+        this.setState({
+          currentIndex: this.state.currentIndex - this.state.dataPerPage - 1,
+          pageNumber: this.state.pageNumber - 1,
+          changes: true,
+        });
+      } else {
+        this.setState({
+          currentIndex: this.state.currentIndex - this.state.dataPerPage,
+          pageNumber: this.state.pageNumber - 1,
+          changes: true,
+        });
+      }
     }
   };
 
