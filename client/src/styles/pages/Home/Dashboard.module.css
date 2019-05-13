@@ -5,35 +5,45 @@
   margin-bottom: 10px;
 }
 
-.headings{
-  font-family: 'lato_bold'; 
-  font-size: 1.7em; 
+.headings {
+  font-family: "lato_bold";
+  font-size: 1.7em;
 }
 
-.button{
-  font-family: 'proxima_nova_semibold'; 
-  background-color: #FFAA6D; 
-  color: #000000; 
-  border-color: #FFAA6D; 
-
+.feedbackHeading{
+  font-family: "lato_bold";
+  font-size: 1.7em;
+  margin-top: 20px;
 }
 
-.button:hover{
-  background-color: #FF9D57; 
-  color: #ffffff; 
-  border-color: #FF9D57; 
-}
-/*can disregard this if using material icon */ 
-.symbol{
-  color: #FFAA6D; 
-  font-family: 'proxima_nova_bold'; 
-  font-size: 1.7em; 
+.button {
+  font-family: "proxima_nova_semibold";
+  background-color: #ffaa6d;
+  color: #000000;
+  border-color: #ffaa6d;
 }
 
-@media only screen and (max-width: 426px){
-  
-  .headings{
-  font-size: 1.643em; 
+.button:hover {
+  background-color: #ff9d57;
+  color: #ffffff;
+  border-color: #ff9d57;
 }
-  
+
+.subappointment{
+  display: flex;
+  flex-direction: row;
+}
+
+/*can disregard this if using material icon */
+.symbol {
+  color: #ffaa6d;
+  font-family: "proxima_nova_bold";
+  font-size: 1.7em;
+  margin-left: 10px;
+}
+
+@media only screen and (max-width: 426px) {
+  .headings {
+    font-size: 1.643em;
+  }
 }
