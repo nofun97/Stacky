@@ -2,14 +2,18 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
 import styles from "../../styles/pages/Home/Dashboard.module.css";
-import FeedbackNotification from "../../components/FeedbackNotification";
-import FeedbackDetails from "../../components/FeedbackDetails";
+import FeedbackNotificationList from "../../components/FeedbackNotificationList";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      viewAppointment: false
+      viewAppointment: false,
+      // mock for feedback list (remove when already using fetch to fetch the user)
+      feedbackUsers: [
+        { firstName: "Raol", lastName: "Slioco" },
+        { firstName: "Kaye", lastName: "Yoss" },
+      ],
     };
     this.handleAppointments = this.handleAppointments.bind(this);
   }
@@ -23,7 +27,7 @@ class Dashboard extends Component {
 
   handleAppointments() {
     this.setState({
-      viewAppointment: true
+      viewAppointment: true,
     });
   }
 
@@ -52,9 +56,7 @@ class Dashboard extends Component {
           <Button className={styles["button"]} onClick={this.handleFeedback}>
             View All
           </Button>
-
-          <FeedbackNotification />
-          <FeedbackDetails />
+          <FeedbackNotificationList values={this.state.feedbackUsers} />
         </div>
       </section>
     );

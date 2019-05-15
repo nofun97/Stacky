@@ -25,6 +25,14 @@ class CreateFeedback extends Component {
   }
 
   handleSubmit = (values, action) => {
+    /*
+      values: {
+              studentCanImprove: "",
+              studentDoWell: "",
+              teacherCanImprove: "",
+              teacherDoWell: "",
+            }
+    */
     // make the submit button disabled
     this.submitButton.setAttribute("disabled", true);
   };
