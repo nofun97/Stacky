@@ -14,7 +14,7 @@ const schema = yup.object({
 
   teacherCanImprove: yup.string().required("Please fill in the form"),
 
-  teacherDoWell: yup.string().required("Please fill in the form")
+  teacherDoWell: yup.string().required("Please fill in the form"),
 });
 
 class CreateFeedback extends Component {
@@ -24,20 +24,16 @@ class CreateFeedback extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // go back to other profile page when cancel is pressed
-  handleCancel() {
-    this.props.history.goBack();
-  }
-
   handleSubmit = (values, action) => {
-    // Fill stuff
+    // make the submit button disabled
+    this.submitButton.setAttribute("disabled", true);
   };
 
   render() {
     // /* for later when it's connected to backend need to uncomment to block people from accessing the route */
-    // if (this.props.location.state === undefined) {
-    //   return <Redirect to="/page_not_found" />;
-    // }
+    if (this.props.location.state === undefined) {
+      return <Redirect to="/page_not_found" />;
+    }
 
     return (
       <div className={styles.CreateAppointment}>
@@ -48,7 +44,7 @@ class CreateFeedback extends Component {
               studentCanImprove: "",
               studentDoWell: "",
               teacherCanImprove: "",
-              teacherDoWell: ""
+              teacherDoWell: "",
             }}
             validationSchema={schema}
             validateOnBlur={false}
@@ -96,12 +92,12 @@ class CreateFeedback extends Component {
                     </Form.Control.Feedback>
                   </div>
                 </Form.Group>
-                
+
                 <Form.Group
                   className={styles.teacherFeedback}
                   controlId="teacherFeedback"
                 >
-                <h5 classname={styles.subheader}>As a teacher...</h5>
+                  <h5 classname={styles.subheader}>As a teacher...</h5>
                   <div>
                     <Form.Label className={styles.question}>
                       What can they improve on?
