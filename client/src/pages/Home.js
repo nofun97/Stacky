@@ -37,13 +37,21 @@ class Home extends Component {
       interest: [],
       skill: [],
     };
+
+    this.updateWindow = this.updateWindow.bind(this);
+  }
+
+  updateWindow() {
+    this.setState({});
   }
 
   // for responsiveness of the avatar
   componentDidMount() {
-    window.addEventListener("resize", () => {
-      this.setState({});
-    });
+    window.addEventListener("resize", this.updateWindow);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindow);
   }
 
   render() {

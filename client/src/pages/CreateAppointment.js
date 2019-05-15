@@ -57,6 +57,7 @@ class CreateAppointment extends Component {
     this.render = this.render.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateWindow = this.updateWindow.bind(this);
   }
 
   // go back to other profile page when cancel is pressed
@@ -64,11 +65,17 @@ class CreateAppointment extends Component {
     this.props.history.goBack();
   }
 
+  updateWindow() {
+    this.setState({});
+  }
+
   // for responsiveness of the avatar
   componentDidMount() {
-    window.addEventListener("resize", () => {
-      this.setState({});
-    });
+    window.addEventListener("resize", this.updateWindow);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindow);
   }
 
   handleSubmit = (values, action) => {

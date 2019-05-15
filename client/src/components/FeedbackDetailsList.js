@@ -9,6 +9,7 @@ class FeedbackDetailsList extends Component {
         name={`${feedback.firstName} ${feedback.lastName}`}
         pros={feedback.pros}
         cons={feedback.cons}
+        key={feedback._id}
       />
     ));
 

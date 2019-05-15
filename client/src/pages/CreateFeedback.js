@@ -35,6 +35,14 @@ class CreateFeedback extends Component {
     */
     // make the submit button disabled
     this.submitButton.setAttribute("disabled", true);
+    this.props.history.push({
+      pathname: "/feedback_success",
+      state: {
+        userID: this.props.id,
+        userFirstName: this.props.firstName,
+        userLastName: this.props.lastName,
+      },
+    })
   };
 
   render() {
@@ -65,7 +73,7 @@ class CreateFeedback extends Component {
                   className={styles.studentFeedback}
                   controlId="studentFeedback"
                 >
-                  <h5 classname={styles.subheader}>As a student...</h5>
+                  <h5 className={styles.subheader}>As a student...</h5>
                   <div>
                     <Form.Label className={styles.question}>
                       What can they improve on?
@@ -73,7 +81,7 @@ class CreateFeedback extends Component {
                     <Form.Control
                       name="studentCanImprove"
                       as="textarea"
-                      maxlength="250"
+                      maxLength="250"
                       placeholder="Enter Feedback (max: 250 char)"
                       onChange={handleChange}
                       value={values.studentCanImprove}
@@ -91,7 +99,7 @@ class CreateFeedback extends Component {
                     <Form.Control
                       name="studentDoWell"
                       as="textarea"
-                      maxlength="250"
+                      maxLength="250"
                       placeholder="Enter Feedback (max: 250 char)"
                       onChange={handleChange}
                       value={values.studentDoWell}
@@ -107,7 +115,7 @@ class CreateFeedback extends Component {
                   className={styles.teacherFeedback}
                   controlId="teacherFeedback"
                 >
-                  <h5 classname={styles.subheader}>As a teacher...</h5>
+                  <h5 className={styles.subheader}>As a teacher...</h5>
                   <div>
                     <Form.Label className={styles.question}>
                       What can they improve on?
@@ -115,7 +123,7 @@ class CreateFeedback extends Component {
                     <Form.Control
                       name="teacherCanImprove"
                       as="textarea"
-                      maxlength="250"
+                      maxLength="250"
                       placeholder="Enter Feedback (max: 250 char)"
                       onChange={handleChange}
                       value={values.teacherCanImprove}
@@ -133,7 +141,7 @@ class CreateFeedback extends Component {
                     <Form.Control
                       name="teacherDoWell"
                       as="textarea"
-                      maxlength="250"
+                      maxLength="250"
                       placeholder="Enter Feedback (max: 250 char)"
                       onChange={handleChange}
                       value={values.teacherDoWell}

@@ -13,19 +13,26 @@ class Dashboard extends Component {
       viewFeedback: false,
       // mock for feedback list (remove when already using fetch to fetch the user)
       feedbackUsers: [
-        { firstName: "Raol", lastName: "Slioco" },
-        { firstName: "Kaye", lastName: "Yoss" },
+        { firstName: "Raol", lastName: "Slioco", _id: 1 },
+        { firstName: "Kaye", lastName: "Yoss", _id: 2 },
       ],
     };
     this.handleAppointments = this.handleAppointments.bind(this);
     this.handleFeedback = this.handleFeedback.bind(this);
+    this.updateWindow = this.updateWindow.bind(this);
+  }
+
+  updateWindow() {
+    this.setState({});
   }
 
   // for responsiveness of the avatar
   componentDidMount() {
-    window.addEventListener("resize", () => {
-      this.setState({});
-    });
+    window.addEventListener("resize", this.updateWindow);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindow);
   }
 
   handleAppointments() {

@@ -16,6 +16,7 @@ class AllFeedback extends Component {
           pros:
             "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere porro delectus aspernatur iure debitis placeat accusantium odio. Fugiat unde consequatur, tempore consequuntur sapiente quisquam sed aut, temporibus quas voluptatibus deserunt nam even.",
           cons: "THIS A NON VALID STATEMENT AND IT IS FULL OF NEGATIVITY",
+          _id: 1,
         },
       ],
       teacherFeedback: [
@@ -25,6 +26,7 @@ class AllFeedback extends Component {
           pros:
             "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere porro delectus aspernatur iure debitis placeat accusantium odio. Fugiat unde consequatur, tempore consequuntur sapiente quisquam sed aut, temporibus quas voluptatibus deserunt nam even.",
           cons: "THIS A NON VALID STATEMENT AND IT IS FULL OF NEGATIVITY",
+          _id: 2,
         },
       ],
     };

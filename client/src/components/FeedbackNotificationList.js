@@ -7,6 +7,7 @@ class FeedbackNotificationList extends Component {
     const feedbackItem = feedbacks.map(feedback => (
       <FeedbackNotification 
         name={`${feedback.firstName} ${feedback.lastName}`}
+        key={feedback._id}
       />
     ));
 
