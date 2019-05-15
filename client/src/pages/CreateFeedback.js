@@ -73,7 +73,8 @@ class CreateFeedback extends Component {
                     <Form.Control
                       name="studentCanImprove"
                       as="textarea"
-                      placeholder="Enter Feedback"
+                      maxlength="250"
+                      placeholder="Enter Feedback (max: 250 char)"
                       onChange={handleChange}
                       value={values.studentCanImprove}
                       isInvalid={!!errors.studentCanImprove}
@@ -90,7 +91,8 @@ class CreateFeedback extends Component {
                     <Form.Control
                       name="studentDoWell"
                       as="textarea"
-                      placeholder="Enter Feedback"
+                      maxlength="250"
+                      placeholder="Enter Feedback (max: 250 char)"
                       onChange={handleChange}
                       value={values.studentDoWell}
                       isInvalid={!!errors.studentDoWell}
@@ -113,7 +115,8 @@ class CreateFeedback extends Component {
                     <Form.Control
                       name="teacherCanImprove"
                       as="textarea"
-                      placeholder="Enter Feedback"
+                      maxlength="250"
+                      placeholder="Enter Feedback (max: 250 char)"
                       onChange={handleChange}
                       value={values.teacherCanImprove}
                       isInvalid={!!errors.teacherCanImprove}
@@ -130,7 +133,8 @@ class CreateFeedback extends Component {
                     <Form.Control
                       name="teacherDoWell"
                       as="textarea"
-                      placeholder="Enter Feedback"
+                      maxlength="250"
+                      placeholder="Enter Feedback (max: 250 char)"
                       onChange={handleChange}
                       value={values.teacherDoWell}
                       isInvalid={!!errors.teacherDoWell}
