@@ -8,7 +8,6 @@ var userController = require("../controllers/userController.js");
 var skillController = require("../controllers/skillController.js");
 var reviewController = require("../controllers/reviewController.js");
 var appointmentController = require("../controllers/appointmentController.js");
-var credentialsController = require("../controllers/credentialsController.js");
 // Specify Our routes here
 // User Model Routes
 router.get("/user", auth.ensureAuthenticated, userController.findAllUsers);
@@ -137,7 +136,5 @@ router.post(
     });
   }
 );
-router.get("/current", credentialsController.current);
-router.get("/email/:email", credentialsController.checkExistingEmail);
 // Export the router
 module.exports = router;
