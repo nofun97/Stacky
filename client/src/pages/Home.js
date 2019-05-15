@@ -16,12 +16,11 @@ import Chat from "./Home/Chat";
 import Search from "./Home/Search";
 import AllAppointment from "./Home/AllAppointment";
 
-
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     state: state
-  }
-}
+  };
+};
 
 class Home extends Component {
   constructor(props) {
@@ -40,8 +39,10 @@ class Home extends Component {
   }
 
   // for responsiveness of the avatar
-  componentDidMount(){
-    window.addEventListener("resize", () => {this.setState({})});
+  componentDidMount() {
+    window.addEventListener("resize", () => {
+      this.setState({});
+    });
   }
 
   render() {
@@ -71,7 +72,9 @@ class Home extends Component {
     }
 
     let avatar;
-    let name = `${this.props.state.user.FirstName} ${this.props.state.user.LastName}`;
+    let name = `${this.props.state.user.FirstName} ${
+      this.props.state.user.LastName
+    }`;
     if (window.innerWidth <= 426) {
       avatar = (
         <div>
@@ -82,6 +85,17 @@ class Home extends Component {
             round={true}
           />
         </div>
+      );
+    } else if (window.innerWidth <= 895 && window.innerWidth > 426) {
+      avatar = (
+        <section>
+          <Avatar
+            size="70px"
+            className={styles.avatar}
+            name={name}
+            round={true}
+          />
+        </section>
       );
     } else {
       avatar = (
@@ -110,15 +124,12 @@ class Home extends Component {
             {/* For front-end mockup purposes we pass data through navigation */}
             <NavTab
               to={{
-                pathname: "/home/profile",
+                pathname: "/home/profile"
               }}
             >
               Profile
             </NavTab>
-            <NavTab
-              exact
-              to={{ pathname: "/home"}}
-            >
+            <NavTab exact to={{ pathname: "/home" }}>
               My Home
             </NavTab>
             <NavTab disabled to="/home/chat">
@@ -147,20 +158,20 @@ class Home extends Component {
           />
           <Route path="/home/profile_edit" component={ProfileEdit} />
           <Route path="/home/chat" component={Chat} />
-          <Route path="/home/search" render={props =>(
-            <Search
-              {...props}
-              id={this.state.id}
-              firstName={this.state.FirstName}
-              lastName={this.state.LastName} 
-            />
-          )} />
-          <Route path="/home/appointments"
+          <Route
+            path="/home/search"
             render={props => (
-              <AllAppointment
+              <Search
                 {...props}
-                id={this.state.id} />
+                id={this.state.id}
+                firstName={this.state.FirstName}
+                lastName={this.state.LastName}
+              />
             )}
+          />
+          <Route
+            path="/home/appointments"
+            render={props => <AllAppointment {...props} id={this.state.id} />}
           />
           <Redirect exact to="/home" />
         </Switch>
