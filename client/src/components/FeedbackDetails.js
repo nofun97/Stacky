@@ -7,16 +7,16 @@ class FeedbackDetails extends Component {
   render() {
     return (
       <div className={styles.Detail}>
-        <h5 className={styles.header}>User</h5>
+        <h5 className={styles.header}>{this.props.name}</h5>
 
         <div className={styles.Review}>
           <AddIcon className={styles.icon} />
-          <text className={styles.notification}>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere porro delectus aspernatur iure debitis placeat accusantium odio. Fugiat unde consequatur, tempore consequuntur sapiente quisquam sed aut, temporibus quas voluptatibus deserunt nam even.</text>
+          <text className={styles.notification}>{this.props.pros}</text>
         </div>
 
         <div className={styles.Review}>
-        <RemoveIcon className={styles.icon} />
-          <text className={styles.notification}>THIS A NON VALID STATEMENT AND IT IS FULL OF NEGATIVITY</text>
+          <RemoveIcon className={styles.icon} />
+          <text className={styles.notification}>{this.props.cons}</text>
         </div>
       </div>
     );

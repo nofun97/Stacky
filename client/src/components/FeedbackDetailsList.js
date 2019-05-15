@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import FeedbackNotification from "./FeedbackNotification";
+import FeedbackDetails from "./FeedbackDetails";
 
-class FeedbackNotificationList extends Component {
+class FeedbackDetailsList extends Component {
   render() {
     const feedbacks = this.props.values;
     const feedbackItem = feedbacks.map(feedback => (
-      <FeedbackNotification 
+      <FeedbackDetails 
         name={`${feedback.firstName} ${feedback.lastName}`}
+        pros={feedback.pros}
+        cons={feedback.cons}
       />
     ));
 
@@ -14,4 +16,4 @@ class FeedbackNotificationList extends Component {
   }
 }
 
-export default FeedbackNotificationList;
+export default FeedbackDetailsList;

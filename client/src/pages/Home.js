@@ -15,10 +15,11 @@ import ProfileEdit from "./Home/ProfileEdit";
 import Chat from "./Home/Chat";
 import Search from "./Home/Search";
 import AllAppointment from "./Home/AllAppointment";
+import AllFeedback from "./Home/AllFeedback";
 
 const mapStateToProps = state => {
   return {
-    state: state
+    state: state,
   };
 };
 
@@ -34,7 +35,7 @@ class Home extends Component {
       LastName: this.props.state.user.LastName,
       DOB: "",
       interest: [],
-      skill: []
+      skill: [],
     };
   }
 
@@ -124,7 +125,7 @@ class Home extends Component {
             {/* For front-end mockup purposes we pass data through navigation */}
             <NavTab
               to={{
-                pathname: "/home/profile"
+                pathname: "/home/profile",
               }}
             >
               Profile
@@ -172,6 +173,10 @@ class Home extends Component {
           <Route
             path="/home/appointments"
             render={props => <AllAppointment {...props} id={this.state.id} />}
+          />
+          <Route
+            path="/home/feedbacks"
+            render={props => <AllFeedback {...props} id={this.state.id} />}
           />
           <Redirect exact to="/home" />
         </Switch>

@@ -10,6 +10,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       viewAppointment: false,
+      viewFeedback: false,
       // mock for feedback list (remove when already using fetch to fetch the user)
       feedbackUsers: [
         { firstName: "Raol", lastName: "Slioco" },
@@ -17,6 +18,7 @@ class Dashboard extends Component {
       ],
     };
     this.handleAppointments = this.handleAppointments.bind(this);
+    this.handleFeedback = this.handleFeedback.bind(this);
   }
 
   // for responsiveness of the avatar
@@ -32,9 +34,17 @@ class Dashboard extends Component {
     });
   }
 
+  handleFeedback() {
+    this.setState({
+      viewFeedback: true,
+    })
+  }
+
   render() {
     if (this.state.viewAppointment === true) {
       return <Redirect to="/home/appointments" />;
+    } else if (this.state.viewFeedback === true) {
+      return <Redirect to="/home/feedbacks"/>;
     }
 
     return (

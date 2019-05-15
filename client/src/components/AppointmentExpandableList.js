@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import AppointmentExpandable from "./AppointmentExpandable";
 
-// Need to be wrapped in div with grid on the upper layer (where this is used)
 class AppointmentExpandableList extends Component {
   render() {
     const appointments = this.props.values;
