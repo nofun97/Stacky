@@ -16,6 +16,7 @@ import VerificationFail from "./pages/VerificationFail";
 import OthersProfile from "./pages/OthersProfile";
 import PageNotFound from "./pages/PageNotFound";
 import CreateAppointment from "./pages/CreateAppointment";
+import CreateFeedback from "./pages/CreateFeedback";
 
 const mapStateToProps = state => {
   return {
@@ -31,6 +32,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route path="/login" component={Login} />
+
             <Route path="/signup" component={Signup} />
             <Route path="/invalid_info" component={InvalidInfo} />
             <Route path="/list_skill" component={ListSkill} />
@@ -47,7 +49,8 @@ class App extends Component {
         <Switch>
           <Route path="/home" component={Home} />
           <Route path="/guideline" component={Guideline} />
-          <Route path="/page_not_found" component={PageNotFound} />
+          <Route path="/page_not_found" component={PageNotFound} />            
+          <Route path="/user/create_feedback" component={CreateFeedback} />
           <Route
             path="/user/create_appointment"
             component={CreateAppointment}

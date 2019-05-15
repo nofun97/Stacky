@@ -29,8 +29,8 @@ class AllAppointment extends Component {
       credentials: "include",
       method: "DELETE",
     });
-    this.setState({changes: true});
-  }
+    this.setState({ changes: true });
+  };
 
   render() {
     return (
@@ -82,6 +82,12 @@ class AllAppointment extends Component {
 
     appointments.forEach(data => {
       var time = new Date(data.Time);
+
+      // Don't show expired meetings
+      if (Date.now() - time > 0) {
+        return;
+      }
+
       var hours = time.getHours();
       if (hours < 10) {
         hours = `0${hours}`;
