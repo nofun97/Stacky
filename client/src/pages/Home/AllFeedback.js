@@ -54,7 +54,7 @@ class AllFeedback extends Component {
           <FeedbackDetailsList values={this.state.teacherFeedback} />
         </div>
 
-        <Button onClick={this.handleBack}>Back to My Home</Button>
+        <Button className={styles.button} onClick={this.handleBack}>Back to My Home</Button>
       </section>
     );
   }
