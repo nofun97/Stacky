@@ -4,10 +4,11 @@ import { Redirect } from "react-router-dom";
 import styles from "../../styles/pages/Home/AllFeedback.module.css";
 import FeedbackDetailsList from "../../components/FeedbackDetailsList";
 
-class Dashboard extends Component {
+class AllFeedback extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      backHome: false,
       learnerFeedback: [
         {
           firstName: "Raol",
@@ -27,9 +28,20 @@ class Dashboard extends Component {
         },
       ],
     };
+    this.handleBack = this.handleBack.bind(this);
+  }
+
+  handleBack(){
+    this.setState({
+      backHome: true,
+    })
   }
 
   render() {
+    if(this.state.backHome === true){
+      return <Redirect to="/home"/>;
+    }
+
     return (
       <section className={styles.container}>
         <div className={styles.feedback}>
@@ -42,10 +54,10 @@ class Dashboard extends Component {
           <FeedbackDetailsList values={this.state.teacherFeedback} />
         </div>
 
-        <Button>Confirm</Button>
+        <Button onClick={this.handleBack}>Back to My Home</Button>
       </section>
     );
   }
 }
 
-export default Dashboard;
+export default AllFeedback;
