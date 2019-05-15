@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Avatar from "react-avatar";
-import styles from "../styles/pages/Home/FeedbackNotification.module.css";
+import styles from "../styles/components/FeedbackNotification.module.css";
 
 class FeedbackNotification extends Component {
   render() {

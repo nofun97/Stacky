@@ -1,0 +1,53 @@
+.Review {
+  display: grid;
+  grid-template-columns: 30px auto;
+  grid-template-rows: 30px auto;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #9f9f9f;
+  margin-bottom: 20px;
+  /* padding-bottom: 4vh; */
+  grid-template-areas:
+    "icon notification"
+    ". notification";
+}
+
+.header {
+  margin-top: 20px;
+  font-family: "proxima_nova_semibold";
+  font-size: 1.2em;
+}
+
+.notification {
+  font-family: "proxima_nova_semibold";
+  /* margin-top: 14px;
+  margin-left: 80px; */
+}
+
+.icon {
+  background-color: #ffaa6d;
+  color: white;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media only screen and (max-width: 895px) {
+  .avatar {
+    margin-left: 10px;
+  }
+
+  .notification {
+    margin-left: 60px;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .avatar {
+    margin-left: 10px;
+    margin-top: 2px;
+  }
+
+  .notification {
+    margin-left: 40px;
+  }
+}

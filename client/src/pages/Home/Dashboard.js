@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
 import styles from "../../styles/pages/Home/Dashboard.module.css";
 import FeedbackNotification from "../../components/FeedbackNotification";
+import FeedbackDetails from "../../components/FeedbackDetails";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class Dashboard extends Component {
           </Button>
 
           <FeedbackNotification />
-          <FeedbackNotification />
+          <FeedbackDetails />
         </div>
       </section>
     );
