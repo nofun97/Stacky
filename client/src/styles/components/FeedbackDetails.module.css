@@ -22,7 +22,7 @@
 .notification {
   grid-area: notification;
   font-size: 1.2em;
-  font-family: "proxima_nova_semibold";
+  font-family: "lato";
   margin-left: 20px;
 }
 

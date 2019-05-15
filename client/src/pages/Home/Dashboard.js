@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
 import styles from "../../styles/pages/Home/Dashboard.module.css";
 import FeedbackNotificationList from "../../components/FeedbackNotificationList";
-import FeedbackDetails from "../../components/FeedbackDetails";
+
 
 class Dashboard extends Component {
   constructor(props) {
@@ -68,7 +68,6 @@ class Dashboard extends Component {
             View All
           </Button>
           <FeedbackNotificationList values={this.state.feedbackUsers} />
-          <FeedbackDetails />
         </div>
       </section>
     );
