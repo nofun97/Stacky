@@ -145,6 +145,7 @@ class CreateFeedback extends Component {
                   </div>
                 </Form.Group>
 
+                <div className={styles.button}>
                 <Button
                   ref={submitButton => {
                     this.submitButton = submitButton;
@@ -155,6 +156,8 @@ class CreateFeedback extends Component {
                 >
                   Confirm
                 </Button>
+                </div>
+                
               </Form>
             )}
           </Formik>

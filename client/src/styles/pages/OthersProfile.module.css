@@ -61,6 +61,8 @@
   font-family: "lato_light";
   font-size: 1.5em;
   font-weight: 300;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 @media only screen and (max-width: 895px) { 
@@ -74,14 +76,14 @@
     font-size: 1.7em;
     margin-top : 80px;
     margin-bottom: 40px;
-    margin-left: 40px;
+    margin-right: 40px;
   }
   
   .suboption {
     font-family: "proxima_nova_semibold";
     font-size: 1.576em;
     margin-bottom: 40px;
-    margin-left: 40px;
+    margin-right: 40px;
     color: black;
     text-decoration: none;
   }
