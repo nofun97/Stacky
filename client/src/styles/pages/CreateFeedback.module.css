@@ -31,69 +31,81 @@
   background-color: #ffaa6d;
 }
 
-.question{
-    margin-top: 10px;
-    font-family: "lato";
+.question {
+  margin-top: 10px;
+  font-family: "lato";
 }
-.nextquestion{
-    margin-top: 10px;
-    font-family: "lato";
+.nextquestion {
+  margin-top: 10px;
+  font-family: "lato";
 }
 
-.confirm-button{
-    position: relative;
-    left: 47em;
-    padding: 0.4em 2.4em;
-    font-family: "proxima_nova_semibold";
-    font-size: 1.48em;
-    border: solid 1px #ffad49;
-    background-color: #ffad49;
-    color: black;
-    grid-area: confirm;
-    outline: none;
-    box-shadow: none;
+.button{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.confirm-button {
+  padding: 0.4em 2.4em;
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.confirm-button:focus {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  grid-area: confirm;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.confirm-button:hover {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.confirm-button:active {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49 !important;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.confirm-button:disabled {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #f1aa55;
+  background-color: #f1aa55 !important;
+  color: black;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+@media only screen and (max-width: 895px) {
+  .confirm-button {
   }
-  
-  .confirm-button:focus {
-    font-family: "proxima_nova_semibold";
-    font-size: 1.48em;
-    border: solid 1px #ffad49;
-    background-color: #ffad49;
-    color: black;
-    grid-area: confirm;
-    outline: none !important;
-    box-shadow: none !important;
-  }
-  
-  .confirm-button:hover {
-    font-family: "proxima_nova_semibold";
-    font-size: 1.48em;
-    border: solid 1px #ffad49;
-    background-color: #ffad49;
-    color: white;
-    grid-area: confirm;
-    outline: none;
-    box-shadow: none;
-  }
-  
-  .confirm-button:active {
-    font-family: "proxima_nova_semibold";
-    font-size: 1.48em;
-    border: solid 1px #ffad49;
-    background-color: #ffad49 !important;
-    color: white;
-    grid-area: confirm;
-    outline: none;
-    box-shadow: none;
-  }
-  
-  .confirm-button:disabled{
-    font-family: "proxima_nova_semibold";
-    font-size: 1.48em;
-    border: solid 1px #f1aa55;
-    background-color: #f1aa55 !important;
-    color: black;
-    grid-area: confirm;
-    outline: none;
-    box-shadow: none;
-  }
+}
+
+@media only screen and (max-width: 426px) {
+}

@@ -8,16 +8,16 @@ class FeedbackNotification extends Component {
     if (window.innerWidth <= 426) {
       avatar = (
         <div>
-          <Avatar size="40px" className={styles.avatar} round={true} />
+          <Avatar size="40px" name={this.props.name} className={styles.avatar} round={true} />
         </div>
       );
     } else {
-      avatar = <Avatar size="55px" className={styles.avatar} round={true} />;
+      avatar = <Avatar size="55px" name={this.props.name} className={styles.avatar} round={true} />;
     }
     return (
       <div className={styles.indicator}>
         {avatar}
-        <h5 className={styles.notification}>USER left you feedback</h5>
+        <h5 className={styles.notification}>{this.props.name} left you feedback</h5>
       </div>
     );
   }

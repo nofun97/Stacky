@@ -25,8 +25,24 @@ class CreateFeedback extends Component {
   }
 
   handleSubmit = (values, action) => {
+    /*
+      values: {
+              studentCanImprove: "",
+              studentDoWell: "",
+              teacherCanImprove: "",
+              teacherDoWell: "",
+            }
+    */
     // make the submit button disabled
     this.submitButton.setAttribute("disabled", true);
+    this.props.history.push({
+      pathname: "/feedback_success",
+      state: {
+        userID: this.props.id,
+        userFirstName: this.props.firstName,
+        userLastName: this.props.lastName,
+      },
+    })
   };
 
   render() {
@@ -57,7 +73,7 @@ class CreateFeedback extends Component {
                   className={styles.studentFeedback}
                   controlId="studentFeedback"
                 >
-                  <h5 classname={styles.subheader}>As a student...</h5>
+                  <h5 className={styles.subheader}>As a student...</h5>
                   <div>
                     <Form.Label className={styles.question}>
                       What can they improve on?
@@ -65,7 +81,8 @@ class CreateFeedback extends Component {
                     <Form.Control
                       name="studentCanImprove"
                       as="textarea"
-                      placeholder="Enter Feedback"
+                      maxLength="250"
+                      placeholder="Enter Feedback (max: 250 char)"
                       onChange={handleChange}
                       value={values.studentCanImprove}
                       isInvalid={!!errors.studentCanImprove}
@@ -82,7 +99,8 @@ class CreateFeedback extends Component {
                     <Form.Control
                       name="studentDoWell"
                       as="textarea"
-                      placeholder="Enter Feedback"
+                      maxLength="250"
+                      placeholder="Enter Feedback (max: 250 char)"
                       onChange={handleChange}
                       value={values.studentDoWell}
                       isInvalid={!!errors.studentDoWell}
@@ -97,7 +115,7 @@ class CreateFeedback extends Component {
                   className={styles.teacherFeedback}
                   controlId="teacherFeedback"
                 >
-                  <h5 classname={styles.subheader}>As a teacher...</h5>
+                  <h5 className={styles.subheader}>As a teacher...</h5>
                   <div>
                     <Form.Label className={styles.question}>
                       What can they improve on?
@@ -105,7 +123,8 @@ class CreateFeedback extends Component {
                     <Form.Control
                       name="teacherCanImprove"
                       as="textarea"
-                      placeholder="Enter Feedback"
+                      maxLength="250"
+                      placeholder="Enter Feedback (max: 250 char)"
                       onChange={handleChange}
                       value={values.teacherCanImprove}
                       isInvalid={!!errors.teacherCanImprove}
@@ -122,7 +141,8 @@ class CreateFeedback extends Component {
                     <Form.Control
                       name="teacherDoWell"
                       as="textarea"
-                      placeholder="Enter Feedback"
+                      maxLength="250"
+                      placeholder="Enter Feedback (max: 250 char)"
                       onChange={handleChange}
                       value={values.teacherDoWell}
                       isInvalid={!!errors.teacherDoWell}
@@ -133,6 +153,7 @@ class CreateFeedback extends Component {
                   </div>
                 </Form.Group>
 
+                <div className={styles.button}>
                 <Button
                   ref={submitButton => {
                     this.submitButton = submitButton;
@@ -143,6 +164,8 @@ class CreateFeedback extends Component {
                 >
                   Confirm
                 </Button>
+                </div>
+                
               </Form>
             )}
           </Formik>

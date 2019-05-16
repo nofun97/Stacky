@@ -52,7 +52,6 @@ class Search extends Component {
   };
 
   handleFetchUsers = async () => {
-    console.log(this.state.currentIndex);
     var query = `/api/users?from=${this.state.currentIndex}&size=${
       this.state.dataPerPage
     }`;

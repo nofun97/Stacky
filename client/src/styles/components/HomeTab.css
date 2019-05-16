@@ -20,6 +20,12 @@
   cursor: default;
 }
 
+@media only screen and (max-width: 895px) {
+  .nav-tab {
+    font-size: 1.4em;
+  }
+}
+
 @media only screen and (max-width: 426px) {
   .nav-tab {
     font-size: 1.2em;

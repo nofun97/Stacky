@@ -7,16 +7,16 @@ class FeedbackDetails extends Component {
   render() {
     return (
       <div className={styles.Detail}>
-        <h5 className={styles.header}>User</h5>
+        <h5 className={styles.header}>{this.props.name}</h5>
 
         <div className={styles.Review}>
           <AddIcon className={styles.icon} />
-          <text className={styles.notification}>I like</text>
+          <text className={styles.notification}>{this.props.pros}</text>
         </div>
 
         <div className={styles.Review}>
-        <RemoveIcon className={styles.icon} />
-          <text className={styles.notification}>I like blah</text>
+          <RemoveIcon className={styles.icon} />
+          <text className={styles.notification}>{this.props.cons}</text>
         </div>
       </div>
     );

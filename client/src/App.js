@@ -17,6 +17,7 @@ import OthersProfile from "./pages/OthersProfile";
 import PageNotFound from "./pages/PageNotFound";
 import CreateAppointment from "./pages/CreateAppointment";
 import CreateFeedback from "./pages/CreateFeedback";
+import FeedbackSuccess from "./pages/FeedbackSuccess";
 
 const mapStateToProps = state => {
   return {
@@ -56,6 +57,7 @@ class App extends Component {
             component={CreateAppointment}
           />
           <Route exact path="/user" component={OthersProfile} />
+          <Route path="/feedback_success" component={FeedbackSuccess} />
           <Redirect to="/home" />
         </Switch>
       </div>
