@@ -317,9 +317,9 @@ class Search extends Component {
     return (
       <section className={styles.container}>
         <div className={styles.options}>
-          <div>
+          <div className={styles.locationContainer}>
             <LocationOnIcon />
-            <text className={styles.location}>26 Location Street</text>
+            <div className={styles.location}>Electron Avenue</div>
           </div>
 
           <div className={styles.navButtons}>

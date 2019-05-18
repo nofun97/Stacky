@@ -12,15 +12,23 @@
 
 .options {
   display: grid;
-  grid-template-columns: 1fr 5fr 2.6fr 0.2fr;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  grid-template-columns: 2fr 5fr 3fr 0.2fr;
   grid-template-rows: auto;
   grid-template-areas: 
     "location . navButtons icon"
 }
 
-.location{
+.locationContainer{
   grid-area: location;
-  
+  display: flex;
+  flex-direction: row;
+}
+
+.location{
+  font-family: "proxima_nova_semibold";
+  font-size: 1.2em;
 }
 
 .navButtons{
@@ -58,6 +66,24 @@
   margin-right: 1em;
 }
 
+.indiv-btn:focus{
+  border: solid 1px #ff8d3b;
+  background-color: #3a3838;
+  color: #ff8d3b;
+}
+
+.indiv-btn:hover{
+  border: solid 1px #ff8d3b;
+  background-color: #3a3838;
+  color: #ff8d3b;
+}
+
+.indiv-btn:active{
+  border: solid 1px #ff8d3b;
+  background-color: #3a3838;
+  color: #ff8d3b;
+}
+
 .workshop-btn {
   font-family: "proxima_nova_semibold";
   font-size: 1.48em;
@@ -65,6 +91,25 @@
   background-color: #ffffff;
   color: black;
 }
+
+.workshop-btn:focus{
+  border: solid 1px #ff8d3b;
+  background-color: #ffffff;
+  color: #ff8d3b;
+}
+
+.workshop-btn:hover{
+  border: solid 1px #ff8d3b;
+  background-color: #ffffff;
+  color: #ff8d3b;
+}
+
+.workshop-btn:active{
+  border: solid 1px #ff8d3b;
+  background-color: #ffffff;
+  color: #ff8d3b;
+}
+
 
 .back-btn {
   margin-right: 5px;
