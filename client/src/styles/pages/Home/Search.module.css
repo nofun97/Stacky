@@ -12,7 +12,26 @@
 
 .options {
   display: grid;
-  justify-items: flex-end;
+  grid-template-columns: 1fr 5fr 2.6fr 0.2fr;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "location . navButtons icon"
+}
+
+.location{
+  grid-area: location;
+  
+}
+
+.navButtons{
+  grid-area: navButtons;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.icon{
+  grid-area: icon;
 }
 
 .bottom {
@@ -28,6 +47,23 @@
   font-family: "proxima_nova_semibold";
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.indiv-btn {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #3a3838;
+  background-color: #3a3838;
+  color: white;
+  margin-right: 1em;
+}
+
+.workshop-btn {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #3a3838;
+  background-color: #ffffff;
+  color: black;
 }
 
 .back-btn {
