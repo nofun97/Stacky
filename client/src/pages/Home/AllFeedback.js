@@ -9,28 +9,15 @@ class AllFeedback extends Component {
     super(props);
     this.state = {
       backHome: false,
-      learnerFeedback: [
-        {
-          firstName: "Raol",
-          lastName: "Slioco",
-          pros:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere porro delectus aspernatur iure debitis placeat accusantium odio. Fugiat unde consequatur, tempore consequuntur sapiente quisquam sed aut, temporibus quas voluptatibus deserunt nam even.",
-          cons: "THIS A NON VALID STATEMENT AND IT IS FULL OF NEGATIVITY",
-          _id: 1,
-        },
-      ],
-      teacherFeedback: [
-        {
-          firstName: "Raol",
-          lastName: "Slioco",
-          pros:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere porro delectus aspernatur iure debitis placeat accusantium odio. Fugiat unde consequatur, tempore consequuntur sapiente quisquam sed aut, temporibus quas voluptatibus deserunt nam even.",
-          cons: "THIS A NON VALID STATEMENT AND IT IS FULL OF NEGATIVITY",
-          _id: 2,
-        },
-      ],
+      learnerFeedback: [],
+      teacherFeedback: [],
+      //TODO: implement pagination
+      index: 0,
+      size: 8,
     };
     this.handleBack = this.handleBack.bind(this);
+    this.handleFetch = this.handleFetch.bind(this);
+    this.handleNextPage = this.handleNextPage.bind(this);
   }
 
   handleBack(){
@@ -38,6 +25,57 @@ class AllFeedback extends Component {
       backHome: true,
     })
   }
+
+
+  handleFetch = async () => {
+    const URL = '/api/review';
+    const query = `?id=${this.props.id}&from=${this.state.index}&size=${this.state.size}`;
+    const option = {
+      credentials: "include",
+      method: "GET"
+    }
+    console.log(URL + query);
+    const status = await fetch(URL + query, option);
+    const response = await status.json();
+    if (response.error !== undefined){
+      console.log(response.error);
+      return;
+    }
+    console.log(response);
+    var student = response.asReviewee.filter(e => e.Type === "Student");
+    var teacher = response.asReviewee.filter(e => e.Type === "Teacher");
+
+    student = student.map(e => {
+      return {
+        firstName: e.ReviewerFirstName,
+        lastName: e.ReviewerLastName,
+        pros: e.Pros,
+        cons: e.Cons,
+        _id: e._id,
+      };
+    });
+
+    teacher = teacher.map(e => {
+      return {
+        firstName: e.ReviewerFirstName,
+        lastName: e.ReviewerLastName,
+        pros: e.Pros,
+        cons: e.Cons,
+        _id: e._id,
+      };
+    });
+    console.log(student);
+    console.log(teacher);
+    this.setState({
+      ...this.state,
+      learnerFeedback: student,
+      teacherFeedback: teacher,
+    })
+  }
+
+  handleNextPage = () => this.setState({index: this.state.index + this.state.size});
+
+  componentDidMount = async () => await this.handleFetch();
 
   render() {
     if(this.state.backHome === true){
