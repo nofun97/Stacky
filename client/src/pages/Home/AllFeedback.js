@@ -56,7 +56,26 @@ class AllFeedback extends Component {
           <FeedbackDetailsList values={this.state.teacherFeedback} />
         </div>
 
-        <Button className={styles.button} onClick={this.handleBack}>Back to My Home</Button>
+        <div className={styles.bottom}>
+          <div className={styles.goHome}>
+            <Button className={styles.button} onClick={this.handleBack}>Back to My Home</Button>
+          </div>
+
+          <div className={styles.nav}>
+            <Button
+              className={`${styles["next-btn"]} ${styles["back-btn"]}`}
+              onClick={this.handlePreviousPage}
+            >
+              {`<`}
+            </Button>
+            <span className={styles.pagination}>
+              page {this.state.pageNumber} of {this.state.totalPageNumber}
+            </span>
+            <Button className={styles["next-btn"]} onClick={this.handleNextPage}>
+              >
+            </Button>
+          </div>
+        </div>
       </section>
     );
   }
