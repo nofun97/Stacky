@@ -12,7 +12,23 @@
 
 .options {
   display: grid;
-  justify-items: flex-end;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  grid-template-columns: 5fr 1.6fr 0.2fr;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    ". navButtons icon"
+}
+
+.navButtons{
+  grid-area: navButtons;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.icon{
+  grid-area: icon;
 }
 
 .bottom {
@@ -29,6 +45,60 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+
+.indiv-btn {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #3a3838;
+  background-color: #3a3838;
+  color: white;
+  margin-right: 1em;
+}
+
+.indiv-btn:focus{
+  border: solid 1px #ff8d3b;
+  background-color: #3a3838;
+  color: #ff8d3b;
+}
+
+.indiv-btn:hover{
+  border: solid 1px #ff8d3b;
+  background-color: #3a3838;
+  color: #ff8d3b;
+}
+
+.indiv-btn:active{
+  border: solid 1px #ff8d3b;
+  background-color: #3a3838;
+  color: #ff8d3b;
+}
+
+.workshop-btn {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #3a3838;
+  background-color: #ffffff;
+  color: black;
+}
+
+.workshop-btn:focus{
+  border: solid 1px #ff8d3b;
+  background-color: #ffffff;
+  color: #ff8d3b;
+}
+
+.workshop-btn:hover{
+  border: solid 1px #ff8d3b;
+  background-color: #ffffff;
+  color: #ff8d3b;
+}
+
+.workshop-btn:active{
+  border: solid 1px #ff8d3b;
+  background-color: #ffffff;
+  color: #ff8d3b;
+}
+
 
 .back-btn {
   margin-right: 5px;
