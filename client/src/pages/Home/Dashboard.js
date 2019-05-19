@@ -11,15 +11,13 @@ class Dashboard extends Component {
     this.state = {
       viewAppointment: false,
       viewFeedback: false,
-      // mock for feedback list (remove when already using fetch to fetch the user)
-      feedbackUsers: [
-        { firstName: "Raol", lastName: "Slioco", _id: 1 },
-        { firstName: "Kaye", lastName: "Yoss", _id: 2 },
-      ],
+      feedbackUsers: [],
+      size: 4
     };
     this.handleAppointments = this.handleAppointments.bind(this);
     this.handleFeedback = this.handleFeedback.bind(this);
     this.updateWindow = this.updateWindow.bind(this);
+    this.handleRecentFeedback = this.handleRecentFeedback.bind(this);
   }
 
   updateWindow() {
@@ -27,12 +25,49 @@ class Dashboard extends Component {
   }
 
   // for responsiveness of the avatar
-  componentDidMount() {
+  componentDidMount = async () => {
     window.addEventListener("resize", this.updateWindow);
+    await this.handleRecentFeedback();
   }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateWindow);
+  }
+
+  handleRecentFeedback = async () => {
+    const URL = '/api/review';
+    const query = `?id=${this.props.id}&from=0&size=${this.state.size}`
+    const option = {
+      credentials: "include",
+      method: "GET"
+    }
+
+    const status = await fetch(URL + query, option);
+    const response = await status.json();
+    if (response.error !== undefined){
+      console.log(response.error);
+      return;
+    }
+
+    var student = response.asReviewee.map(e => {
+      return {
+        firstName: e.ReviewerFirstName,
+        lastName: e.ReviewerLastName,
+        _id: e._id
+      }
+    })
+
+    var filteredStudent = []
+
+    for(let i = 0; i < student.length; i++){
+      if(i % 2 === 0){
+        filteredStudent.push(student[i]);
+      }
+    }
+    this.setState({
+      ...this.state,
+      feedbackUsers: filteredStudent,
+    })
   }
 
   handleAppointments() {

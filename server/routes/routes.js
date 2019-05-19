@@ -50,7 +50,7 @@ router.get(
 );
 
 // Review Model Routes
-router.get("/review", auth.ensureAuthenticated, reviewController.getAllReview);
+router.get("/review", auth.ensureAuthenticated, reviewController.getReviewOfUser);
 router.post("/review", auth.ensureAuthenticated, reviewController.addReview);
 router.delete(
   "/review/:id",
@@ -64,17 +64,17 @@ router.post(
 );
 
 // Should get CreatedBy from the body
-router.get(
-  "/review/by",
-  auth.ensureAuthenticated,
-  reviewController.getAllReviewOfUser
-);
-// Should get CreatedFor from the body
-router.get(
-  "/review/for",
-  auth.ensureAuthenticated,
-  reviewController.getPersonalReviewOfUser
-);
+// router.get(
+//   "/review/by",
+//   auth.ensureAuthenticated,
+//   reviewController.getReviewOfUser
+// );
+// // Should get CreatedFor from the body
+// router.get(
+//   "/review/for",
+//   auth.ensureAuthenticated,
+//   reviewController.getPersonalReviewOfUser
+// );
 
 // Appointment Model Routes
 router.get(

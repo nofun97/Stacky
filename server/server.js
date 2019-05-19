@@ -6,6 +6,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var path = require("path");
 var passport = require("passport");
+var MemoryStore = require('memorystore')(session)
 
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
@@ -16,6 +17,12 @@ app.use(
     secret: "stacky-chan", //pick a random string to make the hash that is generated secure
     resave: false, //required
     saveUninitialized: false, //required
+    store: new MemoryStore({
+      checkPeriod: 86400000
+    }), 
+    cookie: {
+      maxAge: Date.now() + (30 * 86400 * 1000)
+    },
   })
 );
 app.use(bodyParser.urlencoded({ extended: true }));
