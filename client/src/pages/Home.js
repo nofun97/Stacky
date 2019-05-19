@@ -149,7 +149,16 @@ class Home extends Component {
         </header>
         <hr className={styles.line} />
         <Switch>
-          <Route exact path="/home" component={Dashboard} />
+          <Route 
+          exact path="/home" 
+            render = {
+              props => (
+                <Dashboard
+                  {...props}
+                  id={this.state.id}
+                  />
+              )
+            } />
           <Route
             path="/home/profile"
             render={props => (
