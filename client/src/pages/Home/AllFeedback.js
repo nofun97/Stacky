@@ -9,39 +9,107 @@ class AllFeedback extends Component {
     super(props);
     this.state = {
       backHome: false,
-      learnerFeedback: [
-        {
-          firstName: "Raol",
-          lastName: "Slioco",
-          pros:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere porro delectus aspernatur iure debitis placeat accusantium odio. Fugiat unde consequatur, tempore consequuntur sapiente quisquam sed aut, temporibus quas voluptatibus deserunt nam even.",
-          cons: "THIS A NON VALID STATEMENT AND IT IS FULL OF NEGATIVITY",
-          _id: 1,
-        },
-      ],
-      teacherFeedback: [
-        {
-          firstName: "Raol",
-          lastName: "Slioco",
-          pros:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere porro delectus aspernatur iure debitis placeat accusantium odio. Fugiat unde consequatur, tempore consequuntur sapiente quisquam sed aut, temporibus quas voluptatibus deserunt nam even.",
-          cons: "THIS A NON VALID STATEMENT AND IT IS FULL OF NEGATIVITY",
-          _id: 2,
-        },
-      ],
+      learnerFeedback: [],
+      teacherFeedback: [],
+      //TODO: implement pagination
+      pageNumber: 1,
+      totalPageNumber: 1,
+      index: 0,
+      dataPerPage: 4,
+      changes: false,
     };
     this.handleBack = this.handleBack.bind(this);
+    this.handleFetch = this.handleFetch.bind(this);
+    this.handleNextPage = this.handleNextPage.bind(this);
+    this.handlePreviousPage = this.handlePreviousPage.bind(this);
   }
 
-  handleBack(){
+  handleBack() {
     this.setState({
       backHome: true,
-    })
+    });
   }
 
+  handleFetch = async () => {
+    const URL = "/api/review";
+    const query = `?id=${this.props.id}&from=${this.state.index}&size=${
+      this.state.dataPerPage
+    }`;
+    const option = {
+      credentials: "include",
+      method: "GET",
+    };
+    const status = await fetch(URL + query, option);
+    const response = await status.json();
+    if (response.error !== undefined) {
+      console.log(response.error);
+      return;
+    }
+    var totalFeedback = response.total;
+    var student = response.asReviewee.filter(e => e.Type === "Student");
+    var teacher = response.asReviewee.filter(e => e.Type === "Teacher");
+
+    student = student.map(e => {
+      return {
+        firstName: e.ReviewerFirstName,
+        lastName: e.ReviewerLastName,
+        pros: e.Pros,
+        cons: e.Cons,
+        _id: e._id,
+      };
+    });
+
+    teacher = teacher.map(e => {
+      return {
+        firstName: e.ReviewerFirstName,
+        lastName: e.ReviewerLastName,
+        pros: e.Pros,
+        cons: e.Cons,
+        _id: e._id,
+      };
+    });
+    this.setState({
+      ...this.state,
+      learnerFeedback: student,
+      teacherFeedback: teacher,
+      totalPageNumber: Math.ceil((totalFeedback) / this.state.dataPerPage),
+    });
+  };
+
+  handleNextPage = () => {
+    if (this.state.pageNumber < this.state.totalPageNumber) {
+      this.setState({
+        index: this.state.index + this.state.dataPerPage,
+        pageNumber: this.state.pageNumber + 1,
+        changes: true,
+      });
+    }
+  };
+
+  handlePreviousPage = () => {
+    if (this.state.index > 0) {
+      this.setState({
+        index: this.state.index - this.state.dataPerPage,
+        pageNumber: this.state.pageNumber - 1,
+        changes: true,
+      });
+    }
+  };
+
+  componentDidMount = async () => await this.handleFetch();
+
+  componentDidUpdate = async () => {
+    if (this.state.changes) {
+      this.handleFetch();
+      this.setState({
+        changes: false
+      });
+    }
+  };
+
   render() {
-    if(this.state.backHome === true){
-      return <Redirect to="/home"/>;
+    if (this.state.backHome === true) {
+      return <Redirect to="/home" />;
     }
 
     return (
@@ -58,7 +126,9 @@ class AllFeedback extends Component {
 
         <div className={styles.bottom}>
           <div className={styles.goHome}>
-            <Button className={styles.button} onClick={this.handleBack}>Back to My Home</Button>
+            <Button className={styles.button} onClick={this.handleBack}>
+              Back to My Home
+            </Button>
           </div>
 
           <div className={styles.nav}>
@@ -71,7 +141,10 @@ class AllFeedback extends Component {
             <span className={styles.pagination}>
               page {this.state.pageNumber} of {this.state.totalPageNumber}
             </span>
-            <Button className={styles["next-btn"]} onClick={this.handleNextPage}>
+            <Button
+              className={styles["next-btn"]}
+              onClick={this.handleNextPage}
+            >
               >
             </Button>
           </div>
