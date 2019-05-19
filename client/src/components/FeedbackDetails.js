@@ -11,12 +11,12 @@ class FeedbackDetails extends Component {
 
         <div className={styles.Review}>
           <AddIcon className={styles.icon} />
-          <text className={styles.notification}>{this.props.pros}</text>
+          <div className={styles.notification}>{this.props.pros}</div>
         </div>
 
         <div className={styles.Review}>
           <RemoveIcon className={styles.icon} />
-          <text className={styles.notification}>{this.props.cons}</text>
+          <div className={styles.notification}>{this.props.cons}</div>
         </div>
       </div>
     );
