@@ -14,7 +14,7 @@ const schema = yup.object({
 
   teacherCanImprove: yup.string().required("Please fill in the form"),
 
-  teacherDoWell: yup.string().required("Please fill in the form")
+  teacherDoWell: yup.string().required("Please fill in the form"),
 });
 
 class CreateFeedback extends Component {
@@ -25,6 +25,14 @@ class CreateFeedback extends Component {
   }
 
   handleSubmit = async (values, action) => {
+    /*
+      values: {
+              studentCanImprove: "",
+              studentDoWell: "",
+              teacherCanImprove: "",
+              teacherDoWell: "",
+            }
+    */
     console.log(values);
     console.log(this.props);
     const header = {
@@ -35,15 +43,15 @@ class CreateFeedback extends Component {
       ReviewerFirstName: this.props.location.state.CreatorFirstName,
       ReviewerLastName: this.props.location.state.CreatorLastName,
       RevieweeFirstName: this.props.location.state.InviteeFirstName,
-      RevieweeLastName: this.props.location.state.InviteeLastName
+      RevieweeLastName: this.props.location.state.InviteeLastName,
     };
 
     const option = {
       method: "POST",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
     const asStudent = {
       ...option,
@@ -52,7 +60,7 @@ class CreateFeedback extends Component {
         Pros: values.studentDoWell,
         Cons: values.studentCanImprove,
         Type: "Student",
-      })
+      }),
     };
 
     const asTeacher = {
@@ -61,8 +69,8 @@ class CreateFeedback extends Component {
         ...header,
         Pros: values.teacherDoWell,
         Cons: values.teacherCanImprove,
-        Type: "Teacher"
-      })
+        Type: "Teacher",
+      }),
     };
 
     var asTeacherStatus = await fetch("/api/review", asTeacher);
@@ -82,36 +90,30 @@ class CreateFeedback extends Component {
         state: {
           userID: this.props.location.state.CreatorID,
           userFirstName: this.props.location.state.CreatorFirstName,
-          userLastName: this.props.location.state.CreatorLastName
-        }
+          userLastName: this.props.location.state.CreatorLastName,
+        },
       });
     }
-    /*
-      values: {
-              studentCanImprove: "",
-              studentDoWell: "",
-              teacherCanImprove: "",
-              teacherDoWell: "",
-            }
-    */
   };
 
   render() {
-    // /* for later when it's connected to backend need to uncomment to block people from accessing the route */
+    /* for later when it's connected to backend need to uncomment to block people from accessing the route */
     if (this.props.location.state === undefined) {
       return <Redirect to="/page_not_found" />;
     }
 
+    let name = `${this.props.location.state.InviteeFirstName} ${this.props.location.state.InviteeLastName}`;
+
     return (
       <div className={styles.CreateAppointment}>
         <section className={styles.Main}>
-          <h1 className={styles.header}>Feedback for USER</h1>
+          <h1 className={styles.header}>Feedback for {name}</h1>
           <Formik
             initialValues={{
               studentCanImprove: "",
               studentDoWell: "",
               teacherCanImprove: "",
-              teacherDoWell: ""
+              teacherDoWell: "",
             }}
             validationSchema={schema}
             validateOnBlur={false}

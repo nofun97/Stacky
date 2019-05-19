@@ -12,7 +12,7 @@ class Dashboard extends Component {
       viewAppointment: false,
       viewFeedback: false,
       feedbackUsers: [],
-      size: 2
+      size: 4
     };
     this.handleAppointments = this.handleAppointments.bind(this);
     this.handleFeedback = this.handleFeedback.bind(this);
@@ -48,7 +48,7 @@ class Dashboard extends Component {
       console.log(response.error);
       return;
     }
-    console.log(response);
+
     var student = response.asReviewee.map(e => {
       return {
         firstName: e.ReviewerFirstName,
@@ -57,9 +57,16 @@ class Dashboard extends Component {
       }
     })
 
+    var filteredStudent = []
+
+    for(let i = 0; i < student.length; i++){
+      if(i % 2 === 0){
+        filteredStudent.push(student[i]);
+      }
+    }
     this.setState({
       ...this.state,
-      feedbackUsers: student,
+      feedbackUsers: filteredStudent,
     })
   }
 
