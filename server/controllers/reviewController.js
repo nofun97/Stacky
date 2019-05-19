@@ -78,16 +78,13 @@ var getReviewOfUser = function(req, res) {
   var index = parseInt(req.query.from);
   var size = parseInt(req.query.size);
   var user = mongoose.Types.ObjectId(req.query.id);
-  var query = {"$or": [{"CreatedBy": user}, {"CreatedFor": user}]};
+  var query = {"CreatedFor": user};
 
   Review.paginate(query, {offset: index, limit: size}, (err, result) => {
     if (!err){
-      const asCreator = result.docs.filter(data => data.CreatedBy.toString() === req.query.id);
       const asReviewee = result.docs.filter(data => data.CreatedFor.toString() === req.query.id);
-      console.log(asCreator);
-      console.log(asReviewee);
+      
       res.send({
-        asCreator: asCreator,
         asReviewee: asReviewee,
         total: result.totalDocs
       })
