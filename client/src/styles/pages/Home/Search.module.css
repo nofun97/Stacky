@@ -49,54 +49,56 @@
 .indiv-btn {
   font-family: "proxima_nova_semibold";
   font-size: 1.48em;
-  border: solid 1px #3a3838;
-  background-color: #3a3838;
-  color: white;
+  border: solid 1px #fe926b;
+  background-color: #fe926b;
+  color: black;
   margin-right: 1em;
 }
 
 .indiv-btn:focus{
-  border: solid 1px #ff8d3b;
-  background-color: #3a3838;
+  border: solid 1px #fe926b;
+  background-color: #fe926b;
   color: #ff8d3b;
 }
 
 .indiv-btn:hover{
-  border: solid 1px #ff8d3b;
-  background-color: #3a3838;
+  border: solid 1px #fd855d;
+  background-color: #fd855d;
   color: #ff8d3b;
+  color: white;
 }
 
 .indiv-btn:active{
-  border: solid 1px #ff8d3b;
-  background-color: #3a3838;
+  border: solid 1px #fd855d;
+  background-color: #fd855d;
   color: #ff8d3b;
+  color: white;
 }
 
 .workshop-btn {
   font-family: "proxima_nova_semibold";
   font-size: 1.48em;
-  border: solid 1px #3a3838;
-  background-color: #ffffff;
+  border: solid 1px #ffaa6d;
+  background-color: #ffaa6d;
   color: black;
 }
 
 .workshop-btn:focus{
-  border: solid 1px #ff8d3b;
-  background-color: #ffffff;
-  color: #ff8d3b;
+  border: solid 1px #ffaa6d;
+  background-color: #ffaa6d;
+  color: black;
 }
 
 .workshop-btn:hover{
-  border: solid 1px #ff8d3b;
-  background-color: #ffffff;
-  color: #ff8d3b;
+  border: solid 1px #ff9d57;
+  background-color: #ff9d57;
+  color: white;
 }
 
 .workshop-btn:active{
-  border: solid 1px #ff8d3b;
-  background-color: #ffffff;
-  color: #ff8d3b;
+  border: solid 1px #ff9d57;
+  background-color: #ff9d57;
+  color: white;
 }
 
 
