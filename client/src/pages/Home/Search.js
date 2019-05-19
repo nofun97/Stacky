@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "react-bootstrap/Button";
 import IconButton from "@material-ui/core/IconButton";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { connect } from "react-redux";
 import PeopleCardList from "../../components/PeopleCardList";
@@ -317,11 +316,6 @@ class Search extends Component {
     return (
       <section className={styles.container}>
         <div className={styles.options}>
-          <div className={styles.locationContainer}>
-            <LocationOnIcon />
-            <div className={styles.location}>Electron Avenue</div>
-          </div>
-
           <div className={styles.navButtons}>
             <Button className={styles["indiv-btn"]} onClick={this.goToIndividuals}>
               Individuals

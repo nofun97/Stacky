@@ -14,21 +14,10 @@
   display: grid;
   margin-top: 10px;
   margin-bottom: 10px;
-  grid-template-columns: 2fr 5fr 3fr 0.2fr;
+  grid-template-columns: 5fr 1.6fr 0.2fr;
   grid-template-rows: auto;
   grid-template-areas: 
-    "location . navButtons icon"
-}
-
-.locationContainer{
-  grid-area: location;
-  display: flex;
-  flex-direction: row;
-}
-
-.location{
-  font-family: "proxima_nova_semibold";
-  font-size: 1.2em;
+    ". navButtons icon"
 }
 
 .navButtons{
