@@ -58,20 +58,18 @@
 .indiv-btn:focus{
   border: solid 1px #fe926b;
   background-color: #fe926b;
-  color: #ff8d3b;
+  color: black;
 }
 
 .indiv-btn:hover{
   border: solid 1px #fd855d;
-  background-color: #fd855d;
-  color: #ff8d3b;
+  background-color: #fd855d !important;
   color: white;
 }
 
 .indiv-btn:active{
   border: solid 1px #fd855d;
-  background-color: #fd855d;
-  color: #ff8d3b;
+  background-color: #fd855d !important;
   color: white;
 }
 
@@ -91,13 +89,13 @@
 
 .workshop-btn:hover{
   border: solid 1px #ff9d57;
-  background-color: #ff9d57;
+  background-color: #ff9d57 !important;
   color: white;
 }
 
 .workshop-btn:active{
   border: solid 1px #ff9d57;
-  background-color: #ff9d57;
+  background-color: #ff9d57 !important;
   color: white;
 }
 
