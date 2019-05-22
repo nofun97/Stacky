@@ -5,30 +5,25 @@ import Avatar from "react-avatar";
 import styles from "../styles/components/WorkshopCard.module.css";
 
 class WorkshopCard extends Component {
-  constructor(props){
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    this.props.handleClick(this.props.id);
-  }
-
   render() {
     return (
       <Card>
-        <Avatar className={styles.avatar} src={this.props.image} size="150px" name={`${this.props.firstName} ${this.props.lastName}`}></Avatar>
+        <Avatar
+          className={styles.avatar}
+          src={this.props.image}
+          size="150px"
+          name={`${this.props.name}`}
+        />
         <Card.Body>
           <div className={styles.event}>
-            <Card.Title className = {styles.skill}>
-                (Skill Name)
-            </Card.Title>
-            <Card.Title className = {styles.workshop}>
-                Workshop
+            <Card.Title className={styles.workshop}>
+              ({this.props.category}) {this.props.name}
             </Card.Title>
           </div>
           <div className={styles.bottom}>
-             <Button className={styles.button} onClick={this.handleClick}>More</Button>
+            <a href={this.props.url} rel="noopener noreferrer" target="_blank">
+              <Button className={styles.button}>More</Button>
+            </a>
           </div>
         </Card.Body>
       </Card>
