@@ -1,102 +1,99 @@
-.bottom{
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-}
-.button {
-  position: relative;
-  padding: 0.4em 2.4em;
-  font-family: "proxima_nova_semibold";
-  font-size: 1.48em;
-  border: solid 1px #ffad49;
-  background-color: #ffad49;
-  color: black;
-  grid-area: confirm;
-  outline: none;
-  box-shadow: none;
+.summary {
+  padding: 10px;
+  display: grid;
+  grid-row-gap: 5px;
 }
 
-.button:focus {
+.spaced {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.line {
+  width: 40%;
+  color: #ff8d3b;
+  border: 2px solid;
+  margin: 5px 0 5px 0;
+}
+
+.label {
+  background-color: #ff9c40;
+}
+
+.card {
+  width: 90vw;
+  margin: 20px 0 20px 10px;
+}
+
+.workshop {
+  min-height: 23vh;
+  border: 1px solid #979797;
+  display: grid;
+  grid-template-columns: auto 30px;
+}
+
+.card_heading {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.429em;
+  margin-bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workshop_detail {
+  font-family: "proxima_nova";
+  font-size: 1.15em;
+}
+
+.address {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.16em;
+}
+
+.more-btn {
   font-family: "proxima_nova_semibold";
   font-size: 1.48em;
   border: solid 1px #ffad49;
   background-color: #ffad49;
   color: black;
-  grid-area: confirm;
+}
+
+.more-btn:focus {
+  font-family: "proxima_nova_semibold";
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
   outline: none !important;
   box-shadow: none !important;
 }
 
-.button:hover {
+.more-btn:hover {
   font-family: "proxima_nova_semibold";
-  font-size: 1.48em;
-  border: solid 1px #ffad49;
-  background-color: #ffad49;
+  border: solid 1px #ff9d25;
+  background-color: #ff9d25;
   color: white;
-  grid-area: confirm;
   outline: none;
   box-shadow: none;
 }
 
-.button:active {
+.more-btn:active {
   font-family: "proxima_nova_semibold";
-  font-size: 1.48em;
-  border: solid 1px #ffad49;
-  background-color: #ffad49 !important;
+  border: solid 1px #ff9d25;
+  background-color: #ff9d25 !important;
   color: white;
-  grid-area: confirm;
   outline: none;
   box-shadow: none;
-}
-
-.event{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.skill {
-  font-size: 1.48em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.workshop {
-  font-size: 1.48em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.avatar {
-  width: 100% !important;
-}
-
-@media only screen and (max-width: 895px) {
-  .button {
-    padding: 0.5em 0.7em;
-  }
-
-  .skill {
-    font-size: 1.3em;
-  }
-
-  .workshop {
-    font-size: 1.3em;
-  }
 }
 
 @media only screen and (max-width: 426px) {
-  .button {
-    padding: 0.3em 0.35em;
-  }
-
-  .skill {
-    font-size: 1.23em;
+  .card {
+    max-width: 84vw;
   }
 
   .workshop {
-    font-size: 1.23em;
+    grid-template-columns: auto 15px;
   }
 }

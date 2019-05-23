@@ -8,8 +8,9 @@ class WorkshopCardList extends Component {
     const workshopItem = workshop.map(workshop => (
       <WorkshopCard
         name={workshop.name}
-        image={workshop.image}
-        category={workshop.category}
+        date={workshop.date}
+        time={workshop.time}
+        location={workshop.location}
         url={workshop.url}
         id={workshop._id}
         key={workshop._id}
