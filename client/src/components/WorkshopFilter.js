@@ -13,15 +13,15 @@ class WorkshopFilter extends Component {
     this.handleTopicChange = this.handleTopicChange.bind(this);
   }
 
-  handleCityChange = (value) => {
-    // value is object {value: "", label: ""}
+  handleCityChange = value => {
+    // value is object {value: "", label: ""} or can be {value: {}, label: ""}
     this.props.handleCityFilter(value);
-  }
+  };
 
-  handleTopicChange = (value) => {
-    // value is object {value: "", label: ""}
+  handleTopicChange = value => {
+    // value is object {value: "", label: ""} or can be {value: {}, label: ""}
     this.props.handleTopicFilter(value);
-  }
+  };
 
   fetchCity = async inputValue => {
     // input value is a string (ex. "hello")
@@ -32,7 +32,8 @@ class WorkshopFilter extends Component {
         resolve();
       }, 5000)
     );
-    return [{ value: inputValue, label: inputValue }];
+    // can return in format of {value: {}, label: ""} or {value: "", label: ""}
+    return [{ value: { inputValue, testingObject: "yoman" }, label: inputValue }];
   };
 
   fetchTopic = async inputValue => {
@@ -44,6 +45,8 @@ class WorkshopFilter extends Component {
         resolve();
       }, 5000)
     );
+
+    // can return in format of {value: {}, label: ""} or {value: "", label: ""}
     return [{ value: inputValue, label: inputValue }];
   };
 
@@ -53,6 +56,7 @@ class WorkshopFilter extends Component {
         <div className={styles.citySelect}>
           <h5>Filter by your city</h5>
           <AsyncSelect
+            placeholder="Type and select your city here"
             cacheOptions
             value={this.props.filteredCity}
             defaultOptions={[]}
@@ -63,6 +67,7 @@ class WorkshopFilter extends Component {
         <div className={styles.topicSelect}>
           <h5>Filter by your topic</h5>
           <AsyncSelect
+            placeholder="Type and select your topic here"
             cacheOptions
             value={this.props.filteredTopic}
             defaultOptions={[]}
