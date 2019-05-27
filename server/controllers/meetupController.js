@@ -25,8 +25,9 @@ const findTopics = (req, res) => {
   if (req.query.size !== undefined) {
     size = parseInt(req.query.size);
   }
-  searchQuery = searchQuery.split(" ").join("+");
-  var query = `${BASE_URL}topics?&sign=true&photo-host=public&search=${searchQuery}&page=${size}&order=name&key=${API_KEY}`;
+  searchQuery = searchQuery.split(" ").join("%2B");
+  var query = `${BASE_URL}topics?&sign=true&photo-host=public&search=${searchQuery}&page=${size}&key=${API_KEY}`;
+  console.log("Query: ", query);
   axios
     .get(query)
     .then(d => res.send(d.data))
@@ -36,20 +37,24 @@ const findTopics = (req, res) => {
 const findEvents = (req, res) => {
   var lat = -37.810001373291016;
   var lon = 144.9600067138672;
-  var size = 20;
+  var time = "1m";
   var topic = "";
   var text = "";
+  var offset = 0;
+  var size = 8;
 
-  if (req.query.lat !== undefined && req.query.lon !== undefined) {
+  if (req.query.lat !== undefined || req.query.lon !== undefined) {
     lat = req.query.lat;
     lon = req.query.lon;
-  }
+  } 
 
-  size = req.query.size !== undefined ? req.query.size : size;
+  time = req.query.time !== undefined ? req.query.time : time;
   topic = req.query.topic !== undefined ? req.query.topic : topic;
   text = req.query.text !== undefined ? req.query.text : text;
+  offset = req.query.offset !== undefined ? req.query.offset : offset;
+  size = req.query.size !== undefined ? req.query.size : size;
 
-  var query = `${BASE_URL}2/open_events?key=${API_KEY}&sign=true&photo-host=public&size=${size}&lat=${lat}&lon=${lon}`;
+  var query = `${BASE_URL}2/open_events?key=${API_KEY}&sign=true&photo-host=public&time=,${time}&lat=${lat}&lon=${lon}&offset=${offset}&page=${size}`;
 
   if (topic !== "") {
     query += `&topic=${topic}`;
@@ -58,7 +63,6 @@ const findEvents = (req, res) => {
   if (text !== "") {
     query += `&topic=${text}`;
   }
-
   axios
     .get(query)
     .then(d => res.send(d.data))
