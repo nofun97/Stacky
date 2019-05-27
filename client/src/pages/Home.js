@@ -12,10 +12,13 @@ import styles from "../styles/pages/Home.module.css";
 import Dashboard from "./Home/Dashboard";
 import Profile from "./Home/Profile";
 import ProfileEdit from "./Home/ProfileEdit";
-import Chat from "./Home/Chat";
 import Search from "./Home/Search";
 import AllAppointment from "./Home/AllAppointment";
 import AllFeedback from "./Home/AllFeedback";
+import WorkshopSearch from "./Home/WorkshopSearch";
+
+// Chat component if possible to implement
+// import Chat from "./Home/Chat";
 
 const mapStateToProps = state => {
   return {
@@ -149,16 +152,11 @@ class Home extends Component {
         </header>
         <hr className={styles.line} />
         <Switch>
-          <Route 
-          exact path="/home" 
-            render = {
-              props => (
-                <Dashboard
-                  {...props}
-                  id={this.state.id}
-                  />
-              )
-            } />
+          <Route
+            exact
+            path="/home"
+            render={props => <Dashboard {...props} id={this.state.id} />}
+          />
           <Route
             path="/home/profile"
             render={props => (
@@ -175,11 +173,28 @@ class Home extends Component {
             // component={Profile}
           />
           <Route path="/home/profile_edit" component={ProfileEdit} />
-          <Route path="/home/chat" component={Chat} />
+
+          {/* 
+          Chat route if possible to implement
+          <Route path="/home/chat" component={Chat} /> 
+          */}
+
           <Route
+            exact
             path="/home/search"
             render={props => (
               <Search
+                {...props}
+                id={this.state.id}
+                firstName={this.state.FirstName}
+                lastName={this.state.LastName}
+              />
+            )}
+          />
+          <Route
+            path="/home/search/workshop"
+            render={props => (
+              <WorkshopSearch
                 {...props}
                 id={this.state.id}
                 firstName={this.state.FirstName}
@@ -194,6 +209,17 @@ class Home extends Component {
           <Route
             path="/home/feedbacks"
             render={props => <AllFeedback {...props} id={this.state.id} />}
+          />
+          <Route
+            path="/home/search"
+            render={props => (
+              <Search
+                {...props}
+                id={this.state.id}
+                firstName={this.state.FirstName}
+                lastName={this.state.LastName}
+              />
+            )}
           />
           <Redirect exact to="/home" />
         </Switch>

@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import IconButton from "@material-ui/core/IconButton";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import PeopleCardList from "../../components/PeopleCardList";
 import FilterDrawer from "../../components/FilterDrawer";
 import styles from "../../styles/pages/Home/Search.module.css";
@@ -34,7 +35,8 @@ class Search extends Component {
       filterSkill: [],
       skills: [],
       changes: false,
-      hasSearcher: 0
+      hasSearcher: 0,
+      workshop: false,
     };
   }
 
@@ -312,7 +314,17 @@ class Search extends Component {
     }
   };
 
+  goToWorkshops = () => {
+    this.setState({
+      workshop: true,
+    })
+  }
+
   render() {
+    if(this.state.workshop === true){
+      return <Redirect to="/home/search/workshop" />
+    }
+
     return (
       <section className={styles.container}>
         <div className={styles.options}>
@@ -365,7 +377,7 @@ class Search extends Component {
             {`<`}
           </Button>
           <span className={styles.pagination}>
-            page {this.state.pageNumber} of {this.state.totalPageNumber}
+            Page {this.state.pageNumber} of {this.state.totalPageNumber}
           </span>
           <Button className={styles["next-btn"]} onClick={this.handleNextPage}>
             >

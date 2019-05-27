@@ -39,7 +39,7 @@
   .Review {
     display: grid;
     grid-template-columns: 40px auto;
-    grid-template-rows: 40px 110px;
+    grid-template-rows: 40px 70px;
   }
 
   .notification {

@@ -81,6 +81,7 @@
   grid-area: confirm;
   outline: none;
   box-shadow: none; 
+  margin-left: 5px;
 }
 
 .next-btn:focus {
