@@ -24,30 +24,33 @@ class WorkshopFilter extends Component {
   };
 
   fetchCity = async inputValue => {
-    // input value is a string (ex. "hello")
-    // fetch here then return the value of the label and value
-    await new Promise(resolve =>
-      setTimeout(() => {
-        console.log("yahoo");
-        resolve();
-      }, 5000)
-    );
-    // can return in format of {value: {}, label: ""} or {value: "", label: ""}
-    return [{ value: { inputValue, testingObject: "yoman" }, label: inputValue }];
+    
+    var response = await fetch(`/api/meetup/location?query=${inputValue}`);
+    var data = await response.json();
+    var values = data.results.map(d => {
+      return {
+        value: {
+          lon: d.lon,
+          lat: d.lat
+        },
+        label: d.name_string
+      }
+    });
+    
+    return values;
   };
 
   fetchTopic = async inputValue => {
-    // input value is a string (ex. "hello")
-    // fetch here then return the value of the label and value
-    await new Promise(resolve =>
-      setTimeout(() => {
-        console.log("yahoo");
-        resolve();
-      }, 5000)
-    );
-
-    // can return in format of {value: {}, label: ""} or {value: "", label: ""}
-    return [{ value: inputValue, label: inputValue }];
+    var response = await fetch(`/api/meetup/topic?query=${inputValue}`);
+    var data = await response.json();
+    var values = data.results.map(d => {
+      return {
+        value: d.urlkey,
+        label: d.name
+      }
+    });
+    
+    return values;
   };
 
   render() {

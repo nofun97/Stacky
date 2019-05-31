@@ -8,7 +8,13 @@ var userController = require("../controllers/userController.js");
 var skillController = require("../controllers/skillController.js");
 var reviewController = require("../controllers/reviewController.js");
 var appointmentController = require("../controllers/appointmentController.js");
+var meetupController = require("../controllers/meetupController.js");
 // Specify Our routes here
+
+// Meetup Routes
+router.get("/meetup/location", meetupController.findCities);
+router.get("/meetup/topic", meetupController.findTopics);
+router.get("/meetup/event", meetupController.findEvents);
 // User Model Routes
 router.get("/user", auth.ensureAuthenticated, userController.findAllUsers);
 router.get("/user/:id", auth.ensureAuthenticated, userController.findUserById);
