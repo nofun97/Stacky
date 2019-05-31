@@ -6,11 +6,14 @@ var app = express();
 var bodyParser = require("body-parser");
 var path = require("path");
 var passport = require("passport");
-var MemoryStore = require('memorystore')(session)
+var morgan = require("morgan")("dev");
+var MemoryStore = require("memorystore")(session);
 
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
-app.use(require("morgan")("dev"));
+if (process.env.NODE_ENV !== "test") {
+  app.use(morgan);
+}
 app.use(express.static("public"));
 app.use(
   session({
@@ -18,10 +21,10 @@ app.use(
     resave: false, //required
     saveUninitialized: false, //required
     store: new MemoryStore({
-      checkPeriod: 86400000
-    }), 
+      checkPeriod: 86400000,
+    }),
     cookie: {
-      maxAge: Date.now() + (30 * 86400 * 1000)
+      maxAge: Date.now() + 30 * 86400 * 1000,
     },
   })
 );
@@ -48,10 +51,17 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
-app.listen(PORT, function() {
-  console.log(`Express listening on port ${PORT}`);
-});
-
 app.use(function(err, req, res, next) {
   res.redirect("/");
 });
+
+var server = app.listen(PORT, function() {
+  console.log(`Express listening on port ${PORT}`);
+});
+
+function stop() {
+  server.close();
+}
+
+module.exports = server;
+module.exports.stop = stop;
