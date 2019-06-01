@@ -28,7 +28,7 @@ class WorkshopSearch extends Component {
     this.state = {
       workshops: [],
       //TODO: City can only be one, so data structure should be {value: {lat: "",
-      // lon: ""}, label: ""} 
+      // lon: ""}, label: ""}
       filteredCity: undefined,
       // should be in [{value : "" , label: ""}] format
       filteredTopic: [],
@@ -93,11 +93,11 @@ class WorkshopSearch extends Component {
       var duration = `${start.getHours()}:${
         start.getMinutes() < 10 ? '0' + start.getMinutes() : start.getMinutes()
       } - ${end.getHours()}:${end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}`;
-      var v = d.venue;
-      var location = `${v.name === undefined ? "" : v.name + ","} \
-      ${v.address_1 === undefined ? "" : v.address_1 + ","} 
+      var v = d.venue === undefined ? "" : d.venue;
+      var location = v === "" ? "" : `${v.name === undefined ? "" : v.name + ","} \
+      ${v.address_1 === undefined ? "" : v.address_1 + ","}
       ${v.address_2 === undefined ? "" : v.address_2 + ","}
-      ${v.address_3 === undefined ? "" : v.address_3 + ","} 
+      ${v.address_3 === undefined ? "" : v.address_3 + ","}
       ${v.city === undefined ? "" : v.city}`;
       return {
         name: d.name,
