@@ -111,11 +111,11 @@ class WorkshopSearch extends Component {
         _id: d.id,
       };
     });
-    var totalPageNumber = Math.ceil(data.meta.total_count / data.meta.count);
+    
     this.setState({
       ...this.state,
       workshops: workshops,
-      totalPageNumber: isNan(totalPageNumber) ? 0 : totalPageNumber,
+      totalPageNumber: data.meta.count === 0 ? 0 : Math.ceil(data.meta.total_count / data.meta.count),
       totalItem: data.meta.total_count,
     });
   };
