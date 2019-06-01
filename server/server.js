@@ -17,7 +17,7 @@ if (process.env.NODE_ENV !== "test") {
 app.use(express.static("public"));
 app.use(
   session({
-    secret: "stacky-chan", //pick a random string to make the hash that is generated secure
+    secret: process.env.SECRET, //pick a random string to make the hash that is generated secure
     resave: false, //required
     saveUninitialized: false, //required
     store: new MemoryStore({

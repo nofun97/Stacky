@@ -1,5 +1,4 @@
-//TODO: put this in env
-const API_KEY = "147b432a97bd3865627524733f213b";
+const API_KEY = process.env.MEETUP_API;
 const BASE_URL = "https://api.meetup.com/";
 const axios = require("axios");
 
@@ -46,7 +45,7 @@ const findEvents = (req, res) => {
   if (req.query.lat !== undefined || req.query.lon !== undefined) {
     lat = req.query.lat;
     lon = req.query.lon;
-  } 
+  }
 
   time = req.query.time !== undefined ? req.query.time : time;
   topic = req.query.topic !== undefined ? req.query.topic : topic;
@@ -63,6 +62,7 @@ const findEvents = (req, res) => {
   if (text !== "") {
     query += `&topic=${text}`;
   }
+  console.log(query);
   axios
     .get(query)
     .then(d => res.send(d.data))
