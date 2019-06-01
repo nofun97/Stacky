@@ -60,7 +60,7 @@ class WorkshopSearch extends Component {
       this.state.dataPerPage
     }`;
     if (this.state.filteredTopic !== null) {
-      query += `&topic=${this.state.filteredTopic}`;
+      query += `&topic=${this.state.filteredTopic.value}`;
     }
 
     if (this.state.filteredCity !== null) {
@@ -111,7 +111,7 @@ class WorkshopSearch extends Component {
         _id: d.id,
       };
     });
-    
+
     this.setState({
       ...this.state,
       workshops: workshops,
