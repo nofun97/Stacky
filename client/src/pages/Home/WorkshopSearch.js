@@ -144,23 +144,23 @@ class WorkshopSearch extends Component {
     });
   };
 
-  //   handleNextPage = () => {
-  //     if (this.state.pageNumber < this.state.totalPageNumber) {
-  //         this.setState({
-  //           pageNumber: this.state.pageNumber + 1,
-  //           changes: true,
-  //         });
-  //       }
-  //   };
+  handleNextPage = () => {
+    if (this.state.pageNumber < this.state.totalPageNumber) {
+        this.setState({
+          pageNumber: this.state.pageNumber + 1,
+          changes: true,
+        });
+      }
+  };
 
-  //   handlePreviousPage = () => {
-  //     if (this.state.index > 0) {
-  //         this.setState({
-  //           pageNumber: this.state.pageNumber - 1,
-  //           changes: true,
-  //         });
-  //       }
-  //   };
+  handlePreviousPage = () => {
+    if (this.state.index > 0) {
+        this.setState({
+          pageNumber: this.state.pageNumber - 1,
+          changes: true,
+        });
+      }
+  };
 
   render() {
     if (this.state.individual === true) {

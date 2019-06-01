@@ -64,6 +64,7 @@ class WorkshopFilter extends Component {
             value={this.props.filteredCity}
             defaultOptions={[]}
             loadOptions={this.fetchCity}
+            isClearable={true}
             onChange={this.handleCityChange}
           />
         </div>
@@ -75,6 +76,7 @@ class WorkshopFilter extends Component {
             value={this.props.filteredTopic}
             defaultOptions={[]}
             loadOptions={this.fetchTopic}
+            isClearable={true}
             onChange={this.handleTopicChange}
           />
         </div>
