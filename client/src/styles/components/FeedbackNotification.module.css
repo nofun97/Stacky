@@ -1,0 +1,45 @@
+.indicator {
+  display: flex;
+  flex-direction: row;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #9f9f9f;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.avatar {
+  margin-left: 40px;
+}
+
+.notification {
+  font-family: "proxima_nova_semibold";
+  margin-top: 14px;
+  margin-left: 80px;
+}
+
+@media only screen and (max-width: 895px) {
+  .avatar {
+    margin-left: 20px;
+  }
+
+  .notification {
+    font-size: 1.3em;
+    margin-left: 60px;
+    margin-right: 23px;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .avatar {
+    margin-left: 8px;
+    margin-top: 2px;
+  }
+
+  .notification {
+    margin-left: 30px;
+    font-size: 1.1em;
+  }
+}

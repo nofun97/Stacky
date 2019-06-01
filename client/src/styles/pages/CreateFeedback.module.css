@@ -1,0 +1,103 @@
+.Main {
+  padding-left: 6.1vw;
+  padding-top: 2vh;
+  margin-right: 16%;
+  padding-bottom: 15px;
+}
+.header {
+  margin-bottom: 30px;
+  font-family: "league_spartanbold";
+}
+
+.subheader {
+  margin-bottom: 10px;
+  font-family: "proxima_nova_semibold";
+}
+.studentFeedback {
+  padding-top: 0.7vh;
+  padding-left: 1vw;
+  padding-right: 3vw;
+  padding-bottom: 4vh;
+  border-radius: 15px;
+  background-color: #ffaa6d;
+}
+
+.teacherFeedback {
+  padding-top: 0.7vh;
+  padding-left: 1vw;
+  padding-right: 3vw;
+  padding-bottom: 4vh;
+  border-radius: 15px;
+  background-color: #ffaa6d;
+}
+
+.question {
+  margin-top: 10px;
+  font-family: "lato";
+}
+.nextquestion {
+  margin-top: 10px;
+  font-family: "lato";
+}
+
+.button{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.confirm-button {
+  padding: 0.4em 2.4em;
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.confirm-button:focus {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  grid-area: confirm;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.confirm-button:hover {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.confirm-button:active {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49 !important;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.confirm-button:disabled {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #f1aa55;
+  background-color: #f1aa55 !important;
+  color: black;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}

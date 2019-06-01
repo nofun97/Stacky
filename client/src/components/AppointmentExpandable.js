@@ -17,6 +17,7 @@ class AppointmentExpandable extends Component {
     this.handleDetail = this.handleDetail.bind(this);
     this.handleAccept = this.handleAccept.bind(this);
     this.handleReject = this.handleReject.bind(this);
+    this.updateWindow = this.updateWindow.bind(this);
   }
 
   handleDetail() {
@@ -38,11 +39,17 @@ class AppointmentExpandable extends Component {
     await this.props.handleReject(this.props.id);
   };
 
+  updateWindow() {
+    this.setState({});
+  }
+
   // for responsiveness of the icon
   componentDidMount() {
-    window.addEventListener("resize", () => {
-      this.setState({});
-    });
+    window.addEventListener("resize", this.updateWindow);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindow);
   }
 
   render() {

@@ -86,6 +86,38 @@ Our core functionalities that will be highlighted are as of follows:
     - Models (Appointment)
     - [Client Route](https://skilltree-stacky.herokuapp.com/home/appointments)
 
+- Workshop (This functionality allows our user to find available workshops to learan a new skill if they do not have any skills avilable yet)
+  - Search the name of the events
+    - View
+    - Routes
+    - Controllers
+    - [Client Route]()
+
+  - Search for specific topics
+    - View
+    - Routes
+    - Controllers
+    - [Client Route]()
+
+  - Search the location of events
+    - View
+    - Routes
+    - Controllers
+    - [Client Route]()
+
+- Feedback (This functionality allows our users to give other users that they have taught or been taught to give feedback)
+  - Create Feedback
+    - View
+    - Routes
+    - Controllers
+    - [Client Route]()
+    
+  - View Feedback
+    - View
+    - Routes
+    - Controllers
+    - [Client Route]()
+
 - Extra Features (This functionality is additional extra which supports the app)
   - Verification
     - View ([VerificationFail.js](https://github.com/nofun97/Stacky/blob/master/client/src/pages/VerificationFail.js) & [VerificationPass.js](https://github.com/nofun97/Stacky/blob/master/client/src/pages/VerificationPass.js))

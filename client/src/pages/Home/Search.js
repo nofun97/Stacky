@@ -4,13 +4,14 @@ import Button from "react-bootstrap/Button";
 import IconButton from "@material-ui/core/IconButton";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import PeopleCardList from "../../components/PeopleCardList";
 import FilterDrawer from "../../components/FilterDrawer";
 import styles from "../../styles/pages/Home/Search.module.css";
 
 const mapStateToProps = state => {
   return {
-    state: state,
+    state: state
   };
 };
 
@@ -35,6 +36,7 @@ class Search extends Component {
       skills: [],
       changes: false,
       hasSearcher: 0,
+      workshop: false,
     };
   }
 
@@ -46,13 +48,12 @@ class Search extends Component {
     if (this.state.changes) {
       this.handleFetchUsers();
       this.setState({
-        changes: false,
+        changes: false
       });
     }
   };
 
   handleFetchUsers = async () => {
-    console.log(this.state.currentIndex);
     var query = `/api/users?from=${this.state.currentIndex}&size=${
       this.state.dataPerPage
     }`;
@@ -62,14 +63,14 @@ class Search extends Component {
         .join(",")}`;
     }
     const userData = await fetch(query, {
-      credentials: "include",
+      credentials: "include"
     });
     const usersPage = await userData.json();
     const users = usersPage.users;
     const totalData = usersPage.total;
     if (totalData === 0) {
       this.setState({
-        user: [],
+        user: []
       });
       return;
     }
@@ -96,7 +97,7 @@ class Search extends Component {
         //TODO: change this
         image: "holder.js/100px100",
         skill: data.Skills,
-        _id: data._id,
+        _id: data._id
       };
     });
 
@@ -105,7 +106,7 @@ class Search extends Component {
     }
 
     const skillsData = await fetch(`/api/skill?id=${skillsList.join(",")}`, {
-      credentials: "include",
+      credentials: "include"
     });
     const skills = await skillsData.json();
 
@@ -120,7 +121,7 @@ class Search extends Component {
               userSkills.push({
                 Name: skills[j].Name,
                 category: skills[j].Category,
-                Description: skills[j].Description,
+                Description: skills[j].Description
               });
               break;
             }
@@ -132,7 +133,7 @@ class Search extends Component {
           //TODO: change this
           image: data.image,
           skill: userSkills,
-          _id: data._id,
+          _id: data._id
         };
       })
       .filter(user => {
@@ -144,7 +145,10 @@ class Search extends Component {
       });
 
     // fetch one more user if the logged in user is in search
-    if (includeSearcher && (profiles.length + this.state.currentIndex) !== (totalData - 1)) {
+    if (
+      includeSearcher &&
+      profiles.length + this.state.currentIndex !== totalData - 1
+    ) {
       let newQuery = `/api/users?from=${this.state.currentIndex +
         this.state.dataPerPage}&size=1`;
       if (this.state.filterSkill.length > 0) {
@@ -153,13 +157,13 @@ class Search extends Component {
           .join(",")}`;
       }
       let newUserData = await fetch(newQuery, {
-        credentials: "include",
+        credentials: "include"
       });
       const newUsersPage = await newUserData.json();
       const newUsers = newUsersPage.users;
       if (totalData === 0) {
         this.setState({
-          user: [],
+          user: []
         });
         return;
       }
@@ -186,7 +190,7 @@ class Search extends Component {
           //TODO: change this
           image: "holder.js/100px100",
           skill: data.Skills,
-          _id: data._id,
+          _id: data._id
         };
       });
 
@@ -197,7 +201,7 @@ class Search extends Component {
       let newSkillsData = await fetch(
         `/api/skill?id=${newSkillsList.join(",")}`,
         {
-          credentials: "include",
+          credentials: "include"
         }
       );
       let newSkills = await newSkillsData.json();
@@ -211,7 +215,7 @@ class Search extends Component {
                 newUserSkills.push({
                   Name: newSkills[j].Name,
                   category: newSkills[j].Category,
-                  Description: newSkills[j].Description,
+                  Description: newSkills[j].Description
                 });
                 break;
               }
@@ -223,7 +227,7 @@ class Search extends Component {
             //TODO: change this
             image: data.image,
             skill: newUserSkills,
-            _id: data._id,
+            _id: data._id
           };
         })
         .filter(user => user._id !== this.props.state.user._id);
@@ -236,27 +240,27 @@ class Search extends Component {
         hasSearcher: this.state.pageNumber,
         user: profiles,
         totalItem: (totalData - 1) / this.state.dataPerPage,
-        totalPageNumber: Math.ceil((totalData - 1) / this.state.dataPerPage),
+        totalPageNumber: Math.ceil((totalData - 1) / this.state.dataPerPage)
       });
     } else {
       this.setState({
         user: profiles,
         totalItem: (totalData - 1) / this.state.dataPerPage,
-        totalPageNumber: Math.ceil((totalData - 1) / this.state.dataPerPage),
+        totalPageNumber: Math.ceil((totalData - 1) / this.state.dataPerPage)
       });
     }
   };
 
   toggleDrawer = open => () => {
     this.setState({
-      drawerOpen: open,
+      drawerOpen: open
     });
   };
 
   handleSkillFilter(filteredSkills) {
     this.setState({
       filterSkill: filteredSkills,
-      changes: true,
+      changes: true
     });
   }
 
@@ -267,8 +271,8 @@ class Search extends Component {
         id: id,
         userID: this.props.id,
         userFirstName: this.props.firstName,
-        userLastName: this.props.lastName,
-      },
+        userLastName: this.props.lastName
+      }
     });
   };
 
@@ -279,13 +283,13 @@ class Search extends Component {
         this.setState({
           currentIndex: this.state.currentIndex + this.state.dataPerPage + 1,
           pageNumber: this.state.pageNumber + 1,
-          changes: true,
+          changes: true
         });
       } else {
         this.setState({
           currentIndex: this.state.currentIndex + this.state.dataPerPage,
           pageNumber: this.state.pageNumber + 1,
-          changes: true,
+          changes: true
         });
       }
     }
@@ -298,22 +302,42 @@ class Search extends Component {
         this.setState({
           currentIndex: this.state.currentIndex - this.state.dataPerPage - 1,
           pageNumber: this.state.pageNumber - 1,
-          changes: true,
+          changes: true
         });
       } else {
         this.setState({
           currentIndex: this.state.currentIndex - this.state.dataPerPage,
           pageNumber: this.state.pageNumber - 1,
-          changes: true,
+          changes: true
         });
       }
     }
   };
 
+  goToWorkshops = () => {
+    this.setState({
+      workshop: true,
+    })
+  }
+
   render() {
+    if(this.state.workshop === true){
+      return <Redirect to="/home/search/workshop" />
+    }
+
     return (
       <section className={styles.container}>
         <div className={styles.options}>
+          <div className={styles.navButtons}>
+            <Button className={styles["indiv-btn"]} onClick={this.goToIndividuals}>
+              Individuals
+            </Button>
+
+            <Button className={styles["workshop-btn"]} onClick={this.goToWorkshops}>
+              Workshops
+            </Button>
+          </div>
+
           <IconButton
             color="inherit"
             className={styles.icon}
@@ -321,6 +345,7 @@ class Search extends Component {
           >
             <FilterListIcon />
           </IconButton>
+
         </div>
         <Drawer
           anchor="right"
@@ -352,7 +377,7 @@ class Search extends Component {
             {`<`}
           </Button>
           <span className={styles.pagination}>
-            page {this.state.pageNumber} of {this.state.totalPageNumber}
+            Page {this.state.pageNumber} of {this.state.totalPageNumber}
           </span>
           <Button className={styles["next-btn"]} onClick={this.handleNextPage}>
             >

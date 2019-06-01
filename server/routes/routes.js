@@ -8,8 +8,13 @@ var userController = require("../controllers/userController.js");
 var skillController = require("../controllers/skillController.js");
 var reviewController = require("../controllers/reviewController.js");
 var appointmentController = require("../controllers/appointmentController.js");
-var credentialsController = require("../controllers/credentialsController.js");
+var meetupController = require("../controllers/meetupController.js");
 // Specify Our routes here
+
+// Meetup Routes
+router.get("/meetup/location", meetupController.findCities);
+router.get("/meetup/topic", meetupController.findTopics);
+router.get("/meetup/event", meetupController.findEvents);
 // User Model Routes
 router.get("/user", auth.ensureAuthenticated, userController.findAllUsers);
 router.get("/user/:id", auth.ensureAuthenticated, userController.findUserById);
@@ -51,7 +56,7 @@ router.get(
 );
 
 // Review Model Routes
-router.get("/review", auth.ensureAuthenticated, reviewController.getAllReview);
+router.get("/review", auth.ensureAuthenticated, reviewController.getReviewOfUser);
 router.post("/review", auth.ensureAuthenticated, reviewController.addReview);
 router.delete(
   "/review/:id",
@@ -65,17 +70,17 @@ router.post(
 );
 
 // Should get CreatedBy from the body
-router.get(
-  "/review/by",
-  auth.ensureAuthenticated,
-  reviewController.getAllReviewOfUser
-);
-// Should get CreatedFor from the body
-router.get(
-  "/review/for",
-  auth.ensureAuthenticated,
-  reviewController.getPersonalReviewOfUser
-);
+// router.get(
+//   "/review/by",
+//   auth.ensureAuthenticated,
+//   reviewController.getReviewOfUser
+// );
+// // Should get CreatedFor from the body
+// router.get(
+//   "/review/for",
+//   auth.ensureAuthenticated,
+//   reviewController.getPersonalReviewOfUser
+// );
 
 // Appointment Model Routes
 router.get(
@@ -137,7 +142,5 @@ router.post(
     });
   }
 );
-router.get("/current", credentialsController.current);
-router.get("/email/:email", credentialsController.checkExistingEmail);
 // Export the router
 module.exports = router;

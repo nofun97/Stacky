@@ -1,0 +1,118 @@
+.container {
+  margin-left: 8vw;
+  margin-top: 10px;
+  margin-right: 8vw;
+  margin-bottom: 10px;
+}
+
+.headings {
+  font-size: 2.8em;
+}
+.bottom {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  grid-template-areas: "goHome nav";
+  justify-content: space-between;
+}
+
+.goHome{
+  grid-area: goHome;
+}
+
+.nav{
+  grid-area: nav;
+}
+
+.button {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.button:focus {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: black;
+  grid-area: confirm;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.button:hover {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.button:active {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffad49;
+  background-color: #ffad49 !important;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.back-btn {
+  margin-right: 5px;
+}
+
+.next-btn {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffb45b;
+  background-color: #ffb45b;
+  color: black;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none; 
+  margin-left: 5px;
+}
+
+.next-btn:focus {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffb45b;
+  background-color: #ffb45b;
+  color: black;
+  grid-area: confirm;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.next-btn:hover {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffb45b;
+  background-color: #ffb45b;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}
+
+.next-btn:active {
+  font-family: "proxima_nova_semibold";
+  font-size: 1.48em;
+  border: solid 1px #ffb45b;
+  background-color: #ffb45b !important;
+  color: white;
+  grid-area: confirm;
+  outline: none;
+  box-shadow: none;
+}

@@ -1,0 +1,60 @@
+.Review {
+  display: grid;
+  grid-template-columns: 30px auto;
+  grid-template-rows: 30px 50px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 8px;
+  border-color: #9f9f9f;
+  align-items: center;
+  margin-bottom: 20px;
+  grid-template-areas:
+    "icon notification"
+    ". notification";
+}
+
+.header {
+  margin-top: 20px;
+  font-family: "proxima_nova_semibold";
+  font-size: 1.5em;
+}
+
+.notification {
+  grid-area: notification;
+  font-size: 1.2em;
+  font-family: "lato";
+  margin-left: 20px;
+}
+
+.icon {
+  border-radius: 8px;
+  grid-area: icon;
+  background-color: #ffaa6d;
+  color: white;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media only screen and (max-width: 895px) {
+  .Review {
+    display: grid;
+    grid-template-columns: 40px auto;
+    grid-template-rows: 40px 70px;
+  }
+
+  .notification {
+    font-size: 1em;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .Review {
+    display: grid;
+    grid-template-columns: 40px auto;
+    grid-template-rows: 40px 60px;
+  }
+
+  .notification {
+    font-size: 0.78em;
+  }
+}

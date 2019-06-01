@@ -12,16 +12,19 @@ import styles from "../styles/pages/Home.module.css";
 import Dashboard from "./Home/Dashboard";
 import Profile from "./Home/Profile";
 import ProfileEdit from "./Home/ProfileEdit";
-import Chat from "./Home/Chat";
 import Search from "./Home/Search";
 import AllAppointment from "./Home/AllAppointment";
+import AllFeedback from "./Home/AllFeedback";
+import WorkshopSearch from "./Home/WorkshopSearch";
 
+// Chat component if possible to implement
+// import Chat from "./Home/Chat";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    state: state
-  }
-}
+    state: state,
+  };
+};
 
 class Home extends Component {
   constructor(props) {
@@ -35,13 +38,23 @@ class Home extends Component {
       LastName: this.props.state.user.LastName,
       DOB: "",
       interest: [],
-      skill: []
+      skill: [],
     };
+
+    this.updateWindow = this.updateWindow.bind(this);
+  }
+
+  updateWindow() {
+    this.setState({});
   }
 
   // for responsiveness of the avatar
-  componentDidMount(){
-    window.addEventListener("resize", () => {this.setState({})});
+  componentDidMount() {
+    window.addEventListener("resize", this.updateWindow);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindow);
   }
 
   render() {
@@ -71,7 +84,9 @@ class Home extends Component {
     }
 
     let avatar;
-    let name = `${this.props.state.user.FirstName} ${this.props.state.user.LastName}`;
+    let name = `${this.props.state.user.FirstName} ${
+      this.props.state.user.LastName
+    }`;
     if (window.innerWidth <= 426) {
       avatar = (
         <div>
@@ -82,6 +97,17 @@ class Home extends Component {
             round={true}
           />
         </div>
+      );
+    } else if (window.innerWidth <= 895 && window.innerWidth > 426) {
+      avatar = (
+        <section>
+          <Avatar
+            size="70px"
+            className={styles.avatar}
+            name={name}
+            round={true}
+          />
+        </section>
       );
     } else {
       avatar = (
@@ -115,10 +141,7 @@ class Home extends Component {
             >
               Profile
             </NavTab>
-            <NavTab
-              exact
-              to={{ pathname: "/home"}}
-            >
+            <NavTab exact to={{ pathname: "/home" }}>
               My Home
             </NavTab>
             <NavTab disabled to="/home/chat">
@@ -129,7 +152,11 @@ class Home extends Component {
         </header>
         <hr className={styles.line} />
         <Switch>
-          <Route exact path="/home" component={Dashboard} />
+          <Route
+            exact
+            path="/home"
+            render={props => <Dashboard {...props} id={this.state.id} />}
+          />
           <Route
             path="/home/profile"
             render={props => (
@@ -146,20 +173,52 @@ class Home extends Component {
             // component={Profile}
           />
           <Route path="/home/profile_edit" component={ProfileEdit} />
-          <Route path="/home/chat" component={Chat} />
-          <Route path="/home/search" render={props =>(
-            <Search
-              {...props}
-              id={this.state.id}
-              firstName={this.state.FirstName}
-              lastName={this.state.LastName} 
-            />
-          )} />
-          <Route path="/home/appointments"
+
+          {/* 
+          Chat route if possible to implement
+          <Route path="/home/chat" component={Chat} /> 
+          */}
+
+          <Route
+            exact
+            path="/home/search"
             render={props => (
-              <AllAppointment
+              <Search
                 {...props}
-                id={this.state.id} />
+                id={this.state.id}
+                firstName={this.state.FirstName}
+                lastName={this.state.LastName}
+              />
+            )}
+          />
+          <Route
+            path="/home/search/workshop"
+            render={props => (
+              <WorkshopSearch
+                {...props}
+                id={this.state.id}
+                firstName={this.state.FirstName}
+                lastName={this.state.LastName}
+              />
+            )}
+          />
+          <Route
+            path="/home/appointments"
+            render={props => <AllAppointment {...props} id={this.state.id} />}
+          />
+          <Route
+            path="/home/feedbacks"
+            render={props => <AllFeedback {...props} id={this.state.id} />}
+          />
+          <Route
+            path="/home/search"
+            render={props => (
+              <Search
+                {...props}
+                id={this.state.id}
+                firstName={this.state.FirstName}
+                lastName={this.state.LastName}
+              />
             )}
           />
           <Redirect exact to="/home" />

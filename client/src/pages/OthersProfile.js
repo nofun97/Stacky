@@ -105,7 +105,21 @@ class OthersProfile extends Component {
           >
             <h2 className={styles.suboption}>Set Appointment</h2>
           </Link>
-          <h2 className={styles.suboption}>Feedback</h2>
+          <Link
+            to={{
+              pathname: "/user/create_feedback",
+              state: {
+                InviteeFirstName: this.state.firstName,
+                InviteeLastName: this.state.lastName,
+                InviteeID: this.state.id,
+                CreatorID: this.props.location.state.userID,
+                CreatorFirstName: this.props.location.state.userFirstName,
+                CreatorLastName: this.props.location.state.userLastName,
+              },
+            }}
+          >
+            <h2 className={styles.suboption}>Feedback</h2>
+          </Link>
           <h2 className={styles.suboption}>Block</h2>
           <h2 className={styles.suboption}>Report</h2>
         </aside>
