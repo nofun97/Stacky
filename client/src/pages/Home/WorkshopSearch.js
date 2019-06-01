@@ -56,6 +56,7 @@ class WorkshopSearch extends Component {
   };
 
   handleFetchWorkshops = async () => {
+    var defaultCity = "Melbourne";
     var query = `/api/meetup/event?offset=${this.state.pageNumber - 1}&size=${
       this.state.dataPerPage
     }`;
@@ -69,7 +70,8 @@ class WorkshopSearch extends Component {
     if (this.state.filteredCity !== undefined) {
       query += `&lat=${this.state.filteredCity.value.lat}&lon=${
         this.state.filteredCity.value.lon
-      }`;
+        }`;
+      defaultCity = this.state.filteredCity.label;
     }
 
     // if (this.state.searchQuery !== ""){
@@ -86,15 +88,15 @@ class WorkshopSearch extends Component {
     var data = await response.json();
 
     var workshops = data.results.map(d => {
-      var start = new Date(d.time);
-      var end = new Date(d.time + d.duration);
-      var date = `${start.getDate()}/${start.getMonth() +
+      var start = d.time === undefined ? "" : new Date(d.time);
+      var end = d.time === undefined || d.duration === undefined ? "" : new Date(d.time + d.duration);
+      var date = start === "" ? "" : `${start.getDate()}/${start.getMonth() +
         1}/${start.getFullYear()}`;
-      var duration = `${start.getHours()}:${
+      var duration = start === "" || end === "" ? "" : `${start.getHours()}:${
         start.getMinutes() < 10 ? '0' + start.getMinutes() : start.getMinutes()
       } - ${end.getHours()}:${end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}`;
-      var v = d.venue === undefined ? "" : d.venue;
-      var location = v === "" ? "" : `${v.name === undefined ? "" : v.name + ","} \
+      var v = d.venue;
+      var location = v === undefined ? defaultCity : `${v.name === undefined ? "" : v.name + ","} \
       ${v.address_1 === undefined ? "" : v.address_1 + ","}
       ${v.address_2 === undefined ? "" : v.address_2 + ","}
       ${v.address_3 === undefined ? "" : v.address_3 + ","}
@@ -108,8 +110,6 @@ class WorkshopSearch extends Component {
         _id: d.id
       };
     });
-    console.log(data.results.length);
-    console.log(query);
     this.setState({
       ...this.state,
       workshops: workshops,
