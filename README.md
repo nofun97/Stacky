@@ -87,36 +87,36 @@ Our core functionalities that will be highlighted are as of follows:
     - [Client Route](https://skilltree-stacky.herokuapp.com/home/appointments)
 
 - Workshop (This functionality allows our user to find available workshops to learan a new skill if they do not have any skills avilable yet)
-  - Search the name of the events
-    - View
-    - Routes
-    - Controllers
-    - [Client Route]()
+  - Search the name of the events and specific topics
+    - View ([WorkshopSearch.js](https://github.com/nofun97/Stacky/blob/master/client/src/pages/Home/WorkshopSearch.js))
+    - Routes (/meetup/location)
+    - Controllers (meetupController.findCities)
+    - [Client Route](https://skilltree-stacky.herokuapp.com/home/search/workshop)
 
-  - Search for specific topics
-    - View
-    - Routes
-    - Controllers
-    - [Client Route]()
+  - Search specific topics
+    - View ([WorkshopSearch.js](https://github.com/nofun97/Stacky/blob/master/client/src/pages/Home/WorkshopSearch.js))
+    - Routes (/meetup/topic)
+    - Controllers (meetupController.findTopics)
+    - [Client Route](https://skilltree-stacky.herokuapp.com/home/search/workshop)
 
   - Search the location of events
-    - View
-    - Routes
-    - Controllers
-    - [Client Route]()
+    - View ([WorkshopSearch.js](https://github.com/nofun97/Stacky/blob/master/client/src/pages/Home/WorkshopSearch.js))
+    - Routes (/meetup/event)
+    - Controllers (meetupController.findEvents)
+    - [Client Route](https://skilltree-stacky.herokuapp.com/home/search/workshop)
 
 - Feedback (This functionality allows our users to give other users that they have taught or been taught to give feedback)
   - Create Feedback
-    - View
-    - Routes
-    - Controllers
-    - [Client Route]()
+    - View ([CreateFeedback.js](https://github.com/nofun97/Stacky/blob/master/client/src/pages/CreateFeedback.js))
+    - Routes (/review)
+    - Controllers (reviewController.addReview)
+    - [Client Route](https://skilltree-stacky.herokuapp.com/user/create_feedback)
     
   - View Feedback
-    - View
-    - Routes
-    - Controllers
-    - [Client Route]()
+    - View([AllFeedback.js](https://github.com/nofun97/Stacky/blob/master/client/src/pages/Home/AllFeedback.js))
+    - Routes (/review)
+    - Controllers (reviewController.getReviewOfUser)
+    - [Client Route](https://skilltree-stacky.herokuapp.com/home/feedbacks)
 
 - Extra Features (This functionality is additional extra which supports the app)
   - Verification
