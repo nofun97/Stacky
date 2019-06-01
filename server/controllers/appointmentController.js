@@ -13,7 +13,6 @@ var findAllAppointments = function(req, res) {
   var query = { $or: [{ Creator: user }, { Invitee: user }] };
   Appointments.find(query, function(err, appointment) {
     if (!err) {
-      console.log(appointment);
       res.send(appointment);
     } else {
       console.log(err);

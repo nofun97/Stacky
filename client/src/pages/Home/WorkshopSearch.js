@@ -47,7 +47,6 @@ class WorkshopSearch extends Component {
   componentDidUpdate = async () => {
     if (this.state.changes) {
       // call fetch data function here
-      console.log("Updating");
       this.handleFetchWorkshops();
       this.setState({
         changes: false

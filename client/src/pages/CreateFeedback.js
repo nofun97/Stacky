@@ -33,8 +33,6 @@ class CreateFeedback extends Component {
               teacherDoWell: "",
             }
     */
-    console.log(values);
-    console.log(this.props);
     const header = {
       //TODO: where to get skill value?
       // TargetRole: req.body.TargetRole
