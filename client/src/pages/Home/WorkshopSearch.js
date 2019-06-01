@@ -115,7 +115,7 @@ class WorkshopSearch extends Component {
     this.setState({
       ...this.state,
       workshops: workshops,
-      totalPageNumber: totalPageNumber.isNan() ? 0 : totalPageNumber,
+      totalPageNumber: isNan(totalPageNumber) ? 0 : totalPageNumber,
       totalItem: data.meta.total_count,
     });
   };
