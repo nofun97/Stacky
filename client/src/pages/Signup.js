@@ -76,7 +76,6 @@ class Signup extends Component {
       return;
     }
 
-    //TODO: put url in env?
     fetch("/api/register", {
       method: "POST",
       credentials: "include",

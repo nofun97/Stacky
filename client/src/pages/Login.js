@@ -41,7 +41,6 @@ class Login extends Component {
     this.submitButton.setAttribute("disabled", true);
 
     // Login logic
-    // TODO: put url in env?
     fetch("/api/login", {
       method: "POST",
       credentials: "include",

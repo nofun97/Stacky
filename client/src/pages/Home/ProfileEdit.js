@@ -302,7 +302,6 @@ class ProfileEdit extends Component {
         LastName: values.lastName,
         DOB: values.dateOfBirth,
         Description: values.description,
-        //TODO: implement this on the sign up form
         Address: this.state.Address,
 
         Skills: newSkills,
@@ -318,7 +317,6 @@ class ProfileEdit extends Component {
           LastName: values.lastName,
           DOB: values.dateOfBirth,
           Description: values.description,
-          //TODO: implement this on the sign up form
           Address: this.state.Address,
 
           Skills: newSkills,

@@ -226,7 +226,6 @@ class ListSkill extends Component {
         Name: data.Name,
       };
     });
-    //TODO: test update profile
     fetch(`/api/user/${this.props.state.user._id}`, {
       method: "POST",
       headers: {

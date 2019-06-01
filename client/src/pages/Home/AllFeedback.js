@@ -11,7 +11,6 @@ class AllFeedback extends Component {
       backHome: false,
       learnerFeedback: [],
       teacherFeedback: [],
-      //TODO: implement pagination
       pageNumber: 1,
       totalPageNumber: 1,
       index: 0,

@@ -34,7 +34,6 @@ class CreateFeedback extends Component {
             }
     */
     const header = {
-      //TODO: where to get skill value?
       // TargetRole: req.body.TargetRole
       CreatedBy: this.props.location.state.CreatorID,
       CreatedFor: this.props.location.state.InviteeID,

@@ -94,7 +94,6 @@ class Search extends Component {
       return {
         firstName: data.FirstName,
         lastName: data.LastName,
-        //TODO: change this
         image: "holder.js/100px100",
         skill: data.Skills,
         _id: data._id
@@ -130,7 +129,6 @@ class Search extends Component {
         return {
           firstName: data.firstName,
           lastName: data.lastName,
-          //TODO: change this
           image: data.image,
           skill: userSkills,
           _id: data._id
@@ -187,7 +185,6 @@ class Search extends Component {
         return {
           firstName: data.FirstName,
           lastName: data.LastName,
-          //TODO: change this
           image: "holder.js/100px100",
           skill: data.Skills,
           _id: data._id
@@ -224,7 +221,6 @@ class Search extends Component {
           return {
             firstName: data.firstName,
             lastName: data.lastName,
-            //TODO: change this
             image: data.image,
             skill: newUserSkills,
             _id: data._id
