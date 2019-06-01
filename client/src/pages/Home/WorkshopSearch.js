@@ -12,7 +12,7 @@ import styles from "../../styles/pages/Home/WorkshopSearch.module.css";
 
 const mapStateToProps = state => {
   return {
-    state: state
+    state: state,
   };
 };
 
@@ -24,21 +24,21 @@ class WorkshopSearch extends Component {
     this.handleCityFilter = this.handleCityFilter.bind(this);
     this.handleTopicFilter = this.handleTopicFilter.bind(this);
     this.handleFetchWorkshops = this.handleFetchWorkshops.bind(this);
-    //TODO: need to add search query to workshops
+
     this.state = {
       workshops: [],
-      //TODO: City can only be one, so data structure should be {value: {lat: "",
+
       // lon: ""}, label: ""}
-      filteredCity: undefined,
+      filteredCity: null,
       // should be in [{value : "" , label: ""}] format
-      filteredTopic: [],
+      filteredTopic: null,
       drawerOpen: false,
       pageNumber: 1,
       totalPageNumber: 1,
       dataPerPage: 4,
       totalItem: 0,
       changes: false,
-      individual: false
+      individual: false,
     };
   }
 
@@ -49,7 +49,7 @@ class WorkshopSearch extends Component {
       // call fetch data function here
       this.handleFetchWorkshops();
       this.setState({
-        changes: false
+        changes: false,
       });
     }
   };
@@ -59,43 +59,45 @@ class WorkshopSearch extends Component {
     var query = `/api/meetup/event?offset=${this.state.pageNumber - 1}&size=${
       this.state.dataPerPage
     }`;
-    if (this.state.filteredTopic.length > 0) {
-      var topics = this.state.filteredTopic.map(data => {
-        return data.value;
-      });
-      query += `&topic=${topics.join(",")}`;
+    if (this.state.filteredTopic !== null) {
+      query += `&topic=${this.state.filteredTopic}`;
     }
 
-    if (this.state.filteredCity !== undefined) {
+    if (this.state.filteredCity !== null) {
       query += `&lat=${this.state.filteredCity.value.lat}&lon=${
         this.state.filteredCity.value.lon
-        }`;
+      }`;
       defaultCity = this.state.filteredCity.label;
     }
-
-    // if (this.state.searchQuery !== ""){
-    //   query += `&text=${this.state.searchQuery}`
-    // }
-
-    //TODO: need to add date range, default value is all upcoming events in one
-    //month
-    // if (this.state.time !== ""){
-    //   query += `&time=${this.state.time}`
-    // }
 
     var response = await fetch(query);
     var data = await response.json();
 
     var workshops = data.results.map(d => {
       var start = d.time === undefined ? "" : new Date(d.time);
-      var end = d.time === undefined || d.duration === undefined ? "" : new Date(d.time + d.duration);
-      var date = start === "" ? "" : `${start.getDate()}/${start.getMonth() +
-        1}/${start.getFullYear()}`;
-      var duration = start === "" || end === "" ? "" : `${start.getHours()}:${
-        start.getMinutes() < 10 ? '0' + start.getMinutes() : start.getMinutes()
-      } - ${end.getHours()}:${end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}`;
+      var end =
+        d.time === undefined || d.duration === undefined
+          ? ""
+          : new Date(d.time + d.duration);
+      var date =
+        start === ""
+          ? ""
+          : `${start.getDate()}/${start.getMonth() + 1}/${start.getFullYear()}`;
+      var duration =
+        start === "" || end === ""
+          ? ""
+          : `${start.getHours()}:${
+              start.getMinutes() < 10
+                ? "0" + start.getMinutes()
+                : start.getMinutes()
+            } - ${end.getHours()}:${
+              end.getMinutes() < 10 ? "0" + end.getMinutes() : end.getMinutes()
+            }`;
       var v = d.venue;
-      var location = v === undefined ? defaultCity : `${v.name === undefined ? "" : v.name + ","} \
+      var location =
+        v === undefined
+          ? defaultCity
+          : `${v.name === undefined ? "" : v.name + ","} \
       ${v.address_1 === undefined ? "" : v.address_1 + ","}
       ${v.address_2 === undefined ? "" : v.address_2 + ","}
       ${v.address_3 === undefined ? "" : v.address_3 + ","}
@@ -106,59 +108,62 @@ class WorkshopSearch extends Component {
         time: duration,
         location: location,
         url: d.event_url,
-        _id: d.id
+        _id: d.id,
       };
     });
+    var totalPageNumber = Math.ceil(data.meta.total_count / data.meta.count);
     this.setState({
       ...this.state,
       workshops: workshops,
-      totalPageNumber: Math.ceil(data.meta.total_count / data.meta.count),
+      totalPageNumber: totalPageNumber.isNan() ? 0 : totalPageNumber,
       totalItem: data.meta.total_count,
-    })
+    });
   };
 
   handleCityFilter = city => {
     this.setState({
       filteredCity: city,
-      changes: true
+      pageNumber: 1,
+      changes: true,
     });
   };
 
   handleTopicFilter = topic => {
     this.setState({
-      filteredTopic: [topic],
-      changes: true
+      filteredTopic: topic,
+      pageNumber: 1,
+      changes: true,
     });
   };
 
   toggleDrawer = open => () => {
     this.setState({
-      drawerOpen: open
+      drawerOpen: open,
     });
   };
 
   goToIndividuals = () => {
     this.setState({
-      individual: true
+      individual: true,
     });
   };
 
   handleNextPage = () => {
     if (this.state.pageNumber < this.state.totalPageNumber) {
-        this.setState({
-          pageNumber: this.state.pageNumber + 1,
-          changes: true,
-        });
-      }
+      this.setState({
+        pageNumber: this.state.pageNumber + 1,
+        changes: true,
+      });
+    }
   };
 
   handlePreviousPage = () => {
-    if (this.state.index > 0) {
-        this.setState({
-          pageNumber: this.state.pageNumber - 1,
-          changes: true,
-        });
-      }
+    if (this.state.pageNumber > 1) {
+      this.setState({
+        pageNumber: this.state.pageNumber - 1,
+        changes: true,
+      });
+    }
   };
 
   render() {
