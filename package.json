@@ -37,7 +37,7 @@
     "jsonwebtoken": "^8.5.1",
     "memorystore": "^1.6.1",
     "mocha": "^6.1.4",
-    "mongoose": "^5.4.22",
+    "mongoose": "^5.7.5",
     "mongoose-paginate-v2": "^1.2.0",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
