@@ -1,6 +1,8 @@
 # Skill Tree
 Skill Tree is a platform that connects skill seekers with each other. We aim to facilitate meaningful interactions in local communities through encouraging learning together and helping each other grow.
 
+URL : https://skilltree-stacky.herokuapp.com/
+
 ## Installation
 Use the package manager [npm](https://www.npmjs.com/) to install this app
 
